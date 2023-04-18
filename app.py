@@ -61,12 +61,12 @@ lot1 =load_lottieurl(loti1)
 with col1:
     st_lottie(lot1, key="loti1",height=200, width=200)
 
-loti2 = 'https://assets7.lottiefiles.com/packages/lf20_lphquaqr.json'
-lot2 =load_lottieurl(loti2)
+loti2 = 'https://assets7.lottiefiles.com/packages/lf20_lphquaqr.json'  
+
 with col2:
-    st_lottie(lot2, key="loti2")#,height=74, width=200)    
-
-
+    # Muestra la animación Lottie solo si no estás en ninguna de las páginas específicas
+    if selected not in ["Carga de datos", "Insights", "Descarga de resultados"]:
+        st_lottie(lot2, key="loti2")  # ,height=74, width=200)
 
 
 if selected == "Tendencias de Google":
