@@ -35,21 +35,18 @@ with st.sidebar:
         icons=['house', 'google', 'twitter', 'tiktok', 'youtube'], menu_icon="cast", default_index=0)
 
 
-    if selected == "Tendencias de Google":
+    if selected == "Carga de datos":
         st.sidebar.markdown("<div><img src='http://2.bp.blogspot.com/-LfB9P5GRyIY/VjETrBoHwHI/AAAAAAAAH4Q/5naYJfDbPqM/s1600/google_buscador.png' width=130 /><h1 style='display:inline-block'>Google</h1></div>", unsafe_allow_html=True)
         st.sidebar.markdown("Este dashboard muestra las ultimas busquedas de Google en Chile")
 
-    if selected == "Tendencias de Twitter":
+    if selected == "Insights":
         st.sidebar.markdown("<div><img src='https://abylightstudios.es/wp-content/uploads/2021/08/icono-twitter-abylight-studios.png' width=125 /><h1 style='display:inline-block'>Twitter</h1></div>", unsafe_allow_html=True)
         st.sidebar.markdown("Este dashboard muestra los ultimos #Hashtags de Twitter en Chile") 
 
-    if selected == "Tendencias de Tiktok":
+    if selected == "Descarga de resultados":
         st.sidebar.markdown("<div><img src='https://png2png.com/wp-content/uploads/2021/08/Tiktok-logo-png.png' width=135/><h1 style='display:inline-block'>Tiktok</h1></div>", unsafe_allow_html=True)
         st.sidebar.markdown("Este dashboard muestra las ultimas tendencias de Tiktok en Chile") 
 
-    if selected == "Tendencias de Youtube":
-        st.sidebar.markdown("<div><img src='https://images.vexels.com/media/users/3/137425/isolated/lists/f2ea1ded4d037633f687ee389a571086-logotipo-de-icono-de-youtube.png' width=135 /><h1 style='display:inline-block'>Youtube</h1></div>", unsafe_allow_html=True)
-        st.sidebar.markdown("Este dashboard muestra las ultimas tendencias de Youtube en Chile")     
 
 
 if selected == "Tendencias de Google":
