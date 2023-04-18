@@ -143,7 +143,7 @@ def show_insights(col1, col2):
             AgGrid(st.session_state.ias_df_sum_global)
         else:
             st.write("No hay datos para mostrar.")
-
+        AgGrid(ias_df_sum_global)
 
 def show_descarga_de_resultados(col1, col2):
     with col1:
