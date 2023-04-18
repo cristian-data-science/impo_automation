@@ -174,13 +174,13 @@ def show_insights(col1, col2):
             #st.write("No hay datos para mostrar.")
         # experimental
         # Filtrar las filas con diferencias distintas de 0
-        filtered_merged_df = merged_df[merged_df['diferencias'] != 0]
-        
+        filtered_merged_df = merged_df[merged_df['diferencias'] != 0.00]
+
         # Crear y mostrar el gráfico en Streamlit
         fig = px.bar(filtered_merged_df, x='po', y='diferencias', text='diferencias', title="Diferencias de costo por PO (diferentes de 0)")
         fig.update_traces(texttemplate='%{text:.2f}', textposition='outside')
         fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')
-        
+
         st.plotly_chart(fig)
 
 
