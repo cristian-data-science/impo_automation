@@ -12,7 +12,7 @@ from streamlit_option_menu import option_menu
 from st_aggrid import AgGrid
 from st_aggrid.grid_options_builder import GridOptionsBuilder
 from streamlit_lottie import st_lottie
-from streamlit import caching
+
 
 
 st.set_page_config(page_title="Impo Auto App", layout="wide")
