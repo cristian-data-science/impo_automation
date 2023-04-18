@@ -3,8 +3,8 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import requests
-import funciones
-from funciones import procesar_ias_excel
+
+
 
 from funciones import *
 from streamlit.components.v1 import html
