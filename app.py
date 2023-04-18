@@ -88,6 +88,9 @@ def show_carga_de_datos(col1, col2):
             st.success("IAS subidos exitosamente.")
             # Procesar los IAS aquí
 
+            # Leer el archivo IAS de Excel y guardar los datos en un DataFrame
+            df_ias = pd.read_excel(upload_ias)
+            st.write(df_ias)  # Muestra el contenido del DataFrame en la app
 
 def show_insights(col1, col2):
     with col1:
