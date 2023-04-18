@@ -4,6 +4,7 @@ import numpy as np
 import plotly.express as px
 import requests
 import plotly.express as px
+import plotly.graph_objs as go
 
 
 
@@ -175,17 +176,22 @@ def show_insights(col1, col2):
         # experimental
         # Filtrar las filas con diferencias distintas de 0
 
-        filtered_merged_df = merged_df[merged_df['diferencias'] != 0]
-        filtered_merged_df['po'] = filtered_merged_df['po'].astype(str)
-
-        # Crear y mostrar el gráfico en Streamlit
         # Filtrar el DataFrame para mostrar solo las filas con 'diferencias' distintas de 0
         filtered_merged_df = merged_df[merged_df['diferencias'] != 0]
-
-        # Crear y mostrar el gráfico de dispersión en Streamlit
-        fig = px.scatter(filtered_merged_df, x='total_cost_pdf', y='costo_IAS', hover_data=['po'], title="Relación entre el costo total del PDF y el costo IAS")
-        fig.update_traces(marker=dict(size=12, line=dict(width=2, color='DarkSlateGrey')))
-
+        filtered_merged_df['po'] = filtered_merged_df['po'].astype(str)
+        
+        # Crear trazas de barras para total_cost_pdf y costo_IAS
+        trace1 = go.Bar(x=filtered_merged_df['po'], y=filtered_merged_df['total_cost_pdf'], name='Total Cost PDF')
+        trace2 = go.Bar(x=filtered_merged_df['po'], y=filtered_merged_df['costo_IAS'], name='Costo IAS')
+        
+        # Crear la figura y agregar las trazas
+        fig = go.Figure(data=[trace1, trace2])
+        
+        # Configurar el layout y el título del gráfico
+        fig.update_layout(title='Comparación del Total Cost PDF y Costo IAS por PO',
+                          barmode='group', xaxis_title='PO', yaxis_title='Costo')
+        
+        # Mostrar el gráfico en Streamlit
         st.plotly_chart(fig)
 
 def show_descarga_de_resultados(col1, col2):
