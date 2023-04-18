@@ -7,6 +7,21 @@ import time
 import plotly.express as px
 from st_aggrid import AgGrid
 from st_aggrid.grid_options_builder import GridOptionsBuilder
+from streamlit_lottie import st_lottie
+
+def load_lottie_url(url: str):
+    import requests
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
+
+def main():
+    
+    # Agrega el Lottie file usando la URL
+    lottie_url = "https://assets7.lottiefiles.com/packages/lf20_lphquaqr.json"
+    lottie_json = load_lottie_url(lottie_url)
+    st_lottie(lottie_json, speed=1, width=800, height=800, key="lottie")
 
 
 def make_clickable(link):
