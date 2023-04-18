@@ -14,16 +14,16 @@ def make_clickable(link):
     # extract clickable text to display for your link
         text = link.split('=')[0]
         return f'<a target="_blank" href="{link}">{link}</a>'
-st.set_page_config(page_title="Social Spider App",layout="wide")
+st.set_page_config(page_title="Impo Automation App",layout="wide")
 col1 = st.sidebar
 
 col2, col3 = st.columns((3,1))
 
 
 
-col2.title("Social Spider App")
+col2.title("Impo Automation App")
 col2.markdown("""
- Esta app contrata a unos bots hechos en python para revisar constantemente las tendencias de Chile en las principales redes sociales del momento
+ Esta app automatiza el proceso de procesamientos de facturas de importación corrigiendo al costo real y ha un post procesado de la data para cargarla al ERP
 """)
 
 
