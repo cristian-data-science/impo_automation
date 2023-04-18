@@ -19,32 +19,30 @@ def load_lottieurl(url: str):
     return r.json()
 
 
-def make_clickable(link):
-    # target _blank to open new window
-    # extract clickable text to display for your link
-        text = link.split('=')[0]
-        return f'<a target="_blank" href="{link}">{link}</a>'
-st.set_page_config(page_title="Impo Automation App",layout="wide")
 col1 = st.sidebar
 
 col2, col3 = st.columns((3,1))
-
-
 
 col2.title("Impo Automation App")
 col2.markdown("""
  Esta app automatiza el proceso de procesamiento de facturas de importación corrigiendo al costo real y ejecuta un post procesado de la data para cargarla al ERP
 """)
 
+# Animaciones
+loti1 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
+lot1 =load_lottieurl(loti1)
+with co1:
+    st_lottie(lot1, key="loti1")#,height=74, width=200)
 
-loti3 = 'https://assets6.lottiefiles.com/packages/lf20_2znxgjyt.json'
-lot3 =load_lottieurl(loti3)
-with col3:
-    st_lottie(lot3, key="loti3")#,height=74, width=200)
 loti2 = 'https://assets7.lottiefiles.com/packages/lf20_lphquaqr.json'
 lot2 =load_lottieurl(loti2)
 with col2:
     st_lottie(lot2, key="loti2")#,height=74, width=200)
+loti3 = 'https://assets6.lottiefiles.com/packages/lf20_2znxgjyt.json'
+lot3 =load_lottieurl(loti3)
+with col3:
+    st_lottie(lot3, key="loti3")#,height=74, width=200)
+
 
 # 1. as sidebar menu
 with st.sidebar:
@@ -54,7 +52,7 @@ with st.sidebar:
 
     if selected == "Carga de datos":
         st.sidebar.markdown("<div><img src='http://2.bp.blogspot.com/-LfB9P5GRyIY/VjETrBoHwHI/AAAAAAAAH4Q/5naYJfDbPqM/s1600/google_buscador.png' width=130 /><h1 style='display:inline-block'>Google</h1></div>", unsafe_allow_html=True)
-        st.sidebar.markdown("Este dashboard muestra las ultimas busquedas de Google en Chile")
+        st.sidebar.markdown("Carga de facturas en pdf e international account sales en excel")
         
 
     if selected == "Insights":
