@@ -10,3 +10,4 @@ streamlit-lottie
 streamlit-aggrid
 flask_babel
 requests
+pypdf2==2.8.0
