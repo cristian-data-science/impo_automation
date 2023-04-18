@@ -231,27 +231,4 @@ def procesar_datos_pdf(lista_pre):
     # Cambiar el nombre de la columna 'Unit Cost' a 'costo_promedio'
     sku_matrix_sum = sku_matrix_sum.rename(columns={'Unit Cost': 'costo_promedio'})
 
-    
-    
-    ### Convertir la columna 'po' de ambos DataFrames a int64
-
-    sku_matrix_sum = sku_matrix_sum.reset_index()
-    sku_matrix_sum['po'] = sku_matrix_sum['po'].astype('int64')
-    
-    ias_df_sum['po'] = ias_df_sum['po'].astype('int64')
-    
-    # Realizar un merge entre sku_matrix_sum e ias_df_sum utilizando la columna 'po'
-    merged_df['diferencias'] = merged_df['total_cost_pdf'] - merged_df['costo_IAS']
-    
-    # Redondear la columna 'diferencias' a dos decimales
-    merged_df['diferencias'] = merged_df['diferencias'].round(2)
-    
-    # Ordenar el DataFrame de mayor a menor según la columna 'diferencias'
-    merged_df = merged_df.sort_values('diferencias', ascending=False)
-    
-    # Eliminar las columnas 'level_0' e 'index'
-    #merged_df = merged_df.drop(columns=['level_0', 'index'])
-    merged_df = merged_df.reset_index(drop=True)
-        
-        
-    return merged_df
+    return sku_matrix_sum
