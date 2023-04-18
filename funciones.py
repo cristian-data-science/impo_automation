@@ -26,4 +26,17 @@ def fusionar_pdfs(upload_facturas: list, nombre_archivo_salida: str = 'unificado
     with open(nombre_archivo_salida, 'wb') as salida:
         fusionador.write(salida)
 
-    
+def extraer_texto_pdf(pdf_file: str) -> list:
+    with open(pdf_file, 'rb') as f:
+        read_pdf = PyPDF2.PdfFileReader(f)
+        lista_pre = []
+
+        for i in range(read_pdf.getNumPages()):
+            page = read_pdf.getPage(i)
+            page_content = page.extractText()
+            table_list = page_content.split('\n')
+
+            for i in table_list:
+                lista_pre.append(i)
+
+    return lista_pre

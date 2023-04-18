@@ -112,10 +112,14 @@ def show_insights(col1, col2):
         st.sidebar.markdown("Data analytics de las importaciones")
 
 
+
 def show_descarga_de_resultados(col1, col2):
     with col1:
         st.sidebar.markdown("Purchase Order Lines y Manual Invoice")
-
+        archivo_pdf = "unificado.pdf"
+        contenido_pdf = extraer_texto_pdf(archivo_pdf)
+        for linea in contenido_pdf:
+            print(linea)
 
 if __name__ == "__main__":
     main()
