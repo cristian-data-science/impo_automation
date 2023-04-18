@@ -157,7 +157,7 @@ def show_insights(col1, col2):
         # Eliminar las columnas 'level_0' e 'index'
         #merged_df = merged_df.drop(columns=['level_0', 'index'])
         merged_df = merged_df.reset_index(drop=True)
-        merged_df = merged_df['po','total_cost_pdf','costo_ias','diferencias']
+        merged_df = merged_df['po','total_cost_pdf','costo_IAS','diferencias']
 
         grid_options_builder = GridOptionsBuilder.from_dataframe(merged_df)
         #grid_options_builder.configure_default_column(groupable=True, filter=True, sortable=True, resizable=True, columns_auto_size_mode=ColumnsAutoSizeMode.FIT_ALL_COLUMNS_TO_VIEW)
