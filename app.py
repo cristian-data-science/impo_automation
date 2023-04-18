@@ -174,11 +174,12 @@ def show_insights(col1, col2):
             #AgGrid(st.session_state.ias_df_sum_global)
         #else:
             #st.write("No hay datos para mostrar.")
-        # experimental
+        
+        
+
+        # experimental grafico con matplolib
         # Filtrar las filas con diferencias distintas de 0
 
-        # Filtrar el DataFrame para mostrar solo las filas con 'diferencias' distintas de 0
-        # Filtrar el DataFrame para mostrar solo las filas con 'diferencias' distintas de 0
         filtered_merged_df = merged_df[merged_df['diferencias'] != 0]
         filtered_merged_df['po'] = filtered_merged_df['po'].astype(str)
 
@@ -193,7 +194,7 @@ def show_insights(col1, col2):
         # Configurar las etiquetas y leyendas del gráfico
         plt.xlabel('Purchase Order')
         plt.ylabel('Costo')
-        plt.title('Comparación del costo de factura y costo del IAS por Purchase Order')
+        plt.title('Diferencias del costo de factura y costo del IAS por Purchase Order')
         plt.xticks(indices + bar_width / 2, filtered_merged_df['po'], rotation=45)
         plt.legend()
 
@@ -202,6 +203,23 @@ def show_insights(col1, col2):
 
         # Mostrar el gráfico en Streamlit
         st.pyplot(plt)
+
+        fig = px.scatter(filtered_merged_df, x='total_cost_pdf', y='costo_IAS', text='po', title="Relación entre Total Cost PDF y Costo IAS")
+
+        # Agregar anotaciones de texto (números PO) a cada punto del gráfico
+        for index, row in filtered_merged_df.iterrows():
+            fig.add_annotation(
+                x=row['total_cost_pdf'],
+                y=row['costo_IAS'],
+                text=row['po'],
+                showarrow=False,
+                font=dict(size=10)
+            )
+
+        # Mostrar el gráfico en Streamlit
+        st.plotly_chart(fig)
+
+
 
 def show_descarga_de_resultados(col1, col2):
     with col1:
