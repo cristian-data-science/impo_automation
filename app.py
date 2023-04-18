@@ -8,6 +8,7 @@ import plotly.graph_objs as go
 import matplotlib.pyplot as plt
 import seaborn as sns
 import base64
+import io
 
 
 from funciones import *
