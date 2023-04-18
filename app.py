@@ -175,7 +175,7 @@ def show_insights(col1, col2):
         fig = px.bar(merged_df, x='po', y='diferencias', text='diferencias', title="Diferencias de costo por PO")
         fig.update_traces(texttemplate='%{text:.2f}', textposition='outside')
         fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')
-        fig.show()
+        st.plotly_chart(fig)
 
 def show_descarga_de_resultados(col1, col2):
     with col1:
