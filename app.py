@@ -116,8 +116,8 @@ def show_carga_de_datos(col1, col2):
 
            
 
-def show_insights(col1, col2, ias_df_sum_global):
-    
+def show_insights(col1, col2):
+    global ias_df_sum_global
     with col2:
         st.sidebar.markdown("Data analytics de las importaciones")
         archivo_pdf = "unificado.pdf"
