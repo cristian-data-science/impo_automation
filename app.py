@@ -60,9 +60,13 @@ with st.sidebar:
 
 
 loti1 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
-lot1 =load_lottieurl(loti1)
+lot1 =load_lottieurl(loti2)
 with col1:
     st_lottie(lot1, key="loti1",height=200, width=200)
+
+loti2 = 'https://assets7.lottiefiles.com/packages/lf20_lphquaqr.json'
+#with col2:
+    #st_lottie(lot2, key="loti2")#,height=74, width=200)    
 
 
 if selected == "Tendencias de Google":
