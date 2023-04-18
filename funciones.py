@@ -42,6 +42,5 @@ def extraer_texto_pdf(pdf_file: str) -> list:
 
             for i in table_list:
                 lista_pre.append(i)
-                print(i)
-
+                
     return lista_pre
