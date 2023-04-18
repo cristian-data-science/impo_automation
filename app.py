@@ -45,7 +45,7 @@ with st.sidebar:
     loti2 = 'https://assets7.lottiefiles.com/packages/lf20_lphquaqr.json'
     lot2 =load_lottieurl(loti2)
     with col2:
-        st_lottie(lot2, key="loti2")#,height=74, width=200)
+        #st_lottie(lot2, key="loti2")#,height=74, width=200)
 
 
     if selected == "Carga de datos":
