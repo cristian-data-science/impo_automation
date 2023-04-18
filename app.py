@@ -181,25 +181,25 @@ def show_insights(col1, col2):
         # Filtrar el DataFrame para mostrar solo las filas con 'diferencias' distintas de 0
         filtered_merged_df = merged_df[merged_df['diferencias'] != 0]
         filtered_merged_df['po'] = filtered_merged_df['po'].astype(str)
-        
+
         # Configurar los índices de las barras y el ancho de las barras
         bar_width = 0.35
         indices = np.arange(len(filtered_merged_df['po']))
-        
+
         # Crear las barras para total_cost_pdf y costo_IAS
         plt.bar(indices, filtered_merged_df['total_cost_pdf'], bar_width, label='Total Cost PDF')
         plt.bar(indices + bar_width, filtered_merged_df['costo_IAS'], bar_width, label='Costo IAS')
-        
+
         # Configurar las etiquetas y leyendas del gráfico
-        plt.xlabel('PO')
+        plt.xlabel('Purchase Order')
         plt.ylabel('Costo')
         plt.title('Comparación del Total Cost PDF y Costo IAS por PO')
-        plt.xticks(indices + bar_width / 2, filtered_merged_df['po'], rotation=90)
+        plt.xticks(indices + bar_width / 2, filtered_merged_df['po'], rotation=45)
         plt.legend()
-        
+
         # Ajustar el espacio entre el borde inferior y el gráfico para evitar que las etiquetas se corten
         plt.subplots_adjust(bottom=0.2)
-        
+
         # Mostrar el gráfico en Streamlit
         st.pyplot(plt)
 
