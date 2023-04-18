@@ -136,13 +136,13 @@ def show_insights(col1, col2):
 
         ias_df_sum = ias_df_sum_global
         sku_matrix_sum = result
-        AgGrid(ias_df_sum_global)
+        #AgGrid(ias_df_sum_global)
         AgGrid(sku_matrix_sum)
         
-        #if st.session_state.ias_df_sum_global is not None:
-            #st.write(st.session_state.ias_df_sum_global)
-        #else:
-            #st.write("No hay datos para mostrar.")
+        if st.session_state.ias_df_sum_global is not None:
+            AgGrid(st.session_state.ias_df_sum_global)
+        else:
+            st.write("No hay datos para mostrar.")
 
 
 def show_descarga_de_resultados(col1, col2):
