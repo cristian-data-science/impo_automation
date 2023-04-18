@@ -7,9 +7,6 @@ import numpy
 
 from PyPDF2 import PdfFileMerger
 
-# Variables globales
-ias_df_sum = None
-
 
 def procesar_ias_excel(upload_ias):
     ias = pd.read_excel(upload_ias, header=1)
