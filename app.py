@@ -132,7 +132,7 @@ def show_insights(col1, col2):
         result = procesar_datos_pdf(contenido_pdf)
         #print(result)
         result = result.reset_index()
-        #AgGrid(result)
+        AgGrid(result)
 
         #if st.session_state.ias_df_sum_global is not None:
             #st.write(st.session_state.ias_df_sum_global)
