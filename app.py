@@ -31,8 +31,8 @@ col2.markdown("""
 
 # 1. as sidebar menu
 with st.sidebar:
-    selected = option_menu("Main Menu", ["Home",'Tendencias de Google', 'Tendencias de Twitter' , 'Tendencias de Tiktok', 'Tendencias de Youtube'], 
-        icons=['house', 'google', 'twitter', 'tiktok', 'youtube'], menu_icon="cast", default_index=0)
+    selected = option_menu("Main Menu", ["Home",'Carga de datos', 'Insights' , 'Descarga de resultados'], 
+        icons=['house', 'google', 'twitter', 'tiktok'], menu_icon="cast", default_index=0)
 
 
     if selected == "Carga de datos":
