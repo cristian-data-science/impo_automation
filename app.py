@@ -143,9 +143,7 @@ def show_insights(col1, col2):
         sku_matrix_sum['po'] = sku_matrix_sum['po'].astype('int64')
 
         ias_df_sum['po'] = ias_df_sum['po'].astype('int64')
-        #
-        sku_matrix_sum['po'] = sku_matrix_sum['po'].astype(str)
-        ias_df_sum['po'] = ias_df_sum['po'].astype(str)
+        
 
         # Realizar un merge entre sku_matrix_sum e ias_df_sum utilizando la columna 'po'
         merged_df = sku_matrix_sum.merge(ias_df_sum, on='po')
@@ -175,10 +173,16 @@ def show_insights(col1, col2):
         #else:
             #st.write("No hay datos para mostrar.")
         # experimental
-        fig = px.bar(merged_df, x='po', y='diferencias', text='diferencias', title="Diferencias de costo por PO")
+        # Filtrar las filas con diferencias distintas de 0
+        filtered_merged_df = merged_df[merged_df['diferencias'] != 0]
+        
+        # Crear y mostrar el gráfico en Streamlit
+        fig = px.bar(filtered_merged_df, x='po', y='diferencias', text='diferencias', title="Diferencias de costo por PO (diferentes de 0)")
         fig.update_traces(texttemplate='%{text:.2f}', textposition='outside')
         fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')
+        
         st.plotly_chart(fig)
+
 
 def show_descarga_de_resultados(col1, col2):
     with col1:
