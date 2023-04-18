@@ -137,7 +137,7 @@ def show_insights(col1, col2):
 
 
         #display_data2 = result
-        AgGrid(result, gridOptions=gridOptions,theme='streamlit',fit_columns_on_grid_load=False, enable_enterprise_modules=True)#, height=892)
+        AgGrid(result, gridOptions=gridOptions,theme='streamlit',fit_columns_on_grid_load=False, enable_enterprise_modules=True, height=892)
 
 
 def show_descarga_de_resultados(col1, col2):
