@@ -118,7 +118,7 @@ def show_insights(col1, col2):
         print(result)
         # Imprimir el contenido de la lista
         for linea in contenido_pdf:
-            sprint("ZZZZZZ")
+            print("ZZZZZZ")
 
 def show_descarga_de_resultados(col1, col2):
     with col1:
