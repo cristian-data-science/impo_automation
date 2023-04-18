@@ -95,6 +95,7 @@ def show_carga_de_datos(col1, col2):
             ias_df_sum = ias_df.groupby(['po'])[['costo_IAS']].sum()
             pd.DataFrame(ias_df_sum).reset_index(inplace=True, drop=False)
             ias_df_sum['po'] = ias_df_sum['po'].astype(str)
+            ias_df_sum['po'] = ias_df_sum['po'].replace(".0","")
 
             ias_df_sum  # Muestra el contenido del DataFrame en la app
 
