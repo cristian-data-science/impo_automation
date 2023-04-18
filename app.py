@@ -129,6 +129,17 @@ def show_insights(col1, col2):
         grid_options = grid_options_builder.build()   
         AgGrid(result, gridOptions=grid_options) 
 
+        g2 = GridOptionsBuilder.from_dataframe(df)
+        g2.configure_pagination()
+#gb.configure_side_bar()
+        g2.configure_default_column(editable=False)
+        gridOptions = g2.build()
+
+
+        display_data2 = result
+        AgGrid(display_data2, gridOptions=gridOptions,theme='streamlit',fit_columns_on_grid_load=False, enable_enterprise_modules=True)#, height=892)
+
+
 def show_descarga_de_resultados(col1, col2):
     with col1:
         st.sidebar.markdown("Purchase Order Lines y Manual Invoice")
