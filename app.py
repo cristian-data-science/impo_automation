@@ -70,6 +70,19 @@ def show_home(col1, col2):
 def show_carga_de_datos(col1, col2):
     with col1:
         st.sidebar.markdown("Carga de facturas en pdf e international account sales en excel")
+        
+    with col2:
+        st.markdown("### Carga de datos")
+        upload_facturas = st.file_uploader("Subir facturas", type=["pdf"])
+        upload_ias = st.file_uploader("Subir IAS", type=["xls", "xlsx", "csv"])
+        
+        if upload_facturas is not None:
+            st.success("Facturas subidas exitosamente.")
+            # Procesar las facturas aquí
+
+        if upload_ias is not None:
+            st.success("IAS subidos exitosamente.")
+            # Procesar los IAS aquí
 
 
 def show_insights(col1, col2):
