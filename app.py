@@ -205,15 +205,7 @@ def show_insights(col1, col2):
         st.pyplot(plt)
 
 
-        # Densidad con seaborn
-        filtered_merged_df = merged_df[merged_df['diferencias'] != 0]
 
-        # Crear y mostrar el gráfico de densidad
-        sns.kdeplot(data=filtered_merged_df, x='diferencias')
-        plt.title("Distribución de diferencias de costos")
-        plt.xlabel("Diferencias de costos")
-        plt.ylabel("Densidad")
-        st.pyplot()
 
 def show_descarga_de_resultados(col1, col2):
     with col1:
