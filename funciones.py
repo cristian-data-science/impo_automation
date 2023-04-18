@@ -1,7 +1,11 @@
 import pandas as pd
 import os
+import PyPDF2
+import pandas as pd
+import re
+import numpy
 
-from PyPDF2 import PdfFileMerger
+
 
 
 def procesar_ias_excel(upload_ias):
