@@ -81,7 +81,7 @@ def show_carga_de_datos(col1, col2):
             # Procesar las facturas aquí
             for factura in upload_facturas:
                 # Procesar cada factura individualmente
-                pass
+                print(factura)
 
         if upload_ias is not None:
             st.success("IAS subidos exitosamente.")
