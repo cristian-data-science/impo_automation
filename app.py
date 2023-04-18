@@ -63,7 +63,7 @@ with col1:
 
 loti2 = 'https://assets7.lottiefiles.com/packages/lf20_lphquaqr.json'
 lot2 =load_lottieurl(loti2)
-with col3:
+with col2:
     st_lottie(lot2, key="loti2")#,height=74, width=200)    
 
 
