@@ -23,7 +23,7 @@ col2, col3 = st.columns((3,1))
 
 col2.title("Impo Automation App")
 col2.markdown("""
- Esta app automatiza el proceso de procesamientos de facturas de importación corrigiendo al costo real y ha un post procesado de la data para cargarla al ERP
+ Esta app automatiza el proceso de procesamiento de facturas de importación corrigiendo al costo real y ejecuta un post procesado de la data para cargarla al ERP
 """)
 
 
