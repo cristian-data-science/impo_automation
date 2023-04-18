@@ -204,20 +204,6 @@ def show_insights(col1, col2):
         # Mostrar el gráfico en Streamlit
         st.pyplot(plt)
 
-        fig = px.scatter(filtered_merged_df, x='total_cost_pdf', y='costo_IAS', text='po', title="Relación entre Total Cost PDF y Costo IAS")
-
-        # Agregar anotaciones de texto (números PO) a cada punto del gráfico
-        for index, row in filtered_merged_df.iterrows():
-            fig.add_annotation(
-                x=row['total_cost_pdf'],
-                y=row['costo_IAS'],
-                text=row['po'],
-                showarrow=False,
-                font=dict(size=10)
-            )
-
-        # Mostrar el gráfico en Streamlit
-        st.plotly_chart(fig)
 
         # Densidad con seaborn
         filtered_merged_df = merged_df[merged_df['diferencias'] != 0]

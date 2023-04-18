@@ -12,3 +12,4 @@ flask_babel
 requests
 pypdf2==2.8.0
 openpyxl
+seaborn
