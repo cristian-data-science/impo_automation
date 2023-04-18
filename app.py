@@ -114,10 +114,10 @@ def show_carga_de_datos(col1, col2):
 
             
             # Configurar y mostrar AgGrid con el DataFrame
-            grid_options_builder = GridOptionsBuilder.from_dataframe(ias_df_sum)
-            grid_options_builder.configure_default_column(groupable=True, filter=True, sortable=True, resizable=True)
-            grid_options = grid_options_builder.build()
-            AgGrid(ias_df_sum, gridOptions=grid_options)
+            #grid_options_builder = GridOptionsBuilder.from_dataframe(ias_df_sum)
+            #grid_options_builder.configure_default_column(groupable=True, filter=True, sortable=True, resizable=True)
+            #grid_options = grid_options_builder.build()
+            #AgGrid(ias_df_sum, gridOptions=grid_options)
 
            
 
