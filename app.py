@@ -187,7 +187,7 @@ def show_insights(col1, col2):
         indices = np.arange(len(filtered_merged_df['po']))
 
         # Crear las barras para total_cost_pdf y costo_IAS
-        plt.bar(indices, filtered_merged_df['total_cost_pdf'], bar_width, label='Total Cost PDF', color='blue')
+        plt.bar(indices, filtered_merged_df['total_cost_pdf'], bar_width, label='Total Cost PDF', color='green')
         plt.bar(indices + bar_width, filtered_merged_df['costo_IAS'], bar_width, label='Costo IAS', color='red')
 
         # Configurar las etiquetas y leyendas del gráfico
