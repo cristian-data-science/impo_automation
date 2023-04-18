@@ -64,9 +64,10 @@ with col1:
 
 
 with col2:
-    lot2 = 'https://assets7.lottiefiles.com/packages/lf20_lphquaqr.json'
+    
     # Muestra la animación Lottie solo si no estás en ninguna de las páginas específicas
     if selected not in ["Carga de datos", "Insights", "Descarga de resultados"]:
+        lot2 = 'https://assets7.lottiefiles.com/packages/lf20_lphquaqr.json'
         st_lottie(lot2, key="loti2")  # ,height=74, width=200)
 
 
