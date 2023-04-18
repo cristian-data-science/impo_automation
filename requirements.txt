@@ -1,5 +1,5 @@
 streamlit_option_menu
-pandas
-numpy
-#plotly_express
+#pandas
+#numpy
+plotly
 #agrid
