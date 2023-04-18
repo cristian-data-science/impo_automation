@@ -143,6 +143,9 @@ def show_insights(col1, col2):
         sku_matrix_sum['po'] = sku_matrix_sum['po'].astype('int64')
 
         ias_df_sum['po'] = ias_df_sum['po'].astype('int64')
+        #
+        sku_matrix_sum['po'] = sku_matrix_sum['po'].astype(str)
+        ias_df_sum['po'] = ias_df_sum['po'].astype(str)
 
         # Realizar un merge entre sku_matrix_sum e ias_df_sum utilizando la columna 'po'
         merged_df = sku_matrix_sum.merge(ias_df_sum, on='po')
