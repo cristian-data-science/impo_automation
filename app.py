@@ -177,7 +177,7 @@ def show_insights(col1, col2):
 
         
         filtered_merged_df = merged_df[(merged_df['diferencias'] >= 1) | (merged_df['diferencias'] <= -1)]
-        filtered_merged_df = filtered_merged_df.astype(str)
+        filtered_merged_df['po'] = filtered_merged_df['po'].astype(str)
 
         # Crear y mostrar el gráfico en Streamlit
         fig = px.bar(filtered_merged_df, x='po', y='diferencias', text='diferencias', title="Diferencias de costo por PO (diferentes de 0)")
