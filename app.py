@@ -82,6 +82,17 @@ def show_carga_de_datos(col1, col2):
             st.success("Facturas subidas exitosamente.")
             # Procesar las facturas aquí
             fusionar_pdfs(upload_facturas)
+            archivo_salida = "unificado.pdf"
+
+        with open(archivo_salida, "rb") as f:
+            pdf_bytes = f.read()
+
+        st.download_button(
+            label="Descargar unificado.pdf",
+            data=pdf_bytes,
+            file_name="unificado.pdf",
+            mime="application/pdf"
+        )
 
         if upload_ias is not None:
             st.success("IAS subidos exitosamente.")
