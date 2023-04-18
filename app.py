@@ -96,7 +96,7 @@ def show_carga_de_datos(col1, col2):
             pd.DataFrame(ias_df_sum).reset_index(inplace=True, drop=False)
             ias_df_sum['po'] = ias_df_sum['po'].astype(str)
 
-            st.write(ias_df_sum)  # Muestra el contenido del DataFrame en la app
+            ias_df_sum  # Muestra el contenido del DataFrame en la app
 
 def show_insights(col1, col2):
     with col1:
