@@ -152,6 +152,7 @@ def show_insights(col1, col2):
 
         # Ordenar el DataFrame de mayor a menor según la columna 'diferencias'
         merged_df = merged_df.sort_values('diferencias', ascending=False)
+        merged_df = merged_df.drop(columns=['index'])
 
         # Eliminar las columnas 'level_0' e 'index'
         #merged_df = merged_df.drop(columns=['level_0', 'index'])
