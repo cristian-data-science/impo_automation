@@ -12,6 +12,7 @@ from streamlit_option_menu import option_menu
 from st_aggrid import AgGrid
 from st_aggrid.grid_options_builder import GridOptionsBuilder
 from streamlit_lottie import st_lottie
+from streamlit import caching
 
 
 st.set_page_config(page_title="Impo Auto App", layout="wide")
@@ -40,13 +41,17 @@ def main():
                                icons=['house', 'bi bi-upload', 'bi bi-file-bar-graph', 'bi bi-download'],
                                menu_icon="cast", default_index=0)
 
+
+    if "ias_df_sum_global" not in st.session_state:
+        st.session_state.ias_df_sum_global = None
+
     if selected not in ["Carga de datos", "Insights", "Descarga de resultados"]:
         show_home(col1, col2)
 
     if selected == "Carga de datos":
         show_carga_de_datos(col1, col2)
 
-    if selected == "Insights":
+    if selected == "Insights" and st.session_state.ias_df_sum_global is not None:
         show_insights(col1, col2)
 
     if selected == "Descarga de resultados":
@@ -104,7 +109,7 @@ def show_carga_de_datos(col1, col2):
             st.success("IAS subidos exitosamente.")
             # Leer el archivo IAS de Excel y guardar los datos en un DataFrame # archivo funciones.py
             ias_df_sum = procesar_ias_excel(upload_ias)
-            ias_df_sum_global = ias_df_sum
+            st.session_state.ias_df_sum_global = ias_df_sum
             
 
             
@@ -139,8 +144,8 @@ def show_insights(col1, col2):
         grid_options = grid_options_builder.build()   
         AgGrid(result, gridOptions=grid_options) 
 
-        if ias_df_sum_global is not None:
-            st.write(ias_df_sum_global)
+        if st.session_state.ias_df_sum_global is not None:
+            st.write(st.session_state.ias_df_sum_global)
         else:
             st.write("No hay datos para mostrar.")
 
