@@ -73,12 +73,15 @@ def show_carga_de_datos(col1, col2):
         
     with col2:
         st.markdown("### Carga de datos")
-        upload_facturas = st.file_uploader("Subir facturas", type=["pdf"])
+        upload_facturas = st.file_uploader("Subir facturas", type=["pdf"], accept_multiple_files=True)
         upload_ias = st.file_uploader("Subir IAS", type=["xls", "xlsx", "csv"])
         
-        if upload_facturas is not None:
+        if upload_facturas:
             st.success("Facturas subidas exitosamente.")
             # Procesar las facturas aquí
+            for factura in upload_facturas:
+                # Procesar cada factura individualmente
+                pass
 
         if upload_ias is not None:
             st.success("IAS subidos exitosamente.")
