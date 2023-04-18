@@ -37,9 +37,10 @@ col2.markdown("""
 """)
 
 
-lot3 = "https://assets7.lottiefiles.com/packages/lf20_lphquaqr.json"
-with col2:
-    st_lottie(lot3, key="loti3")#,height=74, width=200)load_lottieurl(lottie_url_h)
+loti3 = 'https://assets6.lottiefiles.com/packages/lf20_2znxgjyt.json'
+lot3 =load_lottieurl(loti3)
+with col3:
+    st_lottie(lot3, key="loti3")#,height=74, width=200)
 
 # 1. as sidebar menu
 with st.sidebar:
