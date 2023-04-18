@@ -29,10 +29,7 @@ col2.markdown("""
 """)
 
 # Animaciones
-loti1 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
-lot1 =load_lottieurl(loti1)
-with col1:
-    st_lottie(lot1, key="loti1",height=74, width=200)
+
 
 loti2 = 'https://assets7.lottiefiles.com/packages/lf20_lphquaqr.json'
 lot2 =load_lottieurl(loti2)
@@ -64,7 +61,12 @@ with st.sidebar:
         st.sidebar.markdown("Este dashboard muestra las ultimas tendencias de Tiktok en Chile") 
 
 
+loti1 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
+lot1 =load_lottieurl(loti1)
+with col1:
+    st_lottie(lot1, key="loti1",height=74, width=200)
 
+    
 if selected == "Tendencias de Google":
     #st.markdown("### Top búsquedas hechas en el principal buscador: ")
         # graficando con barras
