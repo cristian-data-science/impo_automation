@@ -8,6 +8,7 @@ import plotly.express as px
 from st_aggrid import AgGrid
 from st_aggrid.grid_options_builder import GridOptionsBuilder
 from streamlit_lottie import st_lottie
+import requests
 
 counter = 1
 

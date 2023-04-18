@@ -9,3 +9,4 @@ xlsxwriter
 streamlit-lottie
 streamlit-aggrid
 flask_babel
+requests
