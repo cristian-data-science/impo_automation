@@ -114,8 +114,8 @@ def show_insights(col1, col2):
         contenido_pdf = extraer_texto_pdf(archivo_pdf)
 
         # Imprimir el contenido de la lista
-        for linea in contenido_pdf:
-            print("ZZZZZZ")
+        #for linea in contenido_pdf:
+            #print("ZZZZZZ")
         result = procesar_datos_pdf(contenido_pdf)
         print(result)
 
