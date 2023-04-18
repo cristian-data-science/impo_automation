@@ -73,8 +73,31 @@ def show_carga_de_datos(col1, col2):
         
     with col2:
         st.markdown("### Carga de datos")
-        upload_facturas = st.file_uploader("Subir facturas", type=["pdf"], accept_multiple_files=True)
-        upload_ias = st.file_uploader("Subir IAS", type=["xls", "xlsx", "csv"])
+        
+        # Agrega estilos CSS personalizados
+        st.markdown("""
+        <style>
+            .st-bf {
+                background-color: #4CAF50;
+                color: white;
+                padding: 8px 16px;
+                font-size: 16px;
+                margin: 8px 0;
+                border: none;
+                cursor: pointer;
+                border-radius: 4px;
+                text-align: center;
+            }
+            
+            .st-bf:hover {
+                background-color: #45a049;
+            }
+        </style>
+        """, unsafe_allow_html=True)
+        
+        # Utiliza botones personalizados
+        upload_facturas = st.file_uploader("Subir facturas", type=["pdf"], accept_multiple_files=True, key="facturas", help="Cargue uno o varios archivos PDF de facturas.")
+        upload_ias = st.file_uploader("Subir IAS", type=["xls", "xlsx", "csv"], key="ias", help="Cargue uno o varios archivos IAS en formato Excel o CSV.")
         
         if upload_facturas:
             st.success("Facturas subidas exitosamente.")
