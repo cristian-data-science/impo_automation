@@ -166,12 +166,12 @@ def show_insights(col1, col2):
         merged_df = merged_df[['po','total_cost_pdf','costo_IAS','diferencias']]
 
         # Agregar botón para descargar merged_df como archivo de Excel
-        st.markdown("### Descargar merged_df")
+        st.markdown("### Diferencias de costo por PO's")
         towrite = io.BytesIO()
         downloaded_file = merged_df.to_excel(towrite, index=False, header=True)
         towrite.seek(0)
         b64 = base64.b64encode(towrite.read()).decode()
-        href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="merged_df.xlsx">Descargar merged_df como archivo de Excel</a>'
+        href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="merged_df.xlsx">Descargar análisis como archivo de Excel</a>'
         st.markdown(href, unsafe_allow_html=True)
 
 
