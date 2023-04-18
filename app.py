@@ -159,7 +159,8 @@ def show_insights(col1, col2):
         merged_df = merged_df.reset_index(drop=True)
 
         grid_options_builder = GridOptionsBuilder.from_dataframe(merged_df)
-        grid_options_builder.configure_default_column(groupable=True, filter=True, sortable=True, resizable=True, columns_auto_size_mode=ColumnsAutoSizeMode.FIT_ALL_COLUMNS_TO_VIEW)
+        #grid_options_builder.configure_default_column(groupable=True, filter=True, sortable=True, resizable=True, columns_auto_size_mode=ColumnsAutoSizeMode.FIT_ALL_COLUMNS_TO_VIEW)
+        grid_options_builder.configure_column("po", min_width=50)
         grid_options = grid_options_builder.build()
         AgGrid(merged_df, gridOptions=grid_options)
         
