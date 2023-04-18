@@ -174,6 +174,8 @@ def show_insights(col1, col2):
             #st.write("No hay datos para mostrar.")
         # experimental
         # Filtrar las filas con diferencias distintas de 0
+
+        filtered_merged_df = filtered_merged_df.astype(str)
         filtered_merged_df = merged_df[(merged_df['diferencias'] >= 1) | (merged_df['diferencias'] <= -1)]
 
 
