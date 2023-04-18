@@ -3,12 +3,14 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import requests
+import funciones
 
 from streamlit.components.v1 import html
 from streamlit_option_menu import option_menu
 from st_aggrid import AgGrid
 from st_aggrid.grid_options_builder import GridOptionsBuilder
 from streamlit_lottie import st_lottie
+
 
 st.set_page_config(page_title="Impo Auto App", layout="wide")
 
@@ -89,11 +91,7 @@ def show_carga_de_datos(col1, col2):
             # Procesar los IAS aquí
 
             # Leer el archivo IAS de Excel y guardar los datos en un DataFrame
-            ias = pd.read_excel(upload_ias, header=1)
-            ias_df = ias[['Purchase Order','Product number','Size','Color','Sales Quantity','Sales Amount']]
-            ias_df.rename(columns={'Sales Amount': 'costo_IAS','Purchase Order': 'po'}, inplace=True)
-            ias_df_sum = ias_df.groupby(['po'])[['costo_IAS']].sum()
-            pd.DataFrame(ias_df_sum).reset_index(inplace=True, drop=False)
+            ias_df_sum = procesar_ias_excel(upload_ias)
             
             # Configurar y mostrar AgGrid con el DataFrame
             grid_options_builder = GridOptionsBuilder.from_dataframe(ias_df_sum)
