@@ -115,7 +115,7 @@ def show_insights(col1, col2):
 
         # Imprimir el contenido de la lista
         for linea in contenido_pdf:
-            print(linea)
+            print("ZZZZZZ")
 
 
 def show_descarga_de_resultados(col1, col2):
