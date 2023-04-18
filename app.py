@@ -108,7 +108,7 @@ def show_carga_de_datos(col1, col2):
             AgGrid(ias_df_sum, gridOptions=grid_options)
 
 def show_insights(col1, col2):
-    with col1:
+    with col2:
         st.sidebar.markdown("Data analytics de las importaciones")
         archivo_pdf = "unificado.pdf"
         contenido_pdf = extraer_texto_pdf(archivo_pdf)
