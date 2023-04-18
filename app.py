@@ -130,19 +130,9 @@ def show_insights(col1, col2):
 
         
         result = procesar_datos_pdf(contenido_pdf)
-        print(result)
+        #print(result)
         result = result.reset_index()
-        #AgGrid(result)
-        
-        # Imprimir el contenido de la lista
-        #for linea in contenido_pdf:
-            #print("ZZZZZZ")
-
-        # Configurar y mostrar AgGrid con el DataFrame
-        grid_options_builder = GridOptionsBuilder.from_dataframe(result)
-        grid_options_builder.configure_default_column(auto_size_columns= True,filter=True, sortable=True,fit_columns_on_grid_load=True, enable_enterprise_modules=False)
-        grid_options = grid_options_builder.build()   
-        AgGrid(result, gridOptions=grid_options) 
+        AgGrid(result)
 
         if st.session_state.ias_df_sum_global is not None:
             st.write(st.session_state.ias_df_sum_global)
