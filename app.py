@@ -179,12 +179,14 @@ def show_insights(col1, col2):
         filtered_merged_df['po'] = filtered_merged_df['po'].astype(str)
 
         # Crear y mostrar el gráfico en Streamlit
-        fig = px.line(filtered_merged_df, x='po', y='diferencias', text='diferencias', title="Diferencias de costo por PO (diferentes de 0)")
-        fig.update_traces(texttemplate='%{text:.2f}', textposition='outside')
-        fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')
+        # Filtrar el DataFrame para mostrar solo las filas con 'diferencias' distintas de 0
+        filtered_merged_df = merged_df[merged_df['diferencias'] != 0]
+
+        # Crear y mostrar el gráfico de dispersión en Streamlit
+        fig = px.scatter(filtered_merged_df, x='total_cost_pdf', y='costo_IAS', hover_data=['po'], title="Relación entre el costo total del PDF y el costo IAS")
+        fig.update_traces(marker=dict(size=12, line=dict(width=2, color='DarkSlateGrey')))
 
         st.plotly_chart(fig)
-
 
 def show_descarga_de_resultados(col1, col2):
     with col1:
