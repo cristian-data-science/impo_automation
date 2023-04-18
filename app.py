@@ -38,7 +38,7 @@ col2.markdown("""
 
 
 lottie_url_h = "https://assets7.lottiefiles.com/private_files/lf30_hk1qooeo.json"
-lot2= load_lottieurl(lottie_url_h)
+col2.lot2= load_lottieurl(lottie_url_h)
 
 # 1. as sidebar menu
 with st.sidebar:
