@@ -48,7 +48,7 @@ with st.sidebar:
 
 
     if selected == "Carga de datos":
-        st.sidebar.markdown("<div><img src='http://2.bp.blogspot.com/-LfB9P5GRyIY/VjETrBoHwHI/AAAAAAAAH4Q/5naYJfDbPqM/s1600/google_buscador.png' width=130 /><h1 style='display:inline-block'>Google</h1></div>", unsafe_allow_html=True)
+        #st.sidebar.markdown("<div><img src='http://2.bp.blogspot.com/-LfB9P5GRyIY/VjETrBoHwHI/AAAAAAAAH4Q/5naYJfDbPqM/s1600/google_buscador.png' width=130 /><h1 style='display:inline-block'>Google</h1></div>", unsafe_allow_html=True)
         st.sidebar.markdown("Carga de facturas en pdf e international account sales en excel")
         
 
@@ -64,9 +64,9 @@ with st.sidebar:
 loti1 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
 lot1 =load_lottieurl(loti1)
 with col1:
-    st_lottie(lot1, key="loti1",height=74, width=200)
+    st_lottie(lot1, key="loti1") #,height=74, width=200)
 
-    
+
 if selected == "Tendencias de Google":
     #st.markdown("### Top búsquedas hechas en el principal buscador: ")
         # graficando con barras
