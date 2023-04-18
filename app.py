@@ -56,11 +56,11 @@ with st.sidebar:
 
     if selected == "Insights":
         st.sidebar.markdown("<div><img src='https://abylightstudios.es/wp-content/uploads/2021/08/icono-twitter-abylight-studios.png' width=125 /><h1 style='display:inline-block'>Twitter</h1></div>", unsafe_allow_html=True)
-        st.sidebar.markdown("Este dashboard muestra los ultimos #Hashtags de Twitter en Chile") 
+       
 
     if selected == "Descarga de resultados":
         st.sidebar.markdown("<div><img src='https://png2png.com/wp-content/uploads/2021/08/Tiktok-logo-png.png' width=135/><h1 style='display:inline-block'>Tiktok</h1></div>", unsafe_allow_html=True)
-        st.sidebar.markdown("Este dashboard muestra las ultimas tendencias de Tiktok en Chile") 
+       
 
 
 loti1 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
