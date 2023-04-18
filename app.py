@@ -136,10 +136,7 @@ def show_insights(col1, col2):
         grid_options = grid_options_builder.build()   
         AgGrid(result, gridOptions=grid_options) 
 
-        """grid_options_builder = GridOptionsBuilder.from_dataframe(ias_df_sum)
-        grid_options_builder.configure_default_column(auto_size_columns= True,filter=True, sortable=True,fit_columns_on_grid_load=True, enable_enterprise_modules=False)
-        grid_options = grid_options_builder.build()   
-        AgGrid(rias_df_sum, gridOptions=grid_options) """
+        
 
 
 def show_descarga_de_resultados(col1, col2):
