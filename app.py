@@ -37,8 +37,9 @@ col2.markdown("""
 """)
 
 
-lottie_url_h = "https://assets7.lottiefiles.com/packages/lf20_lphquaqr.json"
-col2.lot2=load_lottieurl(lottie_url_h)
+lot3 = "https://assets7.lottiefiles.com/packages/lf20_lphquaqr.json"
+with col2:
+    st_lottie(lot3, key="loti3")#,height=74, width=200)load_lottieurl(lottie_url_h)
 
 # 1. as sidebar menu
 with st.sidebar:
@@ -49,6 +50,7 @@ with st.sidebar:
     if selected == "Carga de datos":
         st.sidebar.markdown("<div><img src='http://2.bp.blogspot.com/-LfB9P5GRyIY/VjETrBoHwHI/AAAAAAAAH4Q/5naYJfDbPqM/s1600/google_buscador.png' width=130 /><h1 style='display:inline-block'>Google</h1></div>", unsafe_allow_html=True)
         st.sidebar.markdown("Este dashboard muestra las ultimas busquedas de Google en Chile")
+        
 
     if selected == "Insights":
         st.sidebar.markdown("<div><img src='https://abylightstudios.es/wp-content/uploads/2021/08/icono-twitter-abylight-studios.png' width=125 /><h1 style='display:inline-block'>Twitter</h1></div>", unsafe_allow_html=True)
