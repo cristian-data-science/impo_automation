@@ -55,11 +55,10 @@ with st.sidebar:
         
 
     if selected == "Insights":
-        st.sidebar.markdown("<div><img src='https://abylightstudios.es/wp-content/uploads/2021/08/icono-twitter-abylight-studios.png' width=125 /><h1 style='display:inline-block'>Twitter</h1></div>", unsafe_allow_html=True)
-       
+        st.sidebar.markdown("Data analytics de las importaciones")       
 
     if selected == "Descarga de resultados":
-        st.sidebar.markdown("<div><img src='https://png2png.com/wp-content/uploads/2021/08/Tiktok-logo-png.png' width=135/><h1 style='display:inline-block'>Tiktok</h1></div>", unsafe_allow_html=True)
+        st.sidebar.markdown("Purchase Order Lines y Manual Invoice")
        
 
 
