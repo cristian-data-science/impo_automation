@@ -89,7 +89,7 @@ def show_carga_de_datos(col1, col2):
             # Procesar los IAS aquí
 
             # Leer el archivo IAS de Excel y guardar los datos en un DataFrame
-            ias_df = pd.read_excel(upload_ias, header=1)
+            ias = pd.read_excel(upload_ias, header=1)
             ias_df = ias[['Purchase Order','Product number','Size','Color','Sales Quantity','Sales Amount']]
             ias_df.rename(columns={'Sales Amount': 'costo_IAS','Purchase Order': 'po'}, inplace=True)
             ias_df_sum = ias_df.groupby(['po'])[['costo_IAS']].sum()
