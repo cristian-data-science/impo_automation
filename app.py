@@ -193,7 +193,7 @@ def show_insights(col1, col2):
         # Configurar las etiquetas y leyendas del gráfico
         plt.xlabel('Purchase Order')
         plt.ylabel('Costo')
-        plt.title('Comparación del Total Cost PDF y Costo IAS por PO')
+        plt.title('Comparación del costo de factura y costo del IAS por Purchase Order')
         plt.xticks(indices + bar_width / 2, filtered_merged_df['po'], rotation=45)
         plt.legend()
 
