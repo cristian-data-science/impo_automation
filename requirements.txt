@@ -1,5 +1,11 @@
-streamlit_option_menu
-#pandas
-#numpy
+streamlit-option-menu
 plotly
-AgGrid
+bs4
+pandas
+matplotlib
+pytz
+pyxlsb 
+xlsxwriter
+streamlit-lottie
+streamlit-aggrid
+flask_babel
