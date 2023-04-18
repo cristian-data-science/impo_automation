@@ -4,7 +4,7 @@ from streamlit_option_menu import option_menu
 import pandas as pd
 import numpy as np
 import time
-import plotly.express as px
+#import plotly.express as px
 from st_aggrid import AgGrid
 from st_aggrid.grid_options_builder import GridOptionsBuilder
 
