@@ -91,12 +91,15 @@ def show_carga_de_datos(col1, col2):
             # Leer el archivo IAS de Excel y guardar los datos en un DataFrame
             ias = pd.read_excel(upload_ias, header=1)
             ias_df = ias[['Purchase Order','Product number','Size','Color','Sales Quantity','Sales Amount']]
-            ias_df['Purchase Order'] =  round(ias_df['Purchase Order'].astype(float),0)
             ias_df.rename(columns={'Sales Amount': 'costo_IAS','Purchase Order': 'po'}, inplace=True)
             ias_df_sum = ias_df.groupby(['po'])[['costo_IAS']].sum()
             pd.DataFrame(ias_df_sum).reset_index(inplace=True, drop=False)
             
-            ias_df_sum  # Muestra el contenido del DataFrame en la app
+            # Configurar y mostrar AgGrid con el DataFrame
+            grid_options_builder = GridOptionsBuilder.from_dataframe(df_ias)
+            grid_options_builder.configure_default_column(groupable=True, filter=True, sortable=True, resizable=True)
+            grid_options = grid_options_builder.build()
+            AgGrid(df_ias, gridOptions=grid_options, height=600)
 
 def show_insights(col1, col2):
     with col1:
