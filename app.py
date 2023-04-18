@@ -6,7 +6,7 @@ import requests
 import plotly.express as px
 import plotly.graph_objs as go
 import matplotlib.pyplot as plt
-
+import seaborn as sns
 
 
 from funciones import *
@@ -219,7 +219,15 @@ def show_insights(col1, col2):
         # Mostrar el gráfico en Streamlit
         st.plotly_chart(fig)
 
+        # Densidad con seaborn
+        filtered_merged_df = merged_df[merged_df['diferencias'] != 0]
 
+        # Crear y mostrar el gráfico de densidad
+        sns.kdeplot(data=filtered_merged_df, x='diferencias')
+        plt.title("Distribución de diferencias de costos")
+        plt.xlabel("Diferencias de costos")
+        plt.ylabel("Densidad")
+        plt.show()
 
 def show_descarga_de_resultados(col1, col2):
     with col1:
