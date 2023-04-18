@@ -136,7 +136,7 @@ def show_insights(col1, col2):
 
         ias_df_sum = st.session_state.ias_df_sum_global
         sku_matrix_sum = result
-        AgGrid(ias_df_sum_global)
+        AgGrid(ias_df_sum)
         AgGrid(sku_matrix_sum)
         
         
