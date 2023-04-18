@@ -33,10 +33,6 @@ col2.markdown("""
 loti2 = 'https://assets7.lottiefiles.com/packages/lf20_lphquaqr.json'
 lot2 =load_lottieurl(loti2)
   
-with col2:
-    # Muestra la animación Lottie solo si no estás en ninguna de las páginas específicas
-    if selected not in ["Carga de datos", "Insights", "Descarga de resultados"]:
-        st_lottie(lot2, key="loti2")  # ,height=74, width=200)
 
 
 
@@ -46,7 +42,11 @@ with col2:
 with st.sidebar:
     selected = option_menu("Main Menu", ["Home",'Carga de datos', 'Insights' , 'Descarga de resultados'], 
         icons=['house', 'bi bi-upload', 'bi bi-file-bar-graph', 'bi bi-download'], menu_icon="cast", default_index=0)
-    
+    with col2:
+    # Muestra la animación Lottie solo si no estás en ninguna de las páginas específicas
+        if selected not in ["Carga de datos", "Insights", "Descarga de resultados"]:
+            st_lottie(lot2, key="loti2")  # ,height=74, width=200)
+
 
 
     if selected == "Carga de datos":
