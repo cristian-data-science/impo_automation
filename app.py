@@ -26,7 +26,7 @@ def load_lottie_url(url: str):
 
 def main():
     col1 = st.sidebar
-    col2, col3 = st.columns((3, 1))
+    col2, col3 = st.columns((4, 1))
 
     col2.title("Impo Automation App")
     col2.markdown("""
