@@ -134,13 +134,12 @@ def show_insights(col1, col2):
         result = result.reset_index()
         #AgGrid(result)
 
-        ias_df_sum = ias_df_sum_global
+        ias_df_sum = st.session_state.ias_df_sum_global
         sku_matrix_sum = result
-        #AgGrid(ias_df_sum_global)
+        AgGrid(ias_df_sum_global)
         AgGrid(sku_matrix_sum)
         
-        xx = st.session_state.ias_df_sum_global
-        AgGrid(xx)
+        
         #if st.session_state.ias_df_sum_global is not None:
             #AgGrid(st.session_state.ias_df_sum_global)
         #else:
