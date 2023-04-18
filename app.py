@@ -16,7 +16,8 @@ from streamlit_lottie import st_lottie
 
 st.set_page_config(page_title="Impo Auto App", layout="wide")
 
-
+#variables globales
+ias_df_sum_global = None
 
 def load_lottie_url(url: str):
     r = requests.get(url)
@@ -98,10 +99,12 @@ def show_carga_de_datos(col1, col2):
                 mime="application/pdf"
             )
 
+        global ias_df_sum_global
         if upload_ias is not None:
             st.success("IAS subidos exitosamente.")
             # Leer el archivo IAS de Excel y guardar los datos en un DataFrame # archivo funciones.py
             ias_df_sum = procesar_ias_excel(upload_ias)
+            ias_df_sum_global = ias_df_sum
             
 
             
@@ -136,7 +139,7 @@ def show_insights(col1, col2):
         grid_options = grid_options_builder.build()   
         AgGrid(result, gridOptions=grid_options) 
 
-        
+        st.write(ias_df_sum_global)
 
 
 def show_descarga_de_resultados(col1, col2):
