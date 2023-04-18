@@ -81,16 +81,11 @@ def show_carga_de_datos(col1, col2):
         if upload_facturas:
             st.success("Facturas subidas exitosamente.")
             # Procesar las facturas aquí
-            for factura in upload_facturas:
-                # Procesar cada factura individualmente
-                print(factura)
-                print("procesandoooooooo")
+            fusionar_pdfs(upload_facturas)
 
         if upload_ias is not None:
             st.success("IAS subidos exitosamente.")
-            # Procesar los IAS aquí
-
-            # Leer el archivo IAS de Excel y guardar los datos en un DataFrame
+            # Leer el archivo IAS de Excel y guardar los datos en un DataFrame # archivo funciones.py
             ias_df_sum = procesar_ias_excel(upload_ias)
             
             # Configurar y mostrar AgGrid con el DataFrame
