@@ -79,7 +79,7 @@ def show_carga_de_datos(col1, col2):
         <style>
             .st-bf {
                 background-color: #4CAF50;
-                color: white;
+                color: green;
                 padding: 8px 16px;
                 font-size: 16px;
                 margin: 8px 0;
