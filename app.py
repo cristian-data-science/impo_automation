@@ -16,8 +16,7 @@ from streamlit_lottie import st_lottie
 
 st.set_page_config(page_title="Impo Auto App", layout="wide")
 
-# Variables globales
-ias_df_sum = None
+
 
 def load_lottie_url(url: str):
     r = requests.get(url)
@@ -74,7 +73,7 @@ def show_home(col1, col2):
 
 
 def show_carga_de_datos(col1, col2):
-    global ias_df_sum 
+    
     with col1:
         st.sidebar.markdown("Carga de facturas en pdf e international account sales en excel")
         
@@ -113,7 +112,7 @@ def show_carga_de_datos(col1, col2):
            
 
 def show_insights(col1, col2):
-    global ias_df_sum 
+    
     with col2:
         st.sidebar.markdown("Data analytics de las importaciones")
         archivo_pdf = "unificado.pdf"
