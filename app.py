@@ -7,6 +7,7 @@ import plotly.express as px
 import plotly.graph_objs as go
 import matplotlib.pyplot as plt
 import seaborn as sns
+import base64
 
 
 from funciones import *
@@ -162,6 +163,16 @@ def show_insights(col1, col2):
         #merged_df = merged_df.drop(columns=['level_0', 'index'])
         merged_df = merged_df.reset_index(drop=True)
         merged_df = merged_df[['po','total_cost_pdf','costo_IAS','diferencias']]
+
+        # Agregar botón para descargar merged_df como archivo de Excel
+        st.markdown("### Descargar merged_df")
+        towrite = io.BytesIO()
+        downloaded_file = merged_df.to_excel(towrite, index=False, header=True)
+        towrite.seek(0)
+        b64 = base64.b64encode(towrite.read()).decode()
+        href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="merged_df.xlsx">Descargar merged_df como archivo de Excel</a>'
+        st.markdown(href, unsafe_allow_html=True)
+
 
         grid_options_builder = GridOptionsBuilder.from_dataframe(merged_df)
         #grid_options_builder.configure_default_column(groupable=True, filter=True, sortable=True, resizable=True, columns_auto_size_mode=ColumnsAutoSizeMode.FIT_ALL_COLUMNS_TO_VIEW)
