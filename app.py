@@ -91,12 +91,12 @@ def show_carga_de_datos(col1, col2):
             # Leer el archivo IAS de Excel y guardar los datos en un DataFrame
             ias = pd.read_excel(upload_ias, header=1)
             ias_df = ias[['Purchase Order','Product number','Size','Color','Sales Quantity','Sales Amount']]
+            ias_df['Purchase Order'] =  ias_df['Purchase Order'].astype(int)
             ias_df.rename(columns={'Sales Amount': 'costo_IAS','Purchase Order': 'po'}, inplace=True)
             ias_df_sum = ias_df.groupby(['po'])[['costo_IAS']].sum()
             pd.DataFrame(ias_df_sum).reset_index(inplace=True, drop=False)
-            ias_df_sum['po'] = ias_df_sum['po'].astype(int)
-            ias_df_sum['po'] = ias_df_sum['po'].replace(".0","")
-            ias_df_sum['po'] = ias_df_sum['po'].apply(lambda x: float(str(x).replace(',', '')) if isinstance(x, str) else x)
+            ias_df_sum['po'] = ias_df_sum['po']
+            
             ias_df_sum  # Muestra el contenido del DataFrame en la app
 
 def show_insights(col1, col2):
