@@ -74,7 +74,7 @@ def show_home(col1, col2):
 
 
 def show_carga_de_datos(col1, col2):
-    
+    global ias_df_sum_global
     with col1:
         st.sidebar.markdown("Carga de facturas en pdf e international account sales en excel")
         
@@ -99,7 +99,7 @@ def show_carga_de_datos(col1, col2):
                 mime="application/pdf"
             )
 
-        global ias_df_sum_global
+        
         if upload_ias is not None:
             st.success("IAS subidos exitosamente.")
             # Leer el archivo IAS de Excel y guardar los datos en un DataFrame # archivo funciones.py
