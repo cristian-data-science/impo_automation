@@ -10,6 +10,7 @@ from st_aggrid.grid_options_builder import GridOptionsBuilder
 from streamlit_lottie import st_lottie
 import requests
 
+st.set_page_config(page_title="Impo Auto App",layout="wide")
 counter = 1
 
 def load_lottieurl(url: str):
