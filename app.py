@@ -137,8 +137,8 @@ def show_insights(col1, col2):
         grid_options = grid_options_builder.build()   
         AgGrid(result, gridOptions=grid_options) 
 
-        if ias_df_sum is not None:  # Asegurarse de que ias_df_sum no sea None
-            AgGrid(ias_df_sum, gridOptions=grid_options)
+        # Asegurarse de que ias_df_sum no sea None
+        AgGrid(ias_df_sum, gridOptions=grid_options)
 
 
 def show_descarga_de_resultados(col1, col2):
