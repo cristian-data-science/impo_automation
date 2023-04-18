@@ -115,7 +115,7 @@ def show_insights(col1, col2):
 
         
         result = procesar_datos_pdf(contenido_pdf)
-        #print(result)
+        print(result)
         #AgGrid(result)
         
         # Imprimir el contenido de la lista
