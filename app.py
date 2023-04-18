@@ -32,10 +32,7 @@ col2.markdown("""
 
 
 
-loti3 = 'https://assets6.lottiefiles.com/packages/lf20_2znxgjyt.json'
-lot3 =load_lottieurl(loti3)
-with col3:
-    st_lottie(lot3, key="loti3")#,height=74, width=200)
+
 
 
 # 1. as sidebar menu
@@ -61,13 +58,15 @@ with st.sidebar:
 
 loti1 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
 lot1 =load_lottieurl(loti1)
-with col2:
+with col1:
     st_lottie(lot1, key="loti1",height=200, width=200)
 
-"""loti2 = 'https://assets7.lottiefiles.com/packages/lf20_lphquaqr.json'
+loti2 = 'https://assets7.lottiefiles.com/packages/lf20_lphquaqr.json'
 lot2 =load_lottieurl(loti2)
 with col2:
-    st_lottie(lot2, key="loti2")#,height=74, width=200)    """
+    st_lottie(lot2, key="loti2")#,height=74, width=200)    
+
+
 
 
 if selected == "Tendencias de Google":
