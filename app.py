@@ -16,6 +16,9 @@ from streamlit_lottie import st_lottie
 
 st.set_page_config(page_title="Impo Auto App", layout="wide")
 
+# variables globales
+ias_df_sum = None 
+
 
 def load_lottie_url(url: str):
     r = requests.get(url)
@@ -72,6 +75,8 @@ def show_home(col1, col2):
 
 
 def show_carga_de_datos(col1, col2):
+
+    global ias_df_sum
     with col1:
         st.sidebar.markdown("Carga de facturas en pdf e international account sales en excel")
         
@@ -107,9 +112,10 @@ def show_carga_de_datos(col1, col2):
             grid_options = grid_options_builder.build()
             AgGrid(ias_df_sum, gridOptions=grid_options)
 
-            show_insights(col1, col2, ias_df_sum)
+            show_insights(col1, col2)
 
-def show_insights(col1, col2, ias_df_sum):
+def show_insights(col1, col2):
+    global ias_df_sum
     with col2:
         st.sidebar.markdown("Data analytics de las importaciones")
         archivo_pdf = "unificado.pdf"
@@ -131,9 +137,8 @@ def show_insights(col1, col2, ias_df_sum):
         grid_options = grid_options_builder.build()   
         AgGrid(result, gridOptions=grid_options) 
 
-        ias_df_sum = procesar_ias_excel(upload_ias)
-        AgGrid(ias_df_sum, gridOptions=grid_options)
-
+        if ias_df_sum is not None:  # Asegurarse de que ias_df_sum no sea None
+            AgGrid(ias_df_sum, gridOptions=grid_options)
 
 
 def show_descarga_de_resultados(col1, col2):
