@@ -2,4 +2,4 @@ streamlit_option_menu
 #pandas
 #numpy
 plotly
-#agrid
+AgGrid
