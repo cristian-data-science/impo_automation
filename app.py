@@ -3,8 +3,9 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import requests
-from funciones import *
 
+from funciones import fusionar_pdfs
+from funciones import *
 from streamlit.components.v1 import html
 from streamlit_option_menu import option_menu
 from st_aggrid import AgGrid
