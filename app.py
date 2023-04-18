@@ -5,6 +5,7 @@ import plotly.express as px
 import requests
 import plotly.express as px
 import plotly.graph_objs as go
+import matplotlib.pyplot as plt
 
 
 
@@ -177,22 +178,30 @@ def show_insights(col1, col2):
         # Filtrar las filas con diferencias distintas de 0
 
         # Filtrar el DataFrame para mostrar solo las filas con 'diferencias' distintas de 0
+        # Filtrar el DataFrame para mostrar solo las filas con 'diferencias' distintas de 0
         filtered_merged_df = merged_df[merged_df['diferencias'] != 0]
         filtered_merged_df['po'] = filtered_merged_df['po'].astype(str)
         
-        # Crear trazas de barras para total_cost_pdf y costo_IAS
-        trace1 = go.Bar(x=filtered_merged_df['po'], y=filtered_merged_df['total_cost_pdf'], name='Total Cost PDF')
-        trace2 = go.Bar(x=filtered_merged_df['po'], y=filtered_merged_df['costo_IAS'], name='Costo IAS')
+        # Configurar los índices de las barras y el ancho de las barras
+        bar_width = 0.35
+        indices = np.arange(len(filtered_merged_df['po']))
         
-        # Crear la figura y agregar las trazas
-        fig = go.Figure(data=[trace1, trace2])
+        # Crear las barras para total_cost_pdf y costo_IAS
+        plt.bar(indices, filtered_merged_df['total_cost_pdf'], bar_width, label='Total Cost PDF')
+        plt.bar(indices + bar_width, filtered_merged_df['costo_IAS'], bar_width, label='Costo IAS')
         
-        # Configurar el layout y el título del gráfico
-        fig.update_layout(title='Comparación del Total Cost PDF y Costo IAS por PO',
-                          barmode='group', xaxis_title='PO', yaxis_title='Costo')
+        # Configurar las etiquetas y leyendas del gráfico
+        plt.xlabel('PO')
+        plt.ylabel('Costo')
+        plt.title('Comparación del Total Cost PDF y Costo IAS por PO')
+        plt.xticks(indices + bar_width / 2, filtered_merged_df['po'], rotation=90)
+        plt.legend()
+        
+        # Ajustar el espacio entre el borde inferior y el gráfico para evitar que las etiquetas se corten
+        plt.subplots_adjust(bottom=0.2)
         
         # Mostrar el gráfico en Streamlit
-        st.plotly_chart(fig)
+        st.pyplot(plt)
 
 def show_descarga_de_resultados(col1, col2):
     with col1:
