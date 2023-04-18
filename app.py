@@ -175,8 +175,7 @@ def show_insights(col1, col2):
         # experimental
         # Filtrar las filas con diferencias distintas de 0
 
-        
-        filtered_merged_df = merged_df[(merged_df['diferencias'] >= 1) | (merged_df['diferencias'] <= -1)]
+        filtered_merged_df = merged_df[merged_df['diferencias'] != 0]
         filtered_merged_df['po'] = filtered_merged_df['po'].astype(str)
 
         # Crear y mostrar el gráfico en Streamlit
@@ -184,7 +183,7 @@ def show_insights(col1, col2):
         fig.update_traces(texttemplate='%{text:.2f}', textposition='outside')
         fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')
 
-        st.plotly_chart(fig)
+st.plotly_chart(fig)
 
 
 def show_descarga_de_resultados(col1, col2):
