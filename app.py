@@ -116,7 +116,7 @@ def show_carga_de_datos(col1, col2):
 
            
 
-def show_insights(col1, col2):
+def show_insights(col1, col2, ias_df_sum_global):
     
     with col2:
         st.sidebar.markdown("Data analytics de las importaciones")
@@ -139,7 +139,10 @@ def show_insights(col1, col2):
         grid_options = grid_options_builder.build()   
         AgGrid(result, gridOptions=grid_options) 
 
-        st.write(ias_df_sum_global)
+        if ias_df_sum_global is not None:
+            st.write(ias_df_sum_global)
+        else:
+            st.write("No hay datos para mostrar.")
 
 
 def show_descarga_de_resultados(col1, col2):
