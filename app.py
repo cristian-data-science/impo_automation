@@ -213,7 +213,7 @@ def show_insights(col1, col2):
         plt.title("Distribución de diferencias de costos")
         plt.xlabel("Diferencias de costos")
         plt.ylabel("Densidad")
-        plt.show()
+        st.pyplot()
 
 def show_descarga_de_resultados(col1, col2):
     with col1:
