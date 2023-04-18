@@ -112,8 +112,8 @@ def show_insights(col1, col2):
         st.sidebar.markdown("Data analytics de las importaciones")
         archivo_pdf = "unificado.pdf"
         contenido_pdf = extraer_texto_pdf(archivo_pdf)
-        for linea in contenido_pdf:
-            print(linea)
+        for i in lista_pre:
+            print(i)
 
 
 def show_descarga_de_resultados(col1, col2):
