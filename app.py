@@ -9,7 +9,7 @@ import requests
 from funciones import *
 from streamlit.components.v1 import html
 from streamlit_option_menu import option_menu
-from st_aggrid import AgGrid
+from st_aggrid import AgGrid, ColumnsAutoSizeMode
 from st_aggrid.grid_options_builder import GridOptionsBuilder
 from streamlit_lottie import st_lottie
 
@@ -159,7 +159,7 @@ def show_insights(col1, col2):
         merged_df = merged_df.reset_index(drop=True)
 
         grid_options_builder = GridOptionsBuilder.from_dataframe(merged_df)
-        grid_options_builder.configure_default_column(groupable=True, filter=True, sortable=True, resizable=True, min_column_width=25)
+        grid_options_builder.configure_default_column(groupable=True, filter=True, sortable=True, resizable=True, columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS)
         grid_options = grid_options_builder.build()
         AgGrid(merged_df, gridOptions=grid_options)
         
