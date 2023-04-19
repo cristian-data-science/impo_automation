@@ -267,7 +267,7 @@ def show_descarga_de_resultados(col1, col2):
         if st.button("Generar archivo"):
             new_df = purchase_construct(sku_df, pat, status, warehouse)
               # Muestra el nuevo DataFrame en la interfaz de Streamlit
-
+            st.write(new_df)
 
              # Crear datos de descarga de Excel
             excel_download_data = dataframe_to_excel_download(new_df, filename="Purchase order lines V2.xlsx")
@@ -279,7 +279,7 @@ def show_descarga_de_resultados(col1, col2):
                 file_name="Purchase order lines V2.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             )
-            st.write(new_df)
+            
 
 if __name__ == "__main__":
     main()
