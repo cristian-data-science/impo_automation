@@ -232,7 +232,9 @@ def show_insights(col1, col2):
 def show_descarga_de_resultados(col1, col2):
     with col1:
         st.sidebar.markdown("Purchase Order Lines y Manual Invoice")
-        
+
+    with col2:
+         
         sku_df = pd.DataFrame(columns=['po', 'Style', 'Color', 'Size', 'sku', 'Qty', 'Unit Cost'])
         archivo_pdf = "unificado.pdf"
         contenido_pdf = extraer_texto_pdf(archivo_pdf)
@@ -240,7 +242,7 @@ def show_descarga_de_resultados(col1, col2):
         #print(result)
         result = sku_matrix_sum.reset_index()
         sku_df = sku_df.append(expanded_df, ignore_index=True)
-        AgGrid(sku_df)
+        AgGrid(sku_df)   
 
 if __name__ == "__main__":
     main()
