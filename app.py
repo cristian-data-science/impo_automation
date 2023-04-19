@@ -281,7 +281,7 @@ def show_descarga_de_resultados(col1, col2):
                         file_name="Purchase order lines V2.xlsx",
                         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                     )
-            st.write(new_df)
+                st.write(new_df)
 
 if __name__ == "__main__":
     main()
