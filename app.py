@@ -242,7 +242,18 @@ def show_descarga_de_resultados(col1, col2):
         #print(result)
         result = sku_matrix_sum.reset_index()
         sku_df = sku_df.append(expanded_df, ignore_index=True)
-        AgGrid(sku_df)   
+
+        # Botones para armar purchase order 
+        # Ingresar PAT
+        pat = st.text_input("Ingresar PAT:", value="PAT-")
+        
+        # Estado de inventario
+        status_options = ["BLOQ-RECEP", "Disponible"]
+        status = st.radio("Estado de inventario:", status_options)
+        
+        # Almacén
+        warehouse_options = ["CD", "ZONAFRANCA"]
+        warehouse = st.radio("Almacén:", warehouse_options)
 
 if __name__ == "__main__":
     main()
