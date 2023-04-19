@@ -4,6 +4,9 @@ import PyPDF2
 import pandas as pd
 import re
 import numpy
+import base64
+import io
+
 
 from PyPDF2 import PdfFileMerger
 
