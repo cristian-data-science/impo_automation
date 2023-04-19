@@ -264,7 +264,7 @@ def show_descarga_de_resultados(col1, col2):
 
         
         # Agregar botón Generar archivo y ejecutar funcion
-        if st.button("Generar archivo"):
+        if col1.st.button("Generar archivo"):
             new_df = purchase_construct(sku_df, pat, status, warehouse)
               # Muestra el nuevo DataFrame en la interfaz de Streamlit
 
@@ -273,7 +273,7 @@ def show_descarga_de_resultados(col1, col2):
             excel_download_data = dataframe_to_excel_download(new_df, filename="Purchase order lines V2.xlsx")
 
             # Agregar botón de descarga
-            st.download_button(
+            col2.st.download_button(
                 label="Descargar archivo Excel",
                 data=excel_download_data,
                 file_name="Purchase order lines V2.xlsx",
