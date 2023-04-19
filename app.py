@@ -262,5 +262,11 @@ def show_descarga_de_resultados(col1, col2):
         warehouse_options = ["CD", "ZONAFRANCA"]
         warehouse = col3.radio("Almacén:", warehouse_options)
 
+        
+        # Agregar botón Generar archivo y ejecutar funcion
+        if st.button("Generar archivo"):
+            new_df = purchase_construct(sku_df, pat, status, warehouse)
+            st.write(new_df)  # Muestra el nuevo DataFrame en la interfaz de Streamlit
+
 if __name__ == "__main__":
     main()
