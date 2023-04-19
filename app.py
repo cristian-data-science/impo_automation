@@ -266,7 +266,7 @@ def show_descarga_de_resultados(col1, col2):
         # Agregar botón Generar archivo y ejecutar funcion
         if st.button("Generar archivo"):
             new_df = purchase_construct(sku_df, pat, status, warehouse)
-            st.write(new_df)  # Muestra el nuevo DataFrame en la interfaz de Streamlit
+              # Muestra el nuevo DataFrame en la interfaz de Streamlit
 
 
              # Crear datos de descarga de Excel
@@ -279,15 +279,7 @@ def show_descarga_de_resultados(col1, col2):
                 file_name="Purchase order lines V2.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             )
-
-
-
-            towrite = io.BytesIO()
-            downloaded_file = new_df.to_excel(towrite, index=False, header=True)
-            towrite.seek(0)
-            b64 = base64.b64encode(towrite.read()).decode()
-            href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="merged_df.xlsx">Descargar purchase order generado</a>'
-            st.markdown(href, unsafe_allow_html=True)
+            st.write(new_df)
 
 if __name__ == "__main__":
     main()
