@@ -234,7 +234,8 @@ def show_descarga_de_resultados(col1, col2):
         st.sidebar.markdown("Purchase Order Lines y Manual Invoice")
         
         sku_df = pd.DataFrame(columns=['po', 'Style', 'Color', 'Size', 'sku', 'Qty', 'Unit Cost'])
-
+        archivo_pdf = "unificado.pdf"
+        contenido_pdf = extraer_texto_pdf(archivo_pdf)
         sku_matrix_sum, expanded_df = procesar_datos_pdf(contenido_pdf)
         #print(result)
         result = sku_matrix_sum.reset_index()
