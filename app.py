@@ -189,6 +189,7 @@ def show_insights(col1, col2):
         grid_options_builder.configure_column("po", min_width=50)
         grid_options = grid_options_builder.build()
         AgGrid(merged_df, gridOptions=grid_options)
+        AgGrid(sku_df)
         
         
         #if st.session_state.ias_df_sum_global is not None:
