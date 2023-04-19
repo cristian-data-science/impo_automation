@@ -263,23 +263,25 @@ def show_descarga_de_resultados(col1, col2):
         warehouse = col3.radio("Almacén:", warehouse_options)
 
         
-        # Agregar botón Generar archivo y ejecutar funcion
-        if col1.st.button("Generar archivo"):
-            new_df = purchase_construct(sku_df, pat, status, warehouse)
-              # Muestra el nuevo DataFrame en la interfaz de Streamlit
+        with col1:
+            # Agregar botón Generar archivo y ejecutar funcion
+            if st.button("Generar archivo"):
+                new_df = purchase_construct(sku_df, pat, status, warehouse)
+                # Muestra el nuevo DataFrame en la interfaz de Streamlit
 
 
-             # Crear datos de descarga de Excel
-            excel_download_data = dataframe_to_excel_download(new_df, filename="Purchase order lines V2.xlsx")
+                # Crear datos de descarga de Excel
+                excel_download_data = dataframe_to_excel_download(new_df, filename="Purchase order lines V2.xlsx")
 
-            # Agregar botón de descarga
-            col2.st.download_button(
-                label="Descargar archivo Excel",
-                data=excel_download_data,
-                file_name="Purchase order lines V2.xlsx",
-                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            )
-            st.write(new_df)
+                # Agregar botón de descarga
+                with col2:
+                    st.download_button(
+                        label="Descargar archivo Excel",
+                        data=excel_download_data,
+                        file_name="Purchase order lines V2.xlsx",
+                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    )
+                    st.write(new_df)
 
 if __name__ == "__main__":
     main()
