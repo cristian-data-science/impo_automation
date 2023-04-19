@@ -189,7 +189,7 @@ def show_insights(col1, col2):
         grid_options_builder.configure_column("po", min_width=50)
         grid_options = grid_options_builder.build()
         AgGrid(merged_df, gridOptions=grid_options)
-        AgGrid(sku_df)
+        
         
         
         #if st.session_state.ias_df_sum_global is not None:
@@ -233,6 +233,13 @@ def show_descarga_de_resultados(col1, col2):
     with col1:
         st.sidebar.markdown("Purchase Order Lines y Manual Invoice")
         
+        sku_df = pd.DataFrame(columns=['po', 'Style', 'Color', 'Size', 'sku', 'Qty', 'Unit Cost'])
+
+        sku_matrix_sum, expanded_df = procesar_datos_pdf(contenido_pdf)
+        #print(result)
+        result = sku_matrix_sum.reset_index()
+        sku_df = sku_df.append(expanded_df, ignore_index=True)
+        AgGrid(sku_df)
 
 if __name__ == "__main__":
     main()
