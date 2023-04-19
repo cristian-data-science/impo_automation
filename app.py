@@ -167,7 +167,8 @@ def show_insights(col1, col2):
         unique_po_count = merged_df['po'].nunique()
 
         # Mostrar el texto con el conteo de PO únicas
-        st.write(f"Las PO's identificadas en las facturas subidas son: {unique_po_count}")
+        st.markdown(f"**Las PO's identificadas en las facturas subidas son: {unique_po_count}**")
+
 
         # Agregar botón para descargar merged_df como archivo de Excel
         st.markdown("### Diferencias de costo por PO's")
