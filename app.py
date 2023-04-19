@@ -134,9 +134,10 @@ def show_insights(col1, col2):
         contenido_pdf = extraer_texto_pdf(archivo_pdf)
 
         
-        result = procesar_datos_pdf(contenido_pdf)
+        sku_matrix_sum, expanded_df = procesar_datos_pdf(contenido_pdf)
         #print(result)
-        result = result.reset_index()
+        result = sku_matrix_sum.reset_index()
+        sku_df = sku_df.append(expanded_df, ignore_index=True)
         #AgGrid(result)
 
         ias_df_sum = st.session_state.ias_df_sum_global
@@ -177,7 +178,7 @@ def show_insights(col1, col2):
         b64 = base64.b64encode(towrite.read()).decode()
         href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="merged_df.xlsx">Descargar diferencias como archivo de Excel</a>'
         st.markdown(href, unsafe_allow_html=True)
-        
+
         st.markdown(f"### Las PO's identificadas en las facturas subidas son: {unique_po_count}")
 
 
