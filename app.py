@@ -234,7 +234,8 @@ def show_descarga_de_resultados(col1, col2):
         st.sidebar.markdown("Purchase Order Lines y Manual Invoice")
 
     with col2:
-         
+
+        # llamando a función para tener los df en este espacio 
         sku_df = pd.DataFrame(columns=['po', 'Style', 'Color', 'Size', 'sku', 'Qty', 'Unit Cost'])
         archivo_pdf = "unificado.pdf"
         contenido_pdf = extraer_texto_pdf(archivo_pdf)
@@ -245,18 +246,18 @@ def show_descarga_de_resultados(col1, col2):
 
         # Botones para armar purchase order 
         # Ingresar PAT
-        st.markdown("## Ingresar datos para construir Purchase order lines V2")
+        st.markdown("### Ingresar datos para construir Purchase order lines V2")
 
         # Crear 3 columnas
         col1, col2, col3 = st.columns(3)
-        
+
         # Ingresar PAT en la primera columna
         pat = col1.text_input("Ingresar PAT:", value="PAT-")
-        
+
         # Estado de inventario en la segunda columna
         status_options = ["BLOQ-RECEP", "Disponible"]
         status = col2.radio("Estado de inventario:", status_options)
-        
+
         # Almacén en la tercera columna
         warehouse_options = ["CD", "ZONAFRANCA"]
         warehouse = col3.radio("Almacén:", warehouse_options)
