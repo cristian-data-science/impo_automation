@@ -268,5 +268,11 @@ def show_descarga_de_resultados(col1, col2):
             new_df = purchase_construct(sku_df, pat, status, warehouse)
             st.write(new_df)  # Muestra el nuevo DataFrame en la interfaz de Streamlit
 
+            downloaded_file = new_df.to_excel(towrite, index=False, header=True)
+            towrite.seek(0)
+            b64 = base64.b64encode(towrite.read()).decode()
+            href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="merged_df.xlsx">Descargar purchase order generado</a>'
+            st.markdown(href, unsafe_allow_html=True)
+
 if __name__ == "__main__":
     main()
