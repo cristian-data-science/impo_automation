@@ -274,7 +274,7 @@ def show_descarga_de_resultados(col1, col2):
 
             # Agregar botón de descarga
             st.download_button(
-                label="Descargar archivo Excel",
+                label="Descargar Purchase order lines V2 en Excel",
                 data=excel_download_data,
                 file_name="Purchase order lines V2.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
