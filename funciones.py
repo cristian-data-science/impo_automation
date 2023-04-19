@@ -231,4 +231,4 @@ def procesar_datos_pdf(lista_pre):
     # Cambiar el nombre de la columna 'Unit Cost' a 'costo_promedio'
     sku_matrix_sum = sku_matrix_sum.rename(columns={'Unit Cost': 'costo_promedio'})
 
-    return sku_matrix_sum
+    return sku_matrix_sum, expanded_df
