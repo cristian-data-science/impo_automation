@@ -134,6 +134,8 @@ def show_insights(col1, col2):
         contenido_pdf = extraer_texto_pdf(archivo_pdf)
 
         
+        sku_df = pd.DataFrame(columns=['po', 'Style', 'Color', 'Size', 'sku', 'Qty', 'Unit Cost'])
+
         sku_matrix_sum, expanded_df = procesar_datos_pdf(contenido_pdf)
         #print(result)
         result = sku_matrix_sum.reset_index()
