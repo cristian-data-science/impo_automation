@@ -164,6 +164,10 @@ def show_insights(col1, col2):
         #merged_df = merged_df.drop(columns=['level_0', 'index'])
         merged_df = merged_df.reset_index(drop=True)
         merged_df = merged_df[['po','total_cost_pdf','costo_IAS','diferencias']]
+        unique_po_count = merged_df['po'].nunique()
+
+        # Mostrar el texto con el conteo de PO únicas
+        st.write(f"Las PO's identificadas en las facturas subidas son: {unique_po_count}")
 
         # Agregar botón para descargar merged_df como archivo de Excel
         st.markdown("### Diferencias de costo por PO's")
@@ -171,7 +175,7 @@ def show_insights(col1, col2):
         downloaded_file = merged_df.to_excel(towrite, index=False, header=True)
         towrite.seek(0)
         b64 = base64.b64encode(towrite.read()).decode()
-        href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="merged_df.xlsx">Descargar análisis como archivo de Excel</a>'
+        href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="merged_df.xlsx">Descargar diferencias como archivo de Excel</a>'
         st.markdown(href, unsafe_allow_html=True)
 
 
