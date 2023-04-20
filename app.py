@@ -291,6 +291,8 @@ def show_descarga_de_resultados(col1, col2):
 
 
 
+
+
         if st.button("Generar Purchase order lines V2"):
 
             
@@ -312,7 +314,7 @@ def show_descarga_de_resultados(col1, col2):
             # Calcular el costo total multiplicando el costo por la cantidad
             new_df['line_cost'] = new_df['ORDEREDPURCHASEQUANTITY'] * new_df['PURCHASEPRICE']
             total_cost = new_df['line_cost'].sum()
-            
+            new_df = new_df.drop(columns=['line_cost'])
 
             # agregar tabla de resumen antes de descarga
             summary_df = summary_df.append({
@@ -325,6 +327,7 @@ def show_descarga_de_resultados(col1, col2):
             summary_df = summary_df.reset_index(drop=True)
             st.write(summary_df)
 
+            
             # Crear datos de descarga de Excel
             excel_download_data = dataframe_to_excel_download(new_df, filename="Purchase order lines V2.xlsx")
 
