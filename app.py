@@ -95,15 +95,9 @@ def show_carga_de_datos(col1, col2):
 
     with col2:
         st.markdown("### Carga de datos")
-        col_facturas, col_ias = st.columns(2)
+        col_ias, col_facturas = st.columns(2)  # Intercambiar las columnas aquí
         pdf_bytes = None
-
-        with col_ias:
-            upload_ias = st.file_uploader("Subir IAS", type=["xls", "xlsx", "csv"], key="pdf", help="Cargue el archivo IAS en formato Excel o CSV.")
-            if upload_ias:
-                st.success("IAS subido correctamente.")
-                # Procesar IAS aquí
-
+    
         with col_facturas:
             upload_facturas = st.file_uploader("Subir facturas", type=["pdf"], accept_multiple_files=True, key="ias", help="Cargue las facturas en formato PDF.")
             if upload_facturas:
@@ -111,10 +105,16 @@ def show_carga_de_datos(col1, col2):
                 # Procesar las facturas aquí
                 fusionar_pdfs(upload_facturas)
                 archivo_salida = "unificado.pdf"
-
+    
                 with open(archivo_salida, "rb") as f:
                     pdf_bytes = f.read()
-
+    
+        with col_ias:
+            upload_ias = st.file_uploader("Subir IAS", type=["xls", "xlsx", "csv"], key="pdf", help="Cargue el archivo IAS en formato Excel o CSV.")
+            if upload_ias:
+                st.success("IAS subido correctamente.")
+                # Procesar IAS aquí
+    
         if pdf_bytes:
             st.download_button(
                 label="Descargar unificado.pdf",
@@ -122,7 +122,6 @@ def show_carga_de_datos(col1, col2):
                 file_name="unificado.pdf",
                 mime="application/pdf"
             )
-        
         if upload_ias is not None:
             st.success("IAS subidos exitosamente.")
             # Leer el archivo IAS de Excel y guardar los datos en un DataFrame # archivo funciones.py
