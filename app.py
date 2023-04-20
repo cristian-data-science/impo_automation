@@ -295,7 +295,7 @@ def show_descarga_de_resultados(col1, col2):
 
 
         # Agregar botón Generar archivo y ejecutar funcion
-        if st.button("Generar archivo"):
+        if st.button("Generar Purchase order lines V2"):
             new_df = purchase_construct(sku_df, pat, status, warehouse)
               # Muestra el nuevo DataFrame en la interfaz de Streamlit
             
