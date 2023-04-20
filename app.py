@@ -207,7 +207,7 @@ def show_insights(col1, col2):
 
         # Mostrar el conteo de PO de ias_df_sum contenidas en sku_matrix_sum
         st.markdown(f"### Las PO's de IAS contenidas en las facturas subidas son: {po_count_ias_in_sku}")
-        AgGrid(ias_df_sum)
+        
 
         grid_options_builder = GridOptionsBuilder.from_dataframe(merged_df)
         #grid_options_builder.configure_default_column(groupable=True, filter=True, sortable=True, resizable=True, columns_auto_size_mode=ColumnsAutoSizeMode.FIT_ALL_COLUMNS_TO_VIEW)
