@@ -123,7 +123,7 @@ def show_carga_de_datos(col1, col2):
                 mime="application/pdf"
             )
         if upload_ias is not None:
-            st.success("IAS subidos exitosamente.")
+            #st.success("IAS subidos exitosamente.")
             # Leer el archivo IAS de Excel y guardar los datos en un DataFrame # archivo funciones.py
             ias_df_sum = procesar_ias_excel(upload_ias)
             st.session_state.ias_df_sum_global = ias_df_sum
