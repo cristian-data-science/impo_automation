@@ -75,7 +75,7 @@ def show_home(col1, col2):
     loti1 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
     lot1 = load_lottie_url(loti1)
     with col1:
-        st_lottie(lot1, key="loti1", height=200, width=200)
+        st_lottie(lot1, key="loti1", height=200, width=400)
 
     loti2 = 'https://assets7.lottiefiles.com/packages/lf20_lphquaqr.json'
     lot2 = load_lottie_url(loti2)
@@ -92,7 +92,7 @@ def show_carga_de_datos(col1, col2):
     lot1 = load_lottie_url(loti1)
     with col1:
         st_lottie(lot1, key="loti1", height=200, width=200)    
-        
+
     with col2:
         st.markdown("### Carga de datos")
         upload_facturas = st.file_uploader("Subir facturas", type=["pdf"], accept_multiple_files=True, key="ias", help="Cargue las facturas en formato PDF.")
