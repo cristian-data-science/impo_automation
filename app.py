@@ -305,8 +305,9 @@ def show_descarga_de_resultados(col1, col2):
             unique_po_count = new_df['CUSTOMERREFERENCE'].nunique()
             total_units = new_df['ORDEREDPURCHASEQUANTITY'].sum()
             total_cost = new_df['PURCHASEPRICE'].sum()
+            st.write(new_df)
 
-            # Agregar los valores calculados al DataFrame
+            # agregar tabla de resumen antes de descarga
             summary_df = summary_df.append({
                 "po's a cargar": unique_po_count,
                 "unidades a cargar": total_units,
@@ -315,8 +316,6 @@ def show_descarga_de_resultados(col1, col2):
 
             # Mostrar el nuevo DataFrame en la aplicación
             st.write(summary_df)
-            
-            st.write(new_df)
 
              # Crear datos de descarga de Excel
             excel_download_data = dataframe_to_excel_download(new_df, filename="Purchase order lines V2.xlsx")
