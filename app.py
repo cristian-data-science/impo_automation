@@ -198,7 +198,7 @@ def show_insights(col1, col2):
         st.markdown(f"#### Las PO's de IAS contenidas en las facturas subidas son: {po_count_ias_in_sku}")
         
         # Agregar botón para descargar merged_df como archivo de Excel
-        st.markdown("### Diferencias de costo por PO's")
+        st.markdown("## Diferencias de costo por PO's")
         towrite = io.BytesIO()
         downloaded_file = merged_df.to_excel(towrite, index=False, header=True)
         towrite.seek(0)
