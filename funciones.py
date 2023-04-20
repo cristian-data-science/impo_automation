@@ -257,7 +257,6 @@ def purchase_construct(sku_df, pat, status, warehouse):
     PRODUCTCONFIGURATIONID = "1ST"
     PRODUCTSTYLEID = "GEN"
     PURCHASEUNITSYMBOL = "un"
-    
     RECEIVINGSITEID = "01"
     REQUESTERPERSONNELNUMBER = ""
     SALESTAXGROUPCODE = "Nacional"
