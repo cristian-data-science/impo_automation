@@ -172,7 +172,7 @@ def show_insights(col1, col2):
         
 
         # Realizar un merge entre sku_matrix_sum e ias_df_sum utilizando la columna 'po'
-        merged_df = sku_matrix_sum.merge(ias_df_sum, on='po')
+        merged_df = sku_matrix_sum.merge(ias_df_sum, on='po',how='left')
         merged_df['diferencias'] = merged_df['total_cost_pdf'] - merged_df['costo_IAS']
 
         # Redondear la columna 'diferencias' a dos decimales
