@@ -292,29 +292,30 @@ def show_descarga_de_resultados(col1, col2):
         warehouse_options = ["CD", "ZONAFRANCA"]
         warehouse = col3.radio("Almacén:", warehouse_options)
 
-        
-        summary_df = pd.DataFrame(columns=["po's a cargar", "unidades a cargar", "Costo total a cargar"])
-
-        # Calcular los valores necesarios
-        unique_po_count = new_df['CUSTOMERREFERENCE'].nunique()
-        total_units = new_df['ORDERPURCHASEQUANTITY'].sum()
-        total_cost = new_df['PURCHASEPRICE'].sum()
-
-        # Agregar los valores calculados al DataFrame
-        summary_df = summary_df.append({
-            "po's a cargar": unique_po_count,
-            "unidades a cargar": total_units,
-            "Costo total a cargar": total_cost
-        }, ignore_index=True)
-
-        # Mostrar el nuevo DataFrame en la aplicación
-        st.write(summary_df)
 
 
         # Agregar botón Generar archivo y ejecutar funcion
         if st.button("Generar archivo"):
             new_df = purchase_construct(sku_df, pat, status, warehouse)
               # Muestra el nuevo DataFrame en la interfaz de Streamlit
+            
+            summary_df = pd.DataFrame(columns=["po's a cargar", "unidades a cargar", "Costo total a cargar"])
+
+            # Calcular los valores necesarios
+            unique_po_count = new_df['CUSTOMERREFERENCE'].nunique()
+            total_units = new_df['ORDERPURCHASEQUANTITY'].sum()
+            total_cost = new_df['PURCHASEPRICE'].sum()
+
+            # Agregar los valores calculados al DataFrame
+            summary_df = summary_df.append({
+                "po's a cargar": unique_po_count,
+                "unidades a cargar": total_units,
+                "Costo total a cargar": total_cost
+            }, ignore_index=True)
+
+            # Mostrar el nuevo DataFrame en la aplicación
+            st.write(summary_df)
+            
             st.write(new_df)
 
              # Crear datos de descarga de Excel
