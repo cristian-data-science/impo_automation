@@ -189,13 +189,13 @@ def show_insights(col1, col2):
         unique_po_count = merged_df['po'].nunique()
 
 
-        st.markdown(f"#### Las PO's identificadas en las facturas subidas son: {unique_po_count}")
+        st.markdown(f"** Las PO's identificadas en las facturas subidas son: {unique_po_count}**")
 
         # Contar cuántas PO de ias_df_sum están contenidas en sku_matrix_sum
         po_count_ias_in_sku = ias_df_sum['po'].isin(sku_matrix_sum['po']).sum()
 
         # Mostrar el conteo de PO de ias_df_sum contenidas en sku_matrix_sum
-        st.markdown(f"#### Las PO's de IAS contenidas en las facturas subidas son: {po_count_ias_in_sku}")
+        st.markdown(f"** Las PO's de IAS contenidas en las facturas subidas son: {po_count_ias_in_sku}**")
         
         # Agregar botón para descargar merged_df como archivo de Excel
         st.markdown("## Diferencias de costo por PO's")
