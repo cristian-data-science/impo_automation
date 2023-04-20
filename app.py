@@ -113,12 +113,13 @@ def show_carga_de_datos(col1, col2):
                 st.success("IAS subido correctamente.")
                 # Procesar IAS aquí
 
-        st.download_button(
-            label="Descargar unificado.pdf",
-            data=pdf_bytes,
-            file_name="unificado.pdf",
-            mime="application/pdf"
-        )
+        if pdf_bytes:
+            st.download_button(
+                label="Descargar unificado.pdf",
+                data=pdf_bytes,
+                file_name="unificado.pdf",
+                mime="application/pdf"
+            )
 
         
         if upload_ias is not None:
