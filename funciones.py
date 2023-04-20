@@ -111,7 +111,9 @@ def procesar_datos_pdf(lista_pre):
             end_idx = i + 1
             while end_idx < len(lista_pre) and not lista_pre[end_idx].startswith('Total'):
                 end_idx += 1
-            color_lines.append(lista_pre[start_idx:end_idx])
+            # Remover espacios en los códigos de color
+            color_block = [re.sub(r'(?<=\b[a-zA-Z]{2})\s+(?=[a-zA-Z]{2}\b)', '', l) for l in lista_pre[start_idx:end_idx]]
+            color_lines.append(color_block)
             style_lines.append(current_style)
         elif line.startswith('Style'):
             current_style = line.split()[1]  # Guardar solo el valor después de 'Style'
