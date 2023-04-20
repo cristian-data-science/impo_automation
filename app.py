@@ -188,9 +188,15 @@ def show_insights(col1, col2):
         merged_df = merged_df[['po','total_cost_pdf','costo_IAS','diferencias']]
         unique_po_count = merged_df['po'].nunique()
 
-        # Mostrar el texto con el conteo de PO únicas
 
+        st.markdown(f"#### Las PO's identificadas en las facturas subidas son: {unique_po_count}")
 
+        # Contar cuántas PO de ias_df_sum están contenidas en sku_matrix_sum
+        po_count_ias_in_sku = ias_df_sum['po'].isin(sku_matrix_sum['po']).sum()
+
+        # Mostrar el conteo de PO de ias_df_sum contenidas en sku_matrix_sum
+        st.markdown(f"#### Las PO's de IAS contenidas en las facturas subidas son: {po_count_ias_in_sku}")
+        
         # Agregar botón para descargar merged_df como archivo de Excel
         st.markdown("### Diferencias de costo por PO's")
         towrite = io.BytesIO()
@@ -199,15 +205,6 @@ def show_insights(col1, col2):
         b64 = base64.b64encode(towrite.read()).decode()
         href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="merged_df.xlsx">Descargar diferencias como archivo de Excel</a>'
         st.markdown(href, unsafe_allow_html=True)
-
-        st.markdown(f"### Las PO's identificadas en las facturas subidas son: {unique_po_count}")
-
-        # Contar cuántas PO de ias_df_sum están contenidas en sku_matrix_sum
-        po_count_ias_in_sku = ias_df_sum['po'].isin(sku_matrix_sum['po']).sum()
-
-        # Mostrar el conteo de PO de ias_df_sum contenidas en sku_matrix_sum
-        st.markdown(f"### Las PO's de IAS contenidas en las facturas subidas son: {po_count_ias_in_sku}")
-        
 
         grid_options_builder = GridOptionsBuilder.from_dataframe(merged_df)
         #grid_options_builder.configure_default_column(groupable=True, filter=True, sortable=True, resizable=True, columns_auto_size_mode=ColumnsAutoSizeMode.FIT_ALL_COLUMNS_TO_VIEW)
