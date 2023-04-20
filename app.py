@@ -303,7 +303,7 @@ def show_descarga_de_resultados(col1, col2):
 
             # Calcular los valores necesarios
             unique_po_count = new_df['CUSTOMERREFERENCE'].nunique()
-            total_units = new_df['ORDERPURCHASEQUANTITY'].sum()
+            total_units = new_df['ORDEREDPURCHASEQUANTITY'].sum()
             total_cost = new_df['PURCHASEPRICE'].sum()
 
             # Agregar los valores calculados al DataFrame
