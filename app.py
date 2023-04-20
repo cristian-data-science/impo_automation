@@ -91,7 +91,7 @@ def show_carga_de_datos(col1, col2):
     loti1 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
     lot1 = load_lottie_url(loti1)
     with col1:
-        st_lottie(lot1, key="loti1", height=200, width=200)    
+        st_lottie(lot1, key="loti1", height=200, width=280)    
 
     with col2:
         st.markdown("### Carga de datos")
@@ -133,6 +133,12 @@ def show_carga_de_datos(col1, col2):
 
 def show_insights(col1, col2):
     global ias_df_sum_global
+
+    loti1 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
+    lot1 = load_lottie_url(loti1)
+    with col1:
+        st_lottie(lot1, key="loti1", height=200, width=280)
+
     with col2:
         st.sidebar.markdown("Data analytics de las importaciones")
         archivo_pdf = "unificado.pdf"
@@ -237,6 +243,11 @@ def show_insights(col1, col2):
 def show_descarga_de_resultados(col1, col2):
     with col1:
         st.sidebar.markdown("Purchase Order Lines y Manual Invoice")
+    
+    loti1 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
+    lot1 = load_lottie_url(loti1)
+    with col1:
+        st_lottie(lot1, key="loti1", height=200, width=280)
 
     with col2:
 
