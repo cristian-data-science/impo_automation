@@ -315,6 +315,7 @@ def show_descarga_de_resultados(col1, col2):
             }, ignore_index=True)
 
             # Mostrar el nuevo DataFrame en la aplicación
+            summary_df = summary_df.reset_index(drop=True)
             st.write(summary_df)
 
              # Crear datos de descarga de Excel
