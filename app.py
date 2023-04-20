@@ -293,14 +293,14 @@ def show_descarga_de_resultados(col1, col2):
 
         if st.button("Generar Purchase order lines V2"):
 
-            if st.button("Generar Purchase order lines V2"):
-                new_df = purchase_construct(sku_df, pat, status, warehouse)
+            
+            new_df = purchase_construct(sku_df, pat, status, warehouse)
 
-                # Filtrar las filas donde 'ORDEREDPURCHASEQUANTITY' no sea 0 ni vacío
-                new_df = new_df.loc[new_df['ORDEREDPURCHASEQUANTITY'] != 0].dropna(subset=['ORDEREDPURCHASEQUANTITY'])
+            # Filtrar las filas donde 'ORDEREDPURCHASEQUANTITY' no sea 0 ni vacío
+            new_df = new_df.loc[new_df['ORDEREDPURCHASEQUANTITY'] != 0].dropna(subset=['ORDEREDPURCHASEQUANTITY'])
 
-                # Muestra el nuevo DataFrame en la interfaz de Streamlit
-                st.write(new_df)
+            # Muestra el nuevo DataFrame en la interfaz de Streamlit
+            st.write(new_df)
             
 
             summary_df = pd.DataFrame(columns=["po's a cargar", "unidades a cargar", "Costo total"])
