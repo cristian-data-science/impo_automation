@@ -74,10 +74,9 @@ def procesar_datos_pdf(lista_pre):
     #print(po_style)
 
 
-    ### Se separa las lineas de la lista_pre que tienen desde colores hasta total, ademas de la que contiene style. con esto logramos segmentar la data a las variantes de cada codigo
-
+    # Se separa las lineas de la lista_pre que tienen desde colores hasta total,
+    # ademas de la que contiene style. con esto logramos segmentar la data a las variantes de cada codigo
     color_lines = []
-    # no se esta usando este style, ya que lo hicimos anteriormente a prueba de fallos
     style_lines = []
 
     for i, line in enumerate(lista_pre):
@@ -86,7 +85,16 @@ def procesar_datos_pdf(lista_pre):
             end_idx = i + 1
             while end_idx < len(lista_pre) and not lista_pre[end_idx].startswith('Total'):
                 end_idx += 1
-            color_lines.append(lista_pre[start_idx:end_idx])
+            segment = lista_pre[start_idx:end_idx]
+
+            # Elimina el espacio antes de "QTY" dentro del segmento y corrige el espacio en el código de color
+            for j in range(len(segment)):
+                if " QTY" in segment[j]:
+                    color_code, qty_part = segment[j].split(" QTY", 1)
+                    color_code = color_code.replace(" ", "")
+                    segment[j] = f"{color_code} QTY{qty_part}"
+
+            color_lines.append(segment)
         elif line.startswith('Style'):
             style_lines.append(line)
 
