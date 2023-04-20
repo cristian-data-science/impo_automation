@@ -95,8 +95,11 @@ def show_carga_de_datos(col1, col2):
 
     with col2:
         st.markdown("### Carga de datos")
-        upload_facturas = st.file_uploader("Subir facturas", type=["pdf"], accept_multiple_files=True, key="ias", help="Cargue las facturas en formato PDF.")
-        upload_ias = st.file_uploader("Subir IAS", type=["xls", "xlsx", "csv"], key="pdf", help="Cargue el archivo IAS en formato Excel o CSV.")
+        col_facturas, col_ias = st.columns(2)
+        with col_facturas:
+            upload_facturas = st.file_uploader("Subir facturas", type=["pdf"], accept_multiple_files=True, key="ias", help="Cargue las facturas en formato PDF.")
+        with col_ias:
+            upload_ias = st.file_uploader("Subir IAS", type=["xls", "xlsx", "csv"], key="pdf", help="Cargue el archivo IAS en formato Excel o CSV.")
         
         if upload_facturas:
             st.success("Facturas subidas y unificadas correctamente.")
