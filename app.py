@@ -313,7 +313,6 @@ def show_descarga_de_resultados(col1, col2):
             new_df['line_cost'] = new_df['ORDEREDPURCHASEQUANTITY'] * new_df['PURCHASEPRICE']
             total_cost = new_df['line_cost'].sum()
             
-            st.write(new_df)
 
             # agregar tabla de resumen antes de descarga
             summary_df = summary_df.append({
