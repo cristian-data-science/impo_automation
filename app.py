@@ -96,6 +96,7 @@ def show_carga_de_datos(col1, col2):
     with col2:
         st.markdown("### Carga de datos")
         col_facturas, col_ias = st.columns(2)
+        pdf_bytes = None
         with col_facturas:
             upload_facturas = st.file_uploader("Subir facturas", type=["pdf"], accept_multiple_files=True, key="ias", help="Cargue las facturas en formato PDF.")
             if upload_facturas:
