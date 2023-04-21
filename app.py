@@ -345,10 +345,15 @@ def show_descarga_de_resultados(col1, col2):
         sum_count = invoice_total_lines['Invoice_total'].sum()
         st.markdown(f"**El total de todas las facturas es: {sum_count}**") 
         st.warning('This is a warning', icon="⚠️")   
-        st.info(
-            f"""
-                👆 Debe cargar primero un dato con extensión .pkl
-                """
-        )
+
+
+        total_adjustment_sum = result['Total_adjustment'].sum()
+
+        # Comprobar si la suma es mayor a 0 y mostrar el mensaje de advertencia
+        if total_adjustment_sum > 0:
+            st.warning('⚠️ Hay handlings fees en las facturas comerciales')
+        else:
+            st.info(f"""No hay handlings fees asociados a las facturas""")
+        
 if __name__ == "__main__":
     main()
