@@ -31,6 +31,9 @@ def load_lottie_url(url: str):
         return None
     return r.json()
 
+def reset_variables():
+    st.session_state.ias_df_sum_global = None    
+
 
 def main():
     col1 = st.sidebar
@@ -46,7 +49,8 @@ def main():
         selected = option_menu("Main Menu", ["Home", 'Carga de datos', 'Insights', 'Descarga de resultados'],
                                icons=['house', 'bi bi-upload', 'bi bi-file-bar-graph', 'bi bi-download'],
                                menu_icon="cast", default_index=0)
-
+    if reset_button:
+        reset_variables()
 
     if "ias_df_sum_global" not in st.session_state:
         st.session_state.ias_df_sum_global = None
