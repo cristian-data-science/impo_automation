@@ -274,6 +274,7 @@ def show_descarga_de_resultados(col1, col2):
         # Botones para armar purchase order 
         # Ingresar PAT
         st.markdown("### Ingresar datos para construir Purchase order lines V2")
+
         if st.button("Generar Purchase order lines V2"):
 
             
@@ -308,7 +309,20 @@ def show_descarga_de_resultados(col1, col2):
             summary_df = summary_df.reset_index(drop=True)
             st.markdown("### Totales de Purchase order")
             st.write(summary_df)
+
             
+            # Crear datos de descarga de Excel
+            excel_download_data = dataframe_to_excel_download(new_df, filename="Purchase order lines V2.xlsx")
+
+            with col2:
+                # Agregar botón de descarga
+                st.download_button(
+                    label="Descargar Purchase order lines V2",
+                    data=excel_download_data,
+                    file_name="Purchase order lines V2.xlsx",
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                )
+
         # Crear 3 columnas
         col1, col2, col3 = st.columns(3)
 
@@ -328,22 +342,9 @@ def show_descarga_de_resultados(col1, col2):
 
 
         
-
-            
-            # Crear datos de descarga de Excel
-            excel_download_data = dataframe_to_excel_download(new_df, filename="Purchase order lines V2.xlsx")
-
-            with col2:
-                # Agregar botón de descarga
-                st.download_button(
-                    label="Descargar Purchase order lines V2",
-                    data=excel_download_data,
-                    file_name="Purchase order lines V2.xlsx",
-                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                )
         
         
-
+        
         st.markdown("### Totales de factura comercial")
         invoice_total_lines = extract_invoice_data(contenido_pdf)    
         st.write(invoice_total_lines)
