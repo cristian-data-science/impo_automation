@@ -339,7 +339,7 @@ def show_descarga_de_resultados(col1, col2):
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             )
 
-        invoice_total_lines = extract_invoice_data(archivo_pdf)    
+        invoice_total_lines = extract_invoice_data(contenido_pdf)    
         AgGrid(invoice_total_lines)
 
 if __name__ == "__main__":
