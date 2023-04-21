@@ -325,6 +325,7 @@ def show_descarga_de_resultados(col1, col2):
 
             # Mostrar el nuevo DataFrame en la aplicación
             summary_df = summary_df.reset_index(drop=True)
+            st.markdown("### Totales de Purchase order")
             st.write(summary_df)
 
             
