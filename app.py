@@ -338,11 +338,17 @@ def show_descarga_de_resultados(col1, col2):
             summary_df = summary_df.reset_index(drop=True)
             st.markdown("### Totales de Purchase order")
             st.write(summary_df)
-            
+
         st.markdown("### Totales de factura comercial")
         invoice_total_lines = extract_invoice_data(contenido_pdf)    
         st.write(invoice_total_lines)
         sum_count = invoice_total_lines['Invoice_total'].sum()
-        st.markdown(f"**El total de todas las facturas es: {sum_count}**")    
+        st.markdown(f"**El total de todas las facturas es: {sum_count}**") 
+        st.warning('This is a warning', icon="⚠️")   
+        st.info(
+            f"""
+                👆 Debe cargar primero un dato con extensión .pkl
+                """
+        )
 if __name__ == "__main__":
     main()
