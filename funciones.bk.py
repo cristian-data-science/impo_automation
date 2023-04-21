@@ -52,7 +52,6 @@ def procesar_datos_pdf(lista_pre):
     # Código refactorizado aquí
     
     ### Separar PO's e itemnumber en dataframe
-    """
     po_values = []
     itemnumber_values = []
 
@@ -72,21 +71,13 @@ def procesar_datos_pdf(lista_pre):
                     itemnumber_values.append('')
 
     po_style = pd.DataFrame({'po': po_values, 'itemnumber': itemnumber_values})
-    #print(po_style)"""
+    #print(po_style)
 
-
-    # paso 1 funciones.py
 
     # Se separa las lineas de la lista_pre que tienen desde colores hasta total,
     # ademas de la que contiene style. con esto logramos segmentar la data a las variantes de cada codigo
-    
-    # limpieza de listas de color, talla y style
     color_lines = []
     style_lines = []
-
-    current_style = None
-    value_before_0000 = None
-    previous_value_before_0000 = None
 
     for i, line in enumerate(lista_pre):
         if line.startswith('Color'):
@@ -94,42 +85,42 @@ def procesar_datos_pdf(lista_pre):
             end_idx = i + 1
             while end_idx < len(lista_pre) and not lista_pre[end_idx].startswith('Total'):
                 end_idx += 1
-            # Remover espacios en los códigos de color y la línea con '0000'
-            color_block = [re.sub(r'(?<=\b[a-zA-Z]{2})\s+(?=[a-zA-Z]{2}\b)', '', l) for l in lista_pre[start_idx:end_idx] if not re.search(r'\b0000\b', l)]
+            segment = lista_pre[start_idx:end_idx]
+
+            # Elimina el espacio antes de "QTY" dentro del segmento y corrige el espacio en el código de color
+            for j in range(len(segment)):
+                if " QTY" in segment[j]:
+                    color_code, qty_part = segment[j].split(" QTY", 1)
+                    color_code = color_code.replace(" ", "")
+                    segment[j] = f"{color_code} QTY{qty_part}"
+
+            color_lines.append(segment)
+        elif line.startswith('Style'):
+            style_lines.append(line)
+
+
+    ### limpieza de listas de color, talla y style
+
+    color_lines = []
+    style_lines = []
+
+    current_style = None
+    for i, line in enumerate(lista_pre):
+        if line.startswith('Color'):
+            start_idx = i
+            end_idx = i + 1
+            while end_idx < len(lista_pre) and not lista_pre[end_idx].startswith('Total'):
+                end_idx += 1
+            # Remover espacios en los códigos de color
+            color_block = [re.sub(r'(?<=\b[a-zA-Z]{2})\s+(?=[a-zA-Z]{2}\b)', '', l) for l in lista_pre[start_idx:end_idx]]
             color_lines.append(color_block)
-
-            # Añadir el valor antes de "0000" al estilo actual
-            if value_before_0000 is not None:
-                style_line = f"{value_before_0000},{current_style}"
-                previous_value_before_0000 = value_before_0000
-                value_before_0000 = None
-            elif ',' not in current_style:
-                style_line = f"{previous_value_before_0000},{current_style}"
-            else:
-                style_line = current_style
-
-            # Añadir la línea de estilo correspondiente a color_lines
-            style_lines.append(style_line)
+            style_lines.append(current_style)
         elif line.startswith('Style'):
             current_style = line.split()[1]  # Guardar solo el valor después de 'Style'
 
-        if re.search(r'\b0000\b', line):
-            value_before_0000 = re.search(r'(\d+)\s+0000', line).group(1)
 
-    # paso 2 funciones.py
 
-    style_data = []
-    for style in style_lines:
-        po, itemnumber = style.split(',')
-        style_data.append({'po': po, 'itemnumber': itemnumber})
-
-    # Crear un DataFrame a partir de la lista de diccionarios
-    po_style = pd.DataFrame(style_data)
-
-   
-    # paso 3 funciones.py
-
-    # Crea df y concatena las listas con todos los datos
+    ### Crea df y concatena las listas con todos los datos
 
     color_values = []
     size_values = []
@@ -174,41 +165,46 @@ def procesar_datos_pdf(lista_pre):
     df.index += 1
     df.index.name = 'indice'
 
-    df['Qty'] = df['Qty'].replace(".", "")
-    #df['Qty'] = df['Qty'].astype(int)  # Convertir los valores en la columna "Qty" a enteros
-
-    # Dividir la columna "Style" en dos columnas separadas: "PO" y "Style"
-    df[['PO', 'Style']] = df['Style'].str.split(',', expand=True)
-
-    # Reordenar las columnas para que "PO" esté al principio del DataFrame
-    df = df[['PO', 'Style', 'Color', 'Size', 'Qty', 'Unit Cost']]
-
-    df.index += 1
-    df.index.name = 'indice'
-
     df['Qty'] = df['Qty'].replace(".", "")        
 
 
-    # paso 4 
 
-    # Convertir la columna 'Style' en el primer DataFrame y 'itemnumber' en el segundo DataFrame a tipo str
-    df['Style'] = df['Style'].astype(str)
-    po_style['itemnumber'] = po_style['itemnumber'].astype(str)
+    ### Merge entre df y po_Style usando criterios de siguiente coincidencia
+
+    po_style = po_style.rename(columns={'itemnumber': 'Style'})
+
+    # Función auxiliar para realizar el merge
+    def merge_with_next_match(row, po_style_df, used_matches):
+        style = row['Style']
+        matches = po_style_df[po_style_df['Style'] == style]
+
+        for _, match in matches.iterrows():
+            if match.name not in used_matches:
+                used_matches.add(match.name)
+                return match['po']
+        return None
+
+    # Inicializar un conjunto para almacenar las coincidencias utilizadas
+    used_matches = set()
+
+    # Realizar el merge utilizando la función auxiliar
+    df['po'] = df.apply(merge_with_next_match, axis=1, args=(po_style, used_matches))
+
+    # Rellenar los valores None en la columna 'po' con el valor anterior
+    df['po'] = df['po'].fillna(method='ffill')
+
+    # Reordenar las columnas
+    columns = ['po'] + [col for col in df.columns if col != 'po']
+    df = df[columns]
 
 
-    combined_df = df
-    combined_df = combined_df.reset_index(drop=True)
-    combined_df
-
-
-    # paso 5
     ### Se expande los estilos a SKU con su respectivo qty y costo
 
     new_rows = []
 
     for index, row in df.iterrows():
         style = row['Style']
-        po = row['PO']
+        po = row['po']
         color = row['Color'].split(', ')
         sizes = row['Size'].split()
         qtys = row['Qty'].split(', ')
@@ -223,7 +219,7 @@ def procesar_datos_pdf(lista_pre):
     expanded_df = pd.DataFrame(new_rows, columns=['po','Style', 'Color', 'Size', 'sku', 'Qty', 'Unit Cost'])
 
 
-    # paso 6
+
     ### sku matrix
 
     sku_matrix = expanded_df
