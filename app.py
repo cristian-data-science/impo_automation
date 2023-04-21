@@ -341,7 +341,7 @@ def show_descarga_de_resultados(col1, col2):
         st.markdown("### Totales de factura comercial")
         invoice_total_lines = extract_invoice_data(contenido_pdf)    
         st.write(invoice_total_lines)
-        sum_count = invoice_total_lines['invoice_total'].sum
+        sum_count = invoice_total_lines['Invoice_total'].sum
         st.markdown(f"**El total de todas las facturas es: {sum_count}**")    
 if __name__ == "__main__":
     main()
