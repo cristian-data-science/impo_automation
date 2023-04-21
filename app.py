@@ -42,6 +42,7 @@ def main():
     """)
 
     with st.sidebar:
+        reset_button = st.button("Resetear Variables")
         selected = option_menu("Main Menu", ["Home", 'Carga de datos', 'Insights', 'Descarga de resultados'],
                                icons=['house', 'bi bi-upload', 'bi bi-file-bar-graph', 'bi bi-download'],
                                menu_icon="cast", default_index=0)
