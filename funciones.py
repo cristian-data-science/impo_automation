@@ -354,6 +354,6 @@ def extract_invoice_data(lista_pre):
 
         invoice_total_lines = pd.concat([invoice_total_lines, new_row], ignore_index=True)
 
-    invoice_total_lines['Invoice_number'] = range(1, len(invoice_total_lines) + 1)
-    invoice_total_lines = invoice_total_lines[['Invoice_number','Merchandise_amount','Total_adjustment','Total_taxes']]
+    #invoice_total_lines['Invoice_number'] = range(1, len(invoice_total_lines) + 1)
+    invoice_total_lines = invoice_total_lines[['Merchandise_amount','Total_adjustment','Total_taxes']]
     return invoice_total_lines
