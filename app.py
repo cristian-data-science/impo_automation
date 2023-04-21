@@ -338,7 +338,7 @@ def show_descarga_de_resultados(col1, col2):
                 file_name="Purchase order lines V2.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             )
-
+        st.markdown("### Totales de factura comercial")
         invoice_total_lines = extract_invoice_data(contenido_pdf)    
         st.write(invoice_total_lines)
 
