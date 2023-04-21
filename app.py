@@ -340,7 +340,7 @@ def show_descarga_de_resultados(col1, col2):
             )
 
         invoice_total_lines = extract_invoice_data(contenido_pdf)    
-        st.write(invoice_total_lines)
+        AgGrid(invoice_total_lines)
 
 if __name__ == "__main__":
     main()
