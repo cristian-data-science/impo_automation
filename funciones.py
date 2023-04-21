@@ -292,6 +292,7 @@ def purchase_construct(sku_df, pat, status, warehouse):
     sku_df['PURCHASEORDERNUMBER'] = pat
     sku_df['ORDEREDINVENTORYSTATUSID'] = status
     sku_df['RECEIVINGWAREHOUSEID'] = warehouse
+    
 
     # Eliminar columnas 'sku' y 'total_cost_pdf'
     sku_df = sku_df.drop(columns=['sku', 'total_cost_pdf'])
