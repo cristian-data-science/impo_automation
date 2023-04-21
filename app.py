@@ -274,25 +274,6 @@ def show_descarga_de_resultados(col1, col2):
         # Botones para armar purchase order 
         # Ingresar PAT
         st.markdown("### Ingresar datos para construir Purchase order lines V2")
-
-        # Crear 3 columnas
-        col1, col2, col3 = st.columns(3)
-
-        # Ingresar PAT en la primera columna
-        pat = col1.text_input("Ingresar PAT:", value="PAT-")
-
-        # Estado de inventario en la segunda columna
-        status_options = ["BLOQ-RECEP", "Disponible"]
-        status = col2.radio("Estado de inventario:", status_options)
-
-        # Almacén en la tercera columna
-        warehouse_options = ["CD", "ZONAFRANCA"]
-        warehouse = col3.radio("Almacén:", warehouse_options)
-
-
-
-
-
         if st.button("Generar Purchase order lines V2"):
 
             
@@ -327,6 +308,26 @@ def show_descarga_de_resultados(col1, col2):
             summary_df = summary_df.reset_index(drop=True)
             st.markdown("### Totales de Purchase order")
             st.write(summary_df)
+            
+        # Crear 3 columnas
+        col1, col2, col3 = st.columns(3)
+
+        # Ingresar PAT en la primera columna
+        pat = col1.text_input("Ingresar PAT:", value="PAT-")
+
+        # Estado de inventario en la segunda columna
+        status_options = ["BLOQ-RECEP", "Disponible"]
+        status = col2.radio("Estado de inventario:", status_options)
+
+        # Almacén en la tercera columna
+        warehouse_options = ["CD", "ZONAFRANCA"]
+        warehouse = col3.radio("Almacén:", warehouse_options)
+
+
+
+
+
+        
 
             
             # Crear datos de descarga de Excel
@@ -340,6 +341,9 @@ def show_descarga_de_resultados(col1, col2):
                     file_name="Purchase order lines V2.xlsx",
                     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 )
+        
+        
+
         st.markdown("### Totales de factura comercial")
         invoice_total_lines = extract_invoice_data(contenido_pdf)    
         st.write(invoice_total_lines)
