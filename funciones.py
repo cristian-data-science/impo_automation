@@ -328,32 +328,47 @@ def extract_invoice_data(lista_pre):
     invoice_data = []
     current_invoice = []
     flag = False
+    invoice_number = None
 
     for line in lista_pre:
+        if "Invoice Number Invoice Issue Date" in line:
+            invoice_number = True
+            continue
+        if invoice_number is True:
+            invoice_number = line.strip()
+            continue
         if re.match(r'^Merchandise Amount', line):
             flag = True
-            current_invoice = []
+            current_invoice = [invoice_number]
         if flag:
             current_invoice.append(line)
         if re.match(r'^Invoice Total', line):
             flag = False
             invoice_data.append(current_invoice)
+            invoice_number = None
 
-    invoice_total_lines = pd.DataFrame(columns=['Merchandise_amount', 'Total_adjustment', 'Total_taxes'])
+    invoice_total_lines = pd.DataFrame(columns=['Invoice_number', 'Merchandise_amount', 'Total_adjustment', 'Total_taxes', 'Invoice_total'])
 
     for invoice in invoice_data:
-        merchandise_amount = float(re.search(r'Merchandise Amount ([\d,]+(\.\d{2})?)', invoice[0]).group(1).replace(',', ''))
-        total_adjustment = float(re.search(r'Total Adjustment ([\d,]+(\.\d{2})?)', invoice[1]).group(1).replace(',', ''))
-        total_taxes = float(re.search(r'Total Taxes ([\d,]+(\.\d{2})?)', invoice[2]).group(1).replace(',', ''))
+        invoice_number = invoice[0]
+        merchandise_amount = float(re.search(r'Merchandise Amount ([\d,]+(\.\d{2})?)', invoice[1]).group(1).replace(',', ''))
+        total_adjustment = float(re.search(r'Total Adjustment ([\d,]+(\.\d{2})?)', invoice[2]).group(1).replace(',', ''))
+        total_taxes = float(re.search(r'Total Taxes ([\d,]+(\.\d{2})?)', invoice[3]).group(1).replace(',', ''))
+        invoice_total = float(re.search(r'Invoice Total ([\d,]+(\.\d{2})?)', invoice[4]).group(1).replace(',', ''))
 
         new_row = pd.DataFrame({
+            'Invoice_number': [invoice_number],
             'Merchandise_amount': [merchandise_amount],
             'Total_adjustment': [total_adjustment],
-            'Total_taxes': [total_taxes]
+            'Total_taxes': [total_taxes],
+            'Invoice_total': [invoice_total]
         })
 
         invoice_total_lines = pd.concat([invoice_total_lines, new_row], ignore_index=True)
 
-    #invoice_total_lines['Invoice_number'] = range(1, len(invoice_total_lines) + 1)
-    invoice_total_lines = invoice_total_lines[['Merchandise_amount','Total_adjustment','Total_taxes']]
+    invoice_total_lines['Invoice_date'] = invoice_total_lines['Invoice_number'].apply(lambda x: x.split(' ')[1])
+    invoice_total_lines['Invoice_number'] = invoice_total_lines['Invoice_number'].apply(lambda x: x.split(' ')[0])
+
+    invoice_total_lines = invoice_total_lines[['Invoice_number', 'Invoice_date', 'Merchandise_amount', 'Total_adjustment', 'Total_taxes', 'Invoice_total']]
+
     return invoice_total_lines
