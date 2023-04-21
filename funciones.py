@@ -322,3 +322,38 @@ def dataframe_to_excel_download(df, filename="data.xlsx"):
     writer.save()
     excel_data = output.getvalue()
     return excel_data
+
+
+def extract_invoice_data(lista_pre):
+    invoice_data = []
+    current_invoice = []
+    flag = False
+
+    for line in lista_pre:
+        if re.match(r'^Merchandise Amount', line):
+            flag = True
+            current_invoice = []
+        if flag:
+            current_invoice.append(line)
+        if re.match(r'^Invoice Total', line):
+            flag = False
+            invoice_data.append(current_invoice)
+
+    invoice_total_lines = pd.DataFrame(columns=['Merchandise_amount', 'Total_adjustment', 'Total_taxes'])
+
+    for invoice in invoice_data:
+        merchandise_amount = float(re.search(r'Merchandise Amount ([\d,]+(\.\d{2})?)', invoice[0]).group(1).replace(',', ''))
+        total_adjustment = float(re.search(r'Total Adjustment ([\d,]+(\.\d{2})?)', invoice[1]).group(1).replace(',', ''))
+        total_taxes = float(re.search(r'Total Taxes ([\d,]+(\.\d{2})?)', invoice[2]).group(1).replace(',', ''))
+
+        new_row = pd.DataFrame({
+            'Merchandise_amount': [merchandise_amount],
+            'Total_adjustment': [total_adjustment],
+            'Total_taxes': [total_taxes]
+        })
+
+        invoice_total_lines = pd.concat([invoice_total_lines, new_row], ignore_index=True)
+
+    invoice_total_lines['Invoice_number'] = range(1, len(invoice_total_lines) + 1)
+
+    return invoice_total_lines
