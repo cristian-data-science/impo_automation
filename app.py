@@ -332,10 +332,10 @@ def show_descarga_de_resultados(col1, col2):
             # Crear datos de descarga de Excel
             excel_download_data = dataframe_to_excel_download(new_df, filename="Purchase order lines V2.xlsx")
 
-            with col3:
+            with col2:
                 # Agregar botón de descarga
                 st.download_button(
-                    label="Descargar Purchase order",
+                    label="Descargar Purchase order lines V2",
                     data=excel_download_data,
                     file_name="Purchase order lines V2.xlsx",
                     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
