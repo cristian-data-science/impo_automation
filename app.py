@@ -349,6 +349,7 @@ def show_descarga_de_resultados(col1, col2):
             st.write(summary_df)
 
         st.markdown("### Totales de factura comercial")
+        invoice_total_lines = 0
         invoice_total_lines = extract_invoice_data(contenido_pdf)    
         st.write(invoice_total_lines)
         sum_count = invoice_total_lines['Invoice_total'].sum()
@@ -357,7 +358,7 @@ def show_descarga_de_resultados(col1, col2):
 
         #st.warning('This is a warning', icon="⚠️")   
 
-
+        total_adjustment_sum = 0
         total_adjustment_sum = invoice_total_lines['Total_adjustment'].sum()
 
         # Comprobar si la suma es mayor a 0 y mostrar el mensaje de advertencia
