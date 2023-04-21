@@ -32,8 +32,10 @@ def load_lottie_url(url: str):
     return r.json()
 
 def reset_variables():
-    st.session_state.ias_df_sum_global = None    
-
+    global invoice_total_lines
+    global total_adjustment_sum
+    invoice_total_lines = None
+    total_adjustment_sum = None
 
 def main():
     col1 = st.sidebar
@@ -45,12 +47,11 @@ def main():
     """)
 
     with st.sidebar:
-        reset_button = st.button("Resetear Variables")
+
         selected = option_menu("Main Menu", ["Home", 'Carga de datos', 'Insights', 'Descarga de resultados'],
                                icons=['house', 'bi bi-upload', 'bi bi-file-bar-graph', 'bi bi-download'],
                                menu_icon="cast", default_index=0)
-    if reset_button:
-        reset_variables()
+
 
     if "ias_df_sum_global" not in st.session_state:
         st.session_state.ias_df_sum_global = None
@@ -89,6 +90,7 @@ def show_home(col1, col2):
 
 
 def show_carga_de_datos(col1, col2):
+    reset_variables()
     global ias_df_sum_global
     with col1:
         st.sidebar.markdown("Carga de facturas en pdf e international account sales en excel")
@@ -145,6 +147,7 @@ def show_carga_de_datos(col1, col2):
            
 
 def show_insights(col1, col2):
+    reset_variables()
     global ias_df_sum_global
 
     loti1 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
@@ -257,6 +260,7 @@ def show_insights(col1, col2):
 
 
 def show_descarga_de_resultados(col1, col2):
+    reset_variables()
     with col1:
         st.sidebar.markdown("Purchase Order Lines y Manual Invoice")
     
