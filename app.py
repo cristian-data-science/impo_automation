@@ -332,13 +332,14 @@ def show_descarga_de_resultados(col1, col2):
             # Crear datos de descarga de Excel
             excel_download_data = dataframe_to_excel_download(new_df, filename="Purchase order lines V2.xlsx")
 
-            # Agregar botón de descarga
-            st.download_button(
-                label="Descargar Purchase order lines V2 en Excel",
-                data=excel_download_data,
-                file_name="Purchase order lines V2.xlsx",
-                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            )
+            with col3:
+                # Agregar botón de descarga
+                st.download_button(
+                    label="Descargar Purchase order lines V2 en Excel",
+                    data=excel_download_data,
+                    file_name="Purchase order lines V2.xlsx",
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                )
         st.markdown("### Totales de factura comercial")
         invoice_total_lines = extract_invoice_data(contenido_pdf)    
         st.write(invoice_total_lines)
