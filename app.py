@@ -21,7 +21,7 @@ from streamlit_lottie import st_lottie
 
 #import SessionState
 #from session_state import get_state, SessionState
-
+from streamlit.state.session_state import SessionState
 
 st.set_page_config(page_title="Impo Auto App", layout="wide")
 
