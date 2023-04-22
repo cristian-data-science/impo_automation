@@ -24,6 +24,7 @@ st.set_page_config(page_title="Impo Auto App", layout="wide")
 
 #variables globales
 ias_df_sum_global = None
+variables_reset = False
 
 def load_lottie_url(url: str):
     r = requests.get(url)
@@ -40,6 +41,7 @@ def reset_variables():
     invoice_total_lines = None
     total_adjustment_sum = None
     sku_df = pd.DataFrame(columns=['po', 'Style', 'Color', 'Size', 'sku', 'Qty', 'Unit Cost'])
+    variables_reset = True
 
 def main():
     col1 = st.sidebar
@@ -98,39 +100,35 @@ def show_carga_de_datos(col1, col2):
     global ias_df_sum_global
     with col1:
         st.sidebar.markdown("Carga de facturas en pdf e international account sales en excel")
-
-    # Almacenar los archivos subidos en la sesión
-    if "upload_ias" not in st.session_state:
-        st.session_state.upload_ias = None
-    if "upload_facturas" not in st.session_state:
-        st.session_state.upload_facturas = None
-
+    
     loti1 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
     lot1 = load_lottie_url(loti1)
     with col1:
-        st_lottie(lot1, key="loti1", height=200, width=280)
+        st_lottie(lot1, key="loti1", height=200, width=280)    
 
     with col2:
         st.markdown("### Carga de datos")
-        col_ias, col_facturas = st.columns(2)
+        col_ias,col_facturas  = st.columns(2)
         pdf_bytes = None
 
         with col_ias:
-            st.session_state.upload_ias = st.file_uploader("Subir IAS", type=["xls", "xlsx", "csv"], key="pdf", help="Cargue el archivo IAS en formato Excel o CSV.")
-            if st.session_state.upload_ias:
+            upload_ias = st.file_uploader("Subir IAS", type=["xls", "xlsx", "csv"], key="pdf", help="Cargue el archivo IAS en formato Excel o CSV.")
+            if upload_ias:
                 try:
                     st.success("IAS subidos exitosamente.")
-                    # Leer el archivo IAS de Excel y guardar los datos en un DataFrame
-                    ias_df_sum = procesar_ias_excel(st.session_state.upload_ias)
+                    # Leer el archivo IAS de Excel y guardar los datos en un DataFrame # archivo funciones.py
+                    ias_df_sum = procesar_ias_excel(upload_ias)
                     st.session_state.ias_df_sum_global = ias_df_sum
                 except KeyError:
                     st.error("El formato del IAS no es correcto.")
+                
 
         with col_facturas:
-            st.session_state.upload_facturas = st.file_uploader("Subir facturas", type=["pdf"], accept_multiple_files=True, key="ias", help="Cargue las facturas en formato PDF.")
-            if st.session_state.upload_facturas:
+            upload_facturas = st.file_uploader("Subir facturas", type=["pdf"], accept_multiple_files=True, key="ias", help="Cargue las facturas en formato PDF.")
+            if upload_facturas:
                 st.success("Facturas subidas y unificadas correctamente.")
-                fusionar_pdfs(st.session_state.upload_facturas)
+                
+                fusionar_pdfs(upload_facturas)
                 archivo_salida = "unificado.pdf"
 
                 with open(archivo_salida, "rb") as f:
@@ -143,13 +141,6 @@ def show_carga_de_datos(col1, col2):
                 file_name="unificado.pdf",
                 mime="application/pdf"
             )
-
-        if st.button("Eliminar archivos subidos"):
-            # Eliminar archivos subidos
-            st.session_state.upload_ias = None
-            st.session_state.upload_facturas = None
-            st.success("Archivos eliminados exitosamente.")
-            lista_pre = []
             
 
             
@@ -278,111 +269,118 @@ def show_descarga_de_resultados(col1, col2):
     reset_variables()
     invoice_total_lines = None
     total_adjustment_sum = None
-    with col1:
-        st.sidebar.markdown("Purchase Order Lines y Manual Invoice")
-    
-    loti1 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
-    lot1 = load_lottie_url(loti1)
-    with col1:
-        st_lottie(lot1, key="loti1", height=200, width=280)
 
-    with col2:
-
-        # llamando a función para tener los df en este espacio 
-        sku_df = pd.DataFrame(columns=['po', 'Style', 'Color', 'Size', 'sku', 'Qty', 'Unit Cost'])
-        archivo_pdf = "unificado.pdf"
-        contenido_pdf = extraer_texto_pdf(archivo_pdf)
-        sku_matrix_sum, expanded_df = procesar_datos_pdf(contenido_pdf)
-        #print(result)
-        result = sku_matrix_sum.reset_index()
-        sku_df = sku_df.append(expanded_df, ignore_index=True)
-
-        # Botones para armar purchase order 
-        # Ingresar PAT
-        st.markdown("### Ingresar datos para construir Purchase order lines V2")
-
-        # Crear 3 columnas
-        col1, col2, col3 = st.columns(3)
-
-        # Ingresar PAT en la primera columna
-        pat = col1.text_input("Ingresar PAT:", value="PAT-")
-
-        # Estado de inventario en la segunda columna
-        status_options = ["BLOQ-RECEP", "Disponible"]
-        status = col2.radio("Estado de inventario:", status_options)
-
-        # Almacén en la tercera columna
-        warehouse_options = ["CD", "ZONAFRANCA"]
-        warehouse = col3.radio("Almacén:", warehouse_options)
+    if variables_reset:
 
 
 
-
-
-        if st.button("Generar Purchase order lines V2"):
-
-            
-            new_df = purchase_construct(sku_df, pat, status, warehouse)
-
-            # Filtrar las filas donde 'ORDEREDPURCHASEQUANTITY' no sea 0 ni vacío
-            new_df = new_df.loc[new_df['ORDEREDPURCHASEQUANTITY'] != 0].dropna(subset=['ORDEREDPURCHASEQUANTITY'])
-
-            # Muestra el nuevo DataFrame en la interfaz de Streamlit
-            st.write(new_df)
-            
-
-            summary_df = pd.DataFrame(columns=["po's a cargar", "unidades a cargar", "Costo total"])
-
-            # Calcular los valores necesarios
-            unique_po_count = new_df['CUSTOMERREFERENCE'].nunique()
-            total_units = new_df['ORDEREDPURCHASEQUANTITY'].sum()
-            
-            # Calcular el costo total multiplicando el costo por la cantidad
-            new_df['line_cost'] = new_df['ORDEREDPURCHASEQUANTITY'] * new_df['PURCHASEPRICE']
-            total_cost = new_df['line_cost'].sum()
-            new_df = new_df.drop(columns=['line_cost'])
-
-            # agregar tabla de resumen antes de descarga
-            summary_df = summary_df.append({
-                "po's a cargar": unique_po_count,
-                "unidades a cargar": total_units,
-                "Costo total": total_cost
-            }, ignore_index=True)
-            
-            # Crear datos de descarga de Excel
-            excel_download_data = dataframe_to_excel_download(new_df, filename="Purchase order lines V2.xlsx")
-
+        with col1:
+            st.sidebar.markdown("Purchase Order Lines y Manual Invoice")
         
-            # Agregar botón de descarga
-            st.download_button(
-                label="Descargar Purchase order lines V2",
-                data=excel_download_data,
-                file_name="Purchase order lines V2.xlsx",
-                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            )
-            # Mostrar el nuevo DataFrame en la aplicación
-            summary_df = summary_df.reset_index(drop=True)
-            st.markdown("### Totales de Purchase order")
-            st.write(summary_df)
+        loti1 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
+        lot1 = load_lottie_url(loti1)
+        with col1:
+            st_lottie(lot1, key="loti1", height=200, width=280)
 
-        st.markdown("### Totales de factura comercial")
-        invoice_total_lines = 0
-        invoice_total_lines = extract_invoice_data(contenido_pdf)    
-        st.write(invoice_total_lines)
-        sum_count = invoice_total_lines['Invoice_total'].sum()
-        st.markdown(f"**El total de todas las facturas es: {sum_count}**") 
+        with col2:
+
+            # llamando a función para tener los df en este espacio 
+            sku_df = pd.DataFrame(columns=['po', 'Style', 'Color', 'Size', 'sku', 'Qty', 'Unit Cost'])
+            archivo_pdf = "unificado.pdf"
+            contenido_pdf = extraer_texto_pdf(archivo_pdf)
+            sku_matrix_sum, expanded_df = procesar_datos_pdf(contenido_pdf)
+            #print(result)
+            result = sku_matrix_sum.reset_index()
+            sku_df = sku_df.append(expanded_df, ignore_index=True)
+
+            # Botones para armar purchase order 
+            # Ingresar PAT
+            st.markdown("### Ingresar datos para construir Purchase order lines V2")
+
+            # Crear 3 columnas
+            col1, col2, col3 = st.columns(3)
+
+            # Ingresar PAT en la primera columna
+            pat = col1.text_input("Ingresar PAT:", value="PAT-")
+
+            # Estado de inventario en la segunda columna
+            status_options = ["BLOQ-RECEP", "Disponible"]
+            status = col2.radio("Estado de inventario:", status_options)
+
+            # Almacén en la tercera columna
+            warehouse_options = ["CD", "ZONAFRANCA"]
+            warehouse = col3.radio("Almacén:", warehouse_options)
 
 
-        #st.warning('This is a warning', icon="⚠️")   
 
-        total_adjustment_sum = 0
-        total_adjustment_sum = invoice_total_lines['Total_adjustment'].sum()
 
-        # Comprobar si la suma es mayor a 0 y mostrar el mensaje de advertencia
-        if total_adjustment_sum > 0:
-            st.warning('⚠️ Hay handlings fees en las facturas comerciales')
-        else:
-            st.info(f"""No hay handlings fees asociados a las facturas""")
-        
+
+            if st.button("Generar Purchase order lines V2"):
+
+                
+                new_df = purchase_construct(sku_df, pat, status, warehouse)
+
+                # Filtrar las filas donde 'ORDEREDPURCHASEQUANTITY' no sea 0 ni vacío
+                new_df = new_df.loc[new_df['ORDEREDPURCHASEQUANTITY'] != 0].dropna(subset=['ORDEREDPURCHASEQUANTITY'])
+
+                # Muestra el nuevo DataFrame en la interfaz de Streamlit
+                st.write(new_df)
+                
+
+                summary_df = pd.DataFrame(columns=["po's a cargar", "unidades a cargar", "Costo total"])
+
+                # Calcular los valores necesarios
+                unique_po_count = new_df['CUSTOMERREFERENCE'].nunique()
+                total_units = new_df['ORDEREDPURCHASEQUANTITY'].sum()
+                
+                # Calcular el costo total multiplicando el costo por la cantidad
+                new_df['line_cost'] = new_df['ORDEREDPURCHASEQUANTITY'] * new_df['PURCHASEPRICE']
+                total_cost = new_df['line_cost'].sum()
+                new_df = new_df.drop(columns=['line_cost'])
+
+                # agregar tabla de resumen antes de descarga
+                summary_df = summary_df.append({
+                    "po's a cargar": unique_po_count,
+                    "unidades a cargar": total_units,
+                    "Costo total": total_cost
+                }, ignore_index=True)
+                
+                # Crear datos de descarga de Excel
+                excel_download_data = dataframe_to_excel_download(new_df, filename="Purchase order lines V2.xlsx")
+
+            
+                # Agregar botón de descarga
+                st.download_button(
+                    label="Descargar Purchase order lines V2",
+                    data=excel_download_data,
+                    file_name="Purchase order lines V2.xlsx",
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                )
+                # Mostrar el nuevo DataFrame en la aplicación
+                summary_df = summary_df.reset_index(drop=True)
+                st.markdown("### Totales de Purchase order")
+                st.write(summary_df)
+
+            st.markdown("### Totales de factura comercial")
+            invoice_total_lines = 0
+            invoice_total_lines = extract_invoice_data(contenido_pdf)    
+            st.write(invoice_total_lines)
+            sum_count = invoice_total_lines['Invoice_total'].sum()
+            st.markdown(f"**El total de todas las facturas es: {sum_count}**") 
+
+
+            #st.warning('This is a warning', icon="⚠️")   
+
+            total_adjustment_sum = 0
+            total_adjustment_sum = invoice_total_lines['Total_adjustment'].sum()
+
+            # Comprobar si la suma es mayor a 0 y mostrar el mensaje de advertencia
+            if total_adjustment_sum > 0:
+                st.warning('⚠️ Hay handlings fees en las facturas comerciales')
+            else:
+                st.info(f"""No hay handlings fees asociados a las facturas""")
+
+                
+        variables_reset = False
 if __name__ == "__main__":
     main()
