@@ -149,6 +149,7 @@ def show_carga_de_datos(col1, col2):
             st.session_state.upload_ias = None
             st.session_state.upload_facturas = None
             st.success("Archivos eliminados exitosamente.")
+            lista_pre = []
             
 
             
