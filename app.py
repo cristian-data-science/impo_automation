@@ -265,6 +265,8 @@ def show_insights(col1, col2):
 
 def show_descarga_de_resultados(col1, col2):
     reset_variables()
+    invoice_total_lines = None
+    total_adjustment_sum = None
     with col1:
         st.sidebar.markdown("Purchase Order Lines y Manual Invoice")
     
