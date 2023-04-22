@@ -37,6 +37,7 @@ def reset_variables():
     global invoice_total_lines
     global total_adjustment_sum
     global sku_df
+    global variables_reset
     ias_df_sum_global = None
     invoice_total_lines = None
     total_adjustment_sum = None
@@ -380,7 +381,7 @@ def show_descarga_de_resultados(col1, col2):
             else:
                 st.info(f"""No hay handlings fees asociados a las facturas""")
 
-                
+
         variables_reset = False
 if __name__ == "__main__":
     main()
