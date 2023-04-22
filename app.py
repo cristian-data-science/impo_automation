@@ -24,7 +24,6 @@ st.set_page_config(page_title="Impo Auto App", layout="wide")
 
 #variables globales
 ias_df_sum_global = None
-variables_reset = False
 
 def load_lottie_url(url: str):
     r = requests.get(url)
@@ -33,16 +32,10 @@ def load_lottie_url(url: str):
     return r.json()
 
 def reset_variables():
-    global ias_df_sum_global
     global invoice_total_lines
     global total_adjustment_sum
-    global sku_df
-    global variables_reset
-    ias_df_sum_global = None
     invoice_total_lines = None
     total_adjustment_sum = None
-    sku_df = pd.DataFrame(columns=['po', 'Style', 'Color', 'Size', 'sku', 'Qty', 'Unit Cost'])
-    variables_reset = True
 
 def main():
     col1 = st.sidebar
@@ -101,7 +94,7 @@ def show_carga_de_datos(col1, col2):
     global ias_df_sum_global
     with col1:
         st.sidebar.markdown("Carga de facturas en pdf e international account sales en excel")
-    
+
     loti1 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
     lot1 = load_lottie_url(loti1)
     with col1:
@@ -268,100 +261,92 @@ def show_insights(col1, col2):
 
 def show_descarga_de_resultados(col1, col2):
     reset_variables()
-    invoice_total_lines = None
-    total_adjustment_sum = None
-    variables_reset = True
+    with col1:
+        st.sidebar.markdown("Purchase Order Lines y Manual Invoice")
+    
+    loti1 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
+    lot1 = load_lottie_url(loti1)
+    with col1:
+        st_lottie(lot1, key="loti1", height=200, width=280)
 
-    if variables_reset:
+    with col2:
 
+        # llamando a función para tener los df en este espacio 
+        sku_df = pd.DataFrame(columns=['po', 'Style', 'Color', 'Size', 'sku', 'Qty', 'Unit Cost'])
+        archivo_pdf = "unificado.pdf"
+        contenido_pdf = extraer_texto_pdf(archivo_pdf)
+        sku_matrix_sum, expanded_df = procesar_datos_pdf(contenido_pdf)
+        #print(result)
+        result = sku_matrix_sum.reset_index()
+        sku_df = sku_df.append(expanded_df, ignore_index=True)
 
+        # Botones para armar purchase order 
+        # Ingresar PAT
+        st.markdown("### Ingresar datos para construir Purchase order lines V2")
 
-        with col1:
-            st.sidebar.markdown("Purchase Order Lines y Manual Invoice")
-        
-        loti1 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
-        lot1 = load_lottie_url(loti1)
-        with col1:
-            st_lottie(lot1, key="loti1", height=200, width=280)
+        # Crear 3 columnas
+        col1, col2, col3 = st.columns(3)
 
-        with col2:
+        # Ingresar PAT en la primera columna
+        pat = col1.text_input("Ingresar PAT:", value="PAT-")
 
-            # llamando a función para tener los df en este espacio 
-            sku_df = pd.DataFrame(columns=['po', 'Style', 'Color', 'Size', 'sku', 'Qty', 'Unit Cost'])
-            archivo_pdf = "unificado.pdf"
-            contenido_pdf = extraer_texto_pdf(archivo_pdf)
-            sku_matrix_sum, expanded_df = procesar_datos_pdf(contenido_pdf)
-            #print(result)
-            result = sku_matrix_sum.reset_index()
-            sku_df = sku_df.append(expanded_df, ignore_index=True)
+        # Estado de inventario en la segunda columna
+        status_options = ["BLOQ-RECEP", "Disponible"]
+        status = col2.radio("Estado de inventario:", status_options)
 
-            # Botones para armar purchase order 
-            # Ingresar PAT
-            st.markdown("### Ingresar datos para construir Purchase order lines V2")
-
-            # Crear 3 columnas
-            col1, col2, col3 = st.columns(3)
-
-            # Ingresar PAT en la primera columna
-            pat = col1.text_input("Ingresar PAT:", value="PAT-")
-
-            # Estado de inventario en la segunda columna
-            status_options = ["BLOQ-RECEP", "Disponible"]
-            status = col2.radio("Estado de inventario:", status_options)
-
-            # Almacén en la tercera columna
-            warehouse_options = ["CD", "ZONAFRANCA"]
-            warehouse = col3.radio("Almacén:", warehouse_options)
+        # Almacén en la tercera columna
+        warehouse_options = ["CD", "ZONAFRANCA"]
+        warehouse = col3.radio("Almacén:", warehouse_options)
 
 
 
 
 
-            if st.button("Generar Purchase order lines V2"):
-
-                
-                new_df = purchase_construct(sku_df, pat, status, warehouse)
-
-                # Filtrar las filas donde 'ORDEREDPURCHASEQUANTITY' no sea 0 ni vacío
-                new_df = new_df.loc[new_df['ORDEREDPURCHASEQUANTITY'] != 0].dropna(subset=['ORDEREDPURCHASEQUANTITY'])
-
-                # Muestra el nuevo DataFrame en la interfaz de Streamlit
-                st.write(new_df)
-                
-
-                summary_df = pd.DataFrame(columns=["po's a cargar", "unidades a cargar", "Costo total"])
-
-                # Calcular los valores necesarios
-                unique_po_count = new_df['CUSTOMERREFERENCE'].nunique()
-                total_units = new_df['ORDEREDPURCHASEQUANTITY'].sum()
-                
-                # Calcular el costo total multiplicando el costo por la cantidad
-                new_df['line_cost'] = new_df['ORDEREDPURCHASEQUANTITY'] * new_df['PURCHASEPRICE']
-                total_cost = new_df['line_cost'].sum()
-                new_df = new_df.drop(columns=['line_cost'])
-
-                # agregar tabla de resumen antes de descarga
-                summary_df = summary_df.append({
-                    "po's a cargar": unique_po_count,
-                    "unidades a cargar": total_units,
-                    "Costo total": total_cost
-                }, ignore_index=True)
-                
-                # Crear datos de descarga de Excel
-                excel_download_data = dataframe_to_excel_download(new_df, filename="Purchase order lines V2.xlsx")
+        if st.button("Generar Purchase order lines V2"):
 
             
-                # Agregar botón de descarga
-                st.download_button(
-                    label="Descargar Purchase order lines V2",
-                    data=excel_download_data,
-                    file_name="Purchase order lines V2.xlsx",
-                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                )
-                # Mostrar el nuevo DataFrame en la aplicación
-                summary_df = summary_df.reset_index(drop=True)
-                st.markdown("### Totales de Purchase order")
-                st.write(summary_df)
+            new_df = purchase_construct(sku_df, pat, status, warehouse)
+
+            # Filtrar las filas donde 'ORDEREDPURCHASEQUANTITY' no sea 0 ni vacío
+            new_df = new_df.loc[new_df['ORDEREDPURCHASEQUANTITY'] != 0].dropna(subset=['ORDEREDPURCHASEQUANTITY'])
+
+            # Muestra el nuevo DataFrame en la interfaz de Streamlit
+            st.write(new_df)
+            
+
+            summary_df = pd.DataFrame(columns=["po's a cargar", "unidades a cargar", "Costo total"])
+
+            # Calcular los valores necesarios
+            unique_po_count = new_df['CUSTOMERREFERENCE'].nunique()
+            total_units = new_df['ORDEREDPURCHASEQUANTITY'].sum()
+            
+            # Calcular el costo total multiplicando el costo por la cantidad
+            new_df['line_cost'] = new_df['ORDEREDPURCHASEQUANTITY'] * new_df['PURCHASEPRICE']
+            total_cost = new_df['line_cost'].sum()
+            new_df = new_df.drop(columns=['line_cost'])
+
+            # agregar tabla de resumen antes de descarga
+            summary_df = summary_df.append({
+                "po's a cargar": unique_po_count,
+                "unidades a cargar": total_units,
+                "Costo total": total_cost
+            }, ignore_index=True)
+            
+            # Crear datos de descarga de Excel
+            excel_download_data = dataframe_to_excel_download(new_df, filename="Purchase order lines V2.xlsx")
+
+        
+            # Agregar botón de descarga
+            st.download_button(
+                label="Descargar Purchase order lines V2",
+                data=excel_download_data,
+                file_name="Purchase order lines V2.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            )
+            # Mostrar el nuevo DataFrame en la aplicación
+            summary_df = summary_df.reset_index(drop=True)
+            st.markdown("### Totales de Purchase order")
+            st.write(summary_df)
 
             st.markdown("### Totales de factura comercial")
             invoice_total_lines = 0
@@ -381,8 +366,6 @@ def show_descarga_de_resultados(col1, col2):
                 st.warning('⚠️ Hay handlings fees en las facturas comerciales')
             else:
                 st.info(f"""No hay handlings fees asociados a las facturas""")
-
-
-        variables_reset = False
+        
 if __name__ == "__main__":
     main()
