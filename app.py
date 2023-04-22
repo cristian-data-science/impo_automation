@@ -91,14 +91,13 @@ def show_home(col1, col2):
 
 def show_carga_de_datos(col1, col2):
     reset_variables()
-    global ias_df_sum_global
     with col1:
         st.sidebar.markdown("Carga de facturas en pdf e international account sales en excel")
 
     loti1 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
     lot1 = load_lottie_url(loti1)
     with col1:
-        st_lottie(lot1, key="loti1", height=200, width=280)    
+        st_lottie(lot1, key="loti1", height=200, width=280)
 
     with col2:
         st.markdown("### Carga de datos")
@@ -106,32 +105,33 @@ def show_carga_de_datos(col1, col2):
         pdf_bytes = None
 
         with col_ias:
+            session = SessionState.get(upload_ias=None)
             upload_ias = st.file_uploader("Subir IAS", type=["xls", "xlsx", "csv"], key="pdf", help="Cargue el archivo IAS en formato Excel o CSV.")
             if upload_ias:
                 try:
                     st.success("IAS subidos exitosamente.")
                     # Leer el archivo IAS de Excel y guardar los datos en un DataFrame # archivo funciones.py
                     ias_df_sum = procesar_ias_excel(upload_ias)
-                    st.session_state.ias_df_sum_global = ias_df_sum
+                    session.upload_ias = ias_df_sum
                 except KeyError:
                     st.error("El formato del IAS no es correcto.")
-                
 
         with col_facturas:
+            session = SessionState.get(upload_facturas=None)
             upload_facturas = st.file_uploader("Subir facturas", type=["pdf"], accept_multiple_files=True, key="ias", help="Cargue las facturas en formato PDF.")
             if upload_facturas:
                 st.success("Facturas subidas y unificadas correctamente.")
-                
                 fusionar_pdfs(upload_facturas)
                 archivo_salida = "unificado.pdf"
 
                 with open(archivo_salida, "rb") as f:
                     pdf_bytes = f.read()
+                session.upload_facturas = pdf_bytes
 
-        if pdf_bytes:
+        if session.upload_ias and session.upload_facturas:
             st.download_button(
                 label="Descargar unificado.pdf",
-                data=pdf_bytes,
+                data=session.upload_facturas,
                 file_name="unificado.pdf",
                 mime="application/pdf"
             )
@@ -299,9 +299,6 @@ def show_descarga_de_resultados(col1, col2):
                 # Almacén en la tercera columna
                 warehouse_options = ["CD", "ZONAFRANCA"]
                 warehouse = col3.radio("Almacén:", warehouse_options)
-
-
-
 
 
                 if st.button("Generar Purchase order lines V2"):
