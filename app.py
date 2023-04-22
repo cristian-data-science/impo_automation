@@ -367,6 +367,7 @@ def show_descarga_de_resultados(col1, col2):
                     st.warning('⚠️ Hay handlings fees en las facturas comerciales')
                 else:
                     st.info(f"""No hay handlings fees asociados a las facturas""")
-        
+        else:
+            st.warning('No se encontró contenido en el archivo PDF.') # Mensaje de advertencia en caso de que no se encuentre contenido en el archivo PDF.
 if __name__ == "__main__":
     main()
