@@ -359,7 +359,7 @@ def show_descarga_de_resultados(col1, col2):
             #st.warning('This is a warning', icon="⚠️")   
 
             total_adjustment_sum = 0
-            total_adjustment_sum = invoice_total_lines['Total_adjustment'].sum()
+            total_adjustment_sum = round(invoice_total_lines['Total_adjustment'].sum(), 2)
 
             # Comprobar si la suma es mayor a 0 y mostrar el mensaje de advertencia
             if total_adjustment_sum > 0:
