@@ -352,7 +352,7 @@ def show_descarga_de_resultados(col1, col2):
             invoice_total_lines = 0
             invoice_total_lines = extract_invoice_data(contenido_pdf)    
             st.write(invoice_total_lines)
-            sum_count = invoice_total_lines['Invoice_total'].sum()
+            sum_count = round(invoice_total_lines['Invoice_total'].sum(), 2)
             st.markdown(f"**El total de todas las facturas es: {sum_count}**") 
 
 
