@@ -99,6 +99,9 @@ def show_carga_de_datos(col1, col2):
     with col1:
         st.sidebar.markdown("Carga de facturas en pdf e international account sales en excel")
 
+    if st.button("Eliminar archivos subidos"):
+        reset_variables()
+
     loti1 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
     lot1 = load_lottie_url(loti1)
     with col1:
