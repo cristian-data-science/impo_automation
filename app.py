@@ -274,9 +274,9 @@ def show_descarga_de_resultados(col1, col2):
         # llamando a función para tener los df en este espacio 
         sku_df = pd.DataFrame(columns=['po', 'Style', 'Color', 'Size', 'sku', 'Qty', 'Unit Cost'])
         archivo_pdf = "unificado.pdf"
-        
+        contenido_pdf = extraer_texto_pdf(archivo_pdf)
         if contenido_pdf:  # Verificando si contenido_pdf tiene datos antes de procesarlos
-            contenido_pdf = extraer_texto_pdf(archivo_pdf)
+            
             sku_matrix_sum, expanded_df = procesar_datos_pdf(contenido_pdf)
             #print(result)
             result = sku_matrix_sum.reset_index()
