@@ -99,37 +99,38 @@ def show_carga_de_datos(col1, col2):
     with col1:
         st.sidebar.markdown("Carga de facturas en pdf e international account sales en excel")
 
-    if st.button("Eliminar archivos subidos"):
-        reset_variables()
+    # Almacenar los archivos subidos en la sesión
+    if "upload_ias" not in st.session_state:
+        st.session_state.upload_ias = None
+    if "upload_facturas" not in st.session_state:
+        st.session_state.upload_facturas = None
 
     loti1 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
     lot1 = load_lottie_url(loti1)
     with col1:
-        st_lottie(lot1, key="loti1", height=200, width=280)    
+        st_lottie(lot1, key="loti1", height=200, width=280)
 
     with col2:
         st.markdown("### Carga de datos")
-        col_ias,col_facturas  = st.columns(2)
+        col_ias, col_facturas = st.columns(2)
         pdf_bytes = None
 
         with col_ias:
-            upload_ias = st.file_uploader("Subir IAS", type=["xls", "xlsx", "csv"], key="pdf", help="Cargue el archivo IAS en formato Excel o CSV.")
-            if upload_ias:
+            st.session_state.upload_ias = st.file_uploader("Subir IAS", type=["xls", "xlsx", "csv"], key="pdf", help="Cargue el archivo IAS en formato Excel o CSV.")
+            if st.session_state.upload_ias:
                 try:
                     st.success("IAS subidos exitosamente.")
-                    # Leer el archivo IAS de Excel y guardar los datos en un DataFrame # archivo funciones.py
-                    ias_df_sum = procesar_ias_excel(upload_ias)
+                    # Leer el archivo IAS de Excel y guardar los datos en un DataFrame
+                    ias_df_sum = procesar_ias_excel(st.session_state.upload_ias)
                     st.session_state.ias_df_sum_global = ias_df_sum
                 except KeyError:
                     st.error("El formato del IAS no es correcto.")
-                
 
         with col_facturas:
-            upload_facturas = st.file_uploader("Subir facturas", type=["pdf"], accept_multiple_files=True, key="ias", help="Cargue las facturas en formato PDF.")
-            if upload_facturas:
+            st.session_state.upload_facturas = st.file_uploader("Subir facturas", type=["pdf"], accept_multiple_files=True, key="ias", help="Cargue las facturas en formato PDF.")
+            if st.session_state.upload_facturas:
                 st.success("Facturas subidas y unificadas correctamente.")
-                
-                fusionar_pdfs(upload_facturas)
+                fusionar_pdfs(st.session_state.upload_facturas)
                 archivo_salida = "unificado.pdf"
 
                 with open(archivo_salida, "rb") as f:
@@ -142,6 +143,12 @@ def show_carga_de_datos(col1, col2):
                 file_name="unificado.pdf",
                 mime="application/pdf"
             )
+
+        if st.button("Eliminar archivos subidos"):
+            # Eliminar archivos subidos
+            st.session_state.upload_ias = None
+            st.session_state.upload_facturas = None
+            st.success("Archivos eliminados exitosamente.")
             
 
             
