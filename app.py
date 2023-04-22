@@ -32,10 +32,14 @@ def load_lottie_url(url: str):
     return r.json()
 
 def reset_variables():
+    global ias_df_sum_global
     global invoice_total_lines
     global total_adjustment_sum
+    global sku_df
+    ias_df_sum_global = None
     invoice_total_lines = None
     total_adjustment_sum = None
+    sku_df = pd.DataFrame(columns=['po', 'Style', 'Color', 'Size', 'sku', 'Qty', 'Unit Cost'])
 
 def main():
     col1 = st.sidebar
