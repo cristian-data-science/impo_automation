@@ -1,7 +1,7 @@
 streamlit-option-menu
 plotly
 bs4
-pandas
+pandas==2.0
 matplotlib
 pytz
 pyxlsb 
