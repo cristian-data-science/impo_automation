@@ -166,7 +166,11 @@ def show_insights(col1, col2):
         sku_matrix_sum, expanded_df = procesar_datos_pdf(contenido_pdf)
         #print(result)
         result = sku_matrix_sum.reset_index()
-        sku_df = sku_df.append(expanded_df, ignore_index=True)
+
+        #sku_df = sku_df.append(expanded_df, ignore_index=True)
+        # cambiar append por concat para evitar warnings en consola
+
+        sku_df = pd.concat([sku_df, expanded_df], ignore_index=True)
         #AgGrid(result)
 
         ias_df_sum = st.session_state.ias_df_sum_global
@@ -280,7 +284,10 @@ def show_descarga_de_resultados(col1, col2):
                 sku_matrix_sum, expanded_df = procesar_datos_pdf(contenido_pdf)
                 #print(result)
                 result = sku_matrix_sum.reset_index()
-                sku_df = sku_df.append(expanded_df, ignore_index=True)
+
+                #sku_df = sku_df.append(expanded_df, ignore_index=True)
+                #cambiar append por concat
+                sku_df = pd.concat([sku_df, expanded_df], ignore_index=True)
 
                 # Botones para armar purchase order 
                 # Ingresar PAT
