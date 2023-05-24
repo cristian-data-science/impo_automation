@@ -68,7 +68,7 @@ def main():
         show_descarga_de_resultados(col1, col2)
 
     if selected == "Envío de PL a EIT":
-        show_envio_de_PL_a_EIT(col1, col2, new_df)
+        show_envio_de_PL_a_EIT(col1, col2)
 
     hide_st_style = """
                 <style>
