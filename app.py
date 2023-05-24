@@ -47,10 +47,9 @@ def main():
     """)
 
     with st.sidebar:
-
-        selected = option_menu("Main Menu", ["Home", 'Carga de datos', 'Insights', 'Descarga de resultados'],
-                               icons=['house', 'bi bi-upload', 'bi bi-file-bar-graph', 'bi bi-download'],
-                               menu_icon="cast", default_index=0)
+        selected = option_menu("Main Menu", ["Home", 'Carga de datos', 'Insights', 'Descarga de resultados', 'Envío de PL a EIT'],
+                           icons=['house', 'bi bi-upload', 'bi bi-file-bar-graph', 'bi bi-download', 'bi bi-arrow-right-circle'],
+                           menu_icon="cast", default_index=0)
 
 
     if "ias_df_sum_global" not in st.session_state:
