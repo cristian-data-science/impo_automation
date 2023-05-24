@@ -378,7 +378,7 @@ def show_descarga_de_resultados(col1, col2):
             st.warning("El archivo PDF no se encontró. Cargue un archivo PDF para continuar.")
 
 
-def show_envio_de_PL_a_EIT(col1, col2, new_df):
+def show_envio_de_PL_a_EIT(col1, col2):
     with col1:
         st.sidebar.markdown("Envío de PL a EIT")
 
