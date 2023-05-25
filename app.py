@@ -501,11 +501,11 @@ def show_envio_de_PL_a_EIT(col1, col2):
                         # database = gc.create("PL_Patagonia")
                         # database.share('cgutierrez.infor@gmail.com', perm_type='user', role='writer')
 
-                        database = gc.open("PL_Patagonia")
-                        wks = database.worksheet("PL")
+                        spreadsheetname = "PL_Patagonia"
+                        spread = Spread(spreadsheetname,client = client)
 
-                        # Exportar el DataFrame new_df3 a la hoja de cálculo
-                        wks.update([new_df3.columns.values.tolist()] + new_df3.values.tolist())
+                        # Check the connection
+                        st.write(spread.url)
 
                     
 
