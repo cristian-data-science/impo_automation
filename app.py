@@ -65,8 +65,14 @@ def main():
     if selected == "Insights" and st.session_state.ias_df_sum_global is not None:
         show_insights(col1, col2)
 
-    if selected == "Descarga de resultados":
+    if option == 'Descarga de resultados':
         show_descarga_de_resultados(col1, col2)
+    elif option == 'Envío de PL a EIT':
+        # Comprueba si new_df está vacío antes de permitir que se ejecute `show_envio_de_PL_a_EIT`
+        if not new_df.empty:
+            show_envio_de_PL_a_EIT(col1, col2)
+        else:
+            st.sidebar.warning("Por favor, complete primero la 'Descarga de resultados' antes de proceder a 'Envío de PL a EIT'")
 
     if selected == "Envío de PL a EIT":
         show_envio_de_PL_a_EIT(col1, col2)
