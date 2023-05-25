@@ -454,6 +454,10 @@ def show_envio_de_PL_a_EIT(col1, col2):
                     # Agregar columna de observación con el valor de la variable obs
                     new_df3['Observación'] = obs
 
+                    new_df3.drop(columns=['ITEMNUMBER', 'PRODUCTCOLORID', 'PRODUCTSIZEID'], inplace=True)
+                    new_df3 = new_df3[['PO', 'Nº Despacho', 'Artículo', 'Solicitado', 'Observación']]
+
+
                     # Muestra el nuevo DataFrame en la interfaz de Streamlit
                     st.write(new_df3)
 
