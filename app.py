@@ -473,6 +473,31 @@ def show_envio_de_PL_a_EIT(col1, col2):
                     dispatch_number = new_df3['Nº Despacho'].unique()[0]
                     st.write(f'El número de despacho es {dispatch_number}.')
 
+                    import gspread
+                    import pandas as pd
+                    from oauth2client.service_account import ServiceAccountCredentials
+
+                    # Setting up with the connection
+                    # The json file downloaded needs to be in the same folder
+
+                    scope = ['https://www.googleapis.com/auth/spreadsheets',
+                            "https://www.googleapis.com/auth/drive"]
+
+                    credentials = ServiceAccountCredentials.from_json_keyfile_name("drive-token.json", scope)
+
+                    gc = gspread.authorize(credentials)
+                    # Establish the connection
+                    # database is the googleSpreadSheet name
+
+                    database = gc.create("PL_Patagonia")
+                    database.share('cgutierrez.infor@gmail.com', perm_type='user', role='writer')
+
+                    database = gc.open("PL_Patagonia")
+                    wks = database.worksheet("PL")
+
+
+                    # export df to a sheet
+                    wks.update([new_df3.columns.values.tolist()] + df.values.tolist())
 
 
         except FileNotFoundError:
