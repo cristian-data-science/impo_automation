@@ -480,28 +480,35 @@ def show_envio_de_PL_a_EIT(col1, col2):
                     # Setting up with the connection
                     # The json file downloaded needs to be in the same folder
 
-                    scope = ['https://www.googleapis.com/auth/spreadsheets',
-                            "https://www.googleapis.com/auth/drive"]
+                    if st.button("Publicar"):
+                        # Código para generar el DataFrame new_df3 y realizar los cálculos previos
+                        
+                        # Setting up with the connection
+                        # The json file downloaded needs to be in the same folder
 
-                    credentials = ServiceAccountCredentials.from_json_keyfile_name("drive-token.json", scope)
+                        scope = ['https://www.googleapis.com/auth/spreadsheets',
+                                'https://www.googleapis.com/auth/drive']
 
-                    gc = gspread.authorize(credentials)
-                    # Establish the connection
-                    # database is the googleSpreadSheet name
+                        credentials = ServiceAccountCredentials.from_json_keyfile_name('drive-token.json', scope)
 
-                    #database = gc.create("PL_Patagonia")
-                    #database.share('cgutierrez.infor@gmail.com', perm_type='user', role='writer')
+                        gc = gspread.authorize(credentials)
+                        # Establish the connection
+                        # database is the googleSpreadSheet name
 
-                    database = gc.open("PL_Patagonia")
-                    wks = database.worksheet("PL")
+                        # database = gc.create("PL_Patagonia")
+                        # database.share('cgutierrez.infor@gmail.com', perm_type='user', role='writer')
 
+                        database = gc.open("PL_Patagonia")
+                        wks = database.worksheet("PL")
 
-                    # export df to a sheet
-                    wks.update([new_df3.columns.values.tolist()] + new_df3.values.tolist())
+                        # Exportar el DataFrame new_df3 a la hoja de cálculo
+                        wks.update([new_df3.columns.values.tolist()] + new_df3.values.tolist())
+
+                    
 
 
         except FileNotFoundError:
-            st.warning("El archivo PDF no se encontró. Cargue un archivo PDF para continuar.")
+            st.warning("Revisar la infor antes de continuar.")
 
 if __name__ == "__main__":
     main()
