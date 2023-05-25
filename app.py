@@ -510,6 +510,7 @@ def show_envio_de_PL_a_EIT(col1, col2):
 
                         # Check the connection
                         st.write(spread.url)
+                        new_df3
 
                     
 
