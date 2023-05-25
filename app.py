@@ -65,14 +65,8 @@ def main():
     if selected == "Insights" and st.session_state.ias_df_sum_global is not None:
         show_insights(col1, col2)
 
-    if selected == 'Descarga de resultados':
+    if selected == "Descarga de resultados":
         show_descarga_de_resultados(col1, col2)
-    elif selected == 'Envío de PL a EIT':
-        # Comprueba si new_df está vacío antes de permitir que se ejecute `show_envio_de_PL_a_EIT`
-        if not new_df.empty:
-            show_envio_de_PL_a_EIT(col1, col2)
-        else:
-            st.sidebar.warning("Por favor, complete primero la 'Descarga de resultados' antes de proceder a 'Envío de PL a EIT'")
 
     if selected == "Envío de PL a EIT":
         show_envio_de_PL_a_EIT(col1, col2)
@@ -407,6 +401,49 @@ def show_envio_de_PL_a_EIT(col1, col2):
             # Aquí puede agregar código para enviar new_df a EIT
             st.success("PL enviado a EIT exitosamente.")
 
+
+        sku_df = pd.DataFrame(columns=['po', 'Style', 'Color', 'Size', 'sku', 'Qty', 'Unit Cost'])
+        archivo_pdf = "unificado.pdf"
+        try:
+            contenido_pdf = extraer_texto_pdf(archivo_pdf)
+            if contenido_pdf:  # Verificando si contenido_pdf tiene datos antes de procesarlos
+                sku_matrix_sum, expanded_df = procesar_datos_pdf(contenido_pdf)
+                #print(result)
+                result = sku_matrix_sum.reset_index()
+
+                #sku_df = sku_df.append(expanded_df, ignore_index=True)
+                #cambiar append por concat
+                sku_df = pd.concat([sku_df, expanded_df], ignore_index=True)
+
+                # Botones para armar purchase order 
+                # Ingresar PAT
+                st.markdown("### Ingresar datos para construir Purchase order lines V2")
+
+                # Crear 3 columnas
+                col1, col2, col3 = st.columns(3)
+
+                # Ingresar PAT en la primera columna
+                pat = col1.text_input("Ingresar PAT:", value="PAT-")
+
+                # Estado de inventario en la segunda columna
+                status_options = ["BLOQ-RECEP", "Disponible"]
+                status = col2.radio("Estado de inventario:", status_options)
+
+                # Almacén en la tercera columna
+                warehouse_options = ["CD", "ZONAFRANCA"]
+                warehouse = col3.radio("Almacén:", warehouse_options)
+
+
+                if st.button("Generar Purchase order lines V2"):
+
+                    global new_df
+                    new_df = purchase_construct(sku_df, pat, status, warehouse)
+
+                    # Filtrar las filas donde 'ORDEREDPURCHASEQUANTITY' no sea 0 ni vacío
+                    new_df = new_df.loc[new_df['ORDEREDPURCHASEQUANTITY'] != 0].dropna(subset=['ORDEREDPURCHASEQUANTITY'])
+
+                    # Muestra el nuevo DataFrame en la interfaz de Streamlit
+                    st.write(new_df)
 
 
 
