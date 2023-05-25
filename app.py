@@ -9,6 +9,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import base64
 import io
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
 
 from funciones import *
@@ -473,9 +475,7 @@ def show_envio_de_PL_a_EIT(col1, col2):
                     dispatch_number = new_df3['Nº Despacho'].unique()[0]
                     st.write(f'El número de despacho es {dispatch_number}.')
 
-                    import gspread
-                    import pandas as pd
-                    from oauth2client.service_account import ServiceAccountCredentials
+                    
 
                     # Setting up with the connection
                     # The json file downloaded needs to be in the same folder
