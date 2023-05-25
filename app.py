@@ -494,7 +494,7 @@ def show_envio_de_PL_a_EIT(col1, col2):
                         # Exportar el DataFrame new_df3 a la hoja de cálculo
                         wks.update([new_df3.columns.values.tolist()] + new_df3.values.tolist())
                     else:
-                        st.write("Por favor ingrese un número de despacho.")
+                        pass
             
         except FileotFoundError:
             st.warning("Revisar la infor antes de continuar.")
