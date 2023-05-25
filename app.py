@@ -396,6 +396,8 @@ def show_envio_de_PL_a_EIT(col1, col2):
             # Aquí puede agregar código para enviar new_df a EIT
             st.success("PL enviado a EIT exitosamente.")
 
+        st.write(new_df)
+
 
 
 if __name__ == "__main__":
