@@ -378,29 +378,24 @@ def show_descarga_de_resultados(col1, col2):
             st.warning("El archivo PDF no se encontró. Cargue un archivo PDF para continuar.")
 
 
-    def show_envio_de_PL_a_EIT(col1, col2):
+def show_envio_de_PL_a_EIT(col1, col2):
+    with col1:
+        st.sidebar.markdown("Envío de PL a EIT")
+    loti10 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
+    lot1 = load_lottie_url(loti10)
+    with col1:
+        st_lottie(lot1, key="loti10", height=200, width=280)
 
-        with col1:
-            st.sidebar.markdown("Envío de PL a EIT")
 
-        loti10 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
-        lot1 = load_lottie_url(loti10)
-        with col1:
-            st_lottie(lot1, key="loti10", height=200, width=280)
-    
-
-    
-        st.sidebar.markdown("Envío de PAcking List a EIT")
-            
-
-        with col2:
-            # Aquí puedes agregar código para interactuar con el DataFrame new_df y enviarlo a EIT
-            # Si necesitas que el usuario ingrese más datos o realice más acciones, puedes agregar más elementos de entrada aquí.
-
-            st.markdown("### Envío de PL a EIT")
-            if st.button("Enviar PL a EIT"):
-                # Aquí puede agregar código para enviar new_df a EIT
-                st.success("PL enviado a EIT exitosamente.")
+    #st.sidebar.markdown("Envío de PAcking List a EIT")
+        
+    with col2:
+        # Aquí puedes agregar código para interactuar con el DataFrame new_df y enviarlo a EIT
+        # Si necesitas que el usuario ingrese más datos o realice más acciones, puedes agregar más elementos de entrada aquí.
+        st.markdown("### Envío de PL a EIT")
+        if st.button("Enviar PL a EIT"):
+            # Aquí puede agregar código para enviar new_df a EIT
+            st.success("PL enviado a EIT exitosamente.")
 
 
 
