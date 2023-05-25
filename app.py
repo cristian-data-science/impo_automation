@@ -421,8 +421,8 @@ def show_envio_de_PL_a_EIT(col1, col2):
                 col1, col2, col3 = st.columns(3)
 
                 # Ingresar PAT en la primera columna
-                despacho= col1.text_input("Ingresar número de despacho:",)
-                obs = col2.text_input("Ingresar número de despacho:",)
+                despacho= col1.text_input("Ingresar número de despacho:", key='unique_key_1')
+                obs = col2.text_input("Ingresar número de despacho:", key='unique_key_2')
 
                 # Estado de inventario en la segunda columna
                 # Almacén en la tercera columna
