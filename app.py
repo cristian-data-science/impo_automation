@@ -445,7 +445,8 @@ def show_envio_de_PL_a_EIT(col1, col2):
                     # Muestra el nuevo DataFrame en la interfaz de Streamlit
                     st.write(new_df)
 
-
+        except FileNotFoundError:
+            st.warning("El archivo PDF no se encontró. Cargue un archivo PDF para continuar.")
 
 if __name__ == "__main__":
     main()
