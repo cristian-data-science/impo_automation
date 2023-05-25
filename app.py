@@ -380,7 +380,7 @@ def show_descarga_de_resultados(col1, col2):
     return new_df
 
 
-def show_envio_de_PL_a_EIT(col1, col2):
+def show_envio_de_PL_a_EIT(col1, col2, new_df):
     with col1:
    
         st.sidebar.markdown("Envío de Packing List a EIT")
