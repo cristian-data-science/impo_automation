@@ -490,11 +490,12 @@ def show_envio_de_PL_a_EIT(col1, col2):
                         scope = ['https://www.googleapis.com/auth/spreadsheets',
                                 'https://www.googleapis.com/auth/drive']
 
-                        credentials = ServiceAccountCredentials.from_json_keyfile_name('drive-token.json', scope)
-
+                        credentials = service_account.Credentials.from_service_account_info(
+                            st.secrets["gcp_service_account"], scopes=scope)
+                        
                         gc = gspread.authorize(credentials)
                         # Establish the connection
-                        # database is the googleSpreadSheet name
+                        # database is the Google Spreadsheet name
 
                         # database = gc.create("PL_Patagonia")
                         # database.share('cgutierrez.infor@gmail.com', perm_type='user', role='writer')
