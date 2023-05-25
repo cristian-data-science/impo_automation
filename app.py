@@ -395,11 +395,9 @@ def show_envio_de_PL_a_EIT(col1, col2):
         # Aquí puedes agregar código para interactuar con el DataFrame new_df y enviarlo a EIT
         # Si necesitas que el usuario ingrese más datos o realice más acciones, puedes agregar más elementos de entrada aquí.
         
-        print(new_df)
+
         st.markdown("### Envío de PL a EIT")
-        if st.button("Generar Packing List"):
-            # Aquí puede agregar código para enviar new_df a EIT
-            st.success("PL enviado a EIT exitosamente.")
+        
 
 
         sku_df = pd.DataFrame(columns=['po', 'Style', 'Color', 'Size', 'sku', 'Qty', 'Unit Cost'])
@@ -417,27 +415,23 @@ def show_envio_de_PL_a_EIT(col1, col2):
 
                 # Botones para armar purchase order 
                 # Ingresar PAT
-                st.markdown("### Ingresar datos para construir Purchase order lines V2")
+                st.markdown("### Ingresar número de despacho y observación")
 
                 # Crear 3 columnas
                 col1, col2, col3 = st.columns(3)
 
                 # Ingresar PAT en la primera columna
-                pat = col1.text_input("Ingresar PAT:", value="PAT-")
+                despacho= col1.text_input("Ingresar número de despacho:",)
+                obs = col2.text_input("Ingresar número de despacho:",)
 
                 # Estado de inventario en la segunda columna
-                status_options = ["BLOQ-RECEP", "Disponible"]
-                status = col2.radio("Estado de inventario:", status_options)
-
-                # Almacén en la tercera columna
-                warehouse_options = ["CD", "ZONAFRANCA"]
-                warehouse = col3.radio("Almacén:", warehouse_options)
+                
 
 
                 if st.button("Generar Purchase order lines V2"):
 
                     
-                    new_df2 = purchase_construct(sku_df, pat, status, warehouse)
+                    new_df2 = purchase_construct(sku_df, despacho, obs, warehouse)
 
                     # Filtrar las filas donde 'ORDEREDPURCHASEQUANTITY' no sea 0 ni vacío
                     new_df2 = new_df2.loc[new_df2['ORDEREDPURCHASEQUANTITY'] != 0].dropna(subset=['ORDEREDPURCHASEQUANTITY'])
