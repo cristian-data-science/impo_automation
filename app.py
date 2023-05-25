@@ -55,7 +55,7 @@ def main():
     if "ias_df_sum_global" not in st.session_state:
         st.session_state.ias_df_sum_global = None
 
-    if selected not in ["Carga de datos", "Insights", "Descarga de resultados"]:
+    if selected not in ["Carga de datos", "Insights", "Descarga de resultados","Envío de PL a EIT"]:
         show_home(col1, col2)
 
     if selected == "Carga de datos":
