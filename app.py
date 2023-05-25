@@ -24,7 +24,7 @@ st.set_page_config(page_title="Impo Auto App", layout="wide")
 
 #variables globales
 ias_df_sum_global = None
-new_df = None
+new_df = pd.DataFrame()
 
 def load_lottie_url(url: str):
     r = requests.get(url)
@@ -377,7 +377,7 @@ def show_descarga_de_resultados(col1, col2):
         
         except FileNotFoundError:
             st.warning("El archivo PDF no se encontró. Cargue un archivo PDF para continuar.")
-    return new_df
+    
     
 
 
@@ -394,7 +394,7 @@ def show_envio_de_PL_a_EIT(col1, col2):
     with col2:
         # Aquí puedes agregar código para interactuar con el DataFrame new_df y enviarlo a EIT
         # Si necesitas que el usuario ingrese más datos o realice más acciones, puedes agregar más elementos de entrada aquí.
-        new_df = show_descarga_de_resultados(col1, col2)
+        
         print(new_df)
         st.markdown("### Envío de PL a EIT")
         if st.button("Generar Packing List"):
