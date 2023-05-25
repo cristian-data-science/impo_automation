@@ -396,6 +396,11 @@ def show_envio_de_PL_a_EIT(col1, col2):
             # Aquí puede agregar código para enviar new_df a EIT
             st.success("PL enviado a EIT exitosamente.")
 
+        new_df = purchase_construct(sku_df, pat, status, warehouse)
+
+        # Filtrar las filas donde 'ORDEREDPURCHASEQUANTITY' no sea 0 ni vacío
+        new_df = new_df.loc[new_df['ORDEREDPURCHASEQUANTITY'] != 0].dropna(subset=['ORDEREDPURCHASEQUANTITY'])
+         # Muestra el nuevo DataFrame en la interfaz de Streamlit
         st.write(new_df)
 
 
