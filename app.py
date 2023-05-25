@@ -430,7 +430,7 @@ def show_envio_de_PL_a_EIT(col1, col2):
                 
                 warehouse = "N/A"
 
-
+                new_df3 = None
                 if st.button("Generar PL"):
 
                     
