@@ -377,8 +377,8 @@ def show_descarga_de_resultados(col1, col2):
         
         except FileNotFoundError:
             st.warning("El archivo PDF no se encontró. Cargue un archivo PDF para continuar.")
-
     return new_df
+    
 
 
 def show_envio_de_PL_a_EIT(col1, col2):
@@ -394,9 +394,8 @@ def show_envio_de_PL_a_EIT(col1, col2):
     with col2:
         # Aquí puedes agregar código para interactuar con el DataFrame new_df y enviarlo a EIT
         # Si necesitas que el usuario ingrese más datos o realice más acciones, puedes agregar más elementos de entrada aquí.
-        global new_df
-        
-        new_df
+        new_df = descarga_de_resultados()
+        print(new_df)
         st.markdown("### Envío de PL a EIT")
         if st.button("Generar Packing List"):
             # Aquí puede agregar código para enviar new_df a EIT
