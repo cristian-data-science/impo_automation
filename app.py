@@ -426,7 +426,7 @@ def show_envio_de_PL_a_EIT(col1, col2):
             # Almacén en la tercera columna
             
             warehouse = "N/A"
-            new_df3 = None
+           
             #
             
             new_df2 = purchase_construct(sku_df, despacho, obs, warehouse)
@@ -447,53 +447,54 @@ def show_envio_de_PL_a_EIT(col1, col2):
 
 
         try:
-            
-                # Muestra el nuevo DataFrame en la interfaz de Streamlit
-                st.write(new_df3)
-                # Cantidad de PO distintas
-                num_unique_po = new_df3['PO'].nunique()
-                st.write(f'Hay {num_unique_po} PO distintas.')
-                # Cantidad de artículos únicos
-                num_unique_articles = new_df3['Artículo'].nunique()
-                st.write(f'Hay {num_unique_articles} artículos únicos.')
-                # Cantidad total solicitada
-                total_requested = new_df3['Solicitado'].sum()
-                st.write(f'La cantidad total solicitada es {total_requested}.')
-                # Número de despacho (suponiendo que todos los registros tienen el mismo número de despacho)
-                dispatch_number = new_df3['Nº Despacho'].unique()[0]
-                st.write(f'El número de despacho es {dispatch_number}.')
-                    
-                # Setting up with the connection
-                # The json file downloaded needs to be in the same folder
-                if st.button("Publicar"):
-                    # Código para generar el DataFrame new_df3 y realizar los cálculos previos
-                    
+                if despacho.strip() != '': 
+                    # Muestra el nuevo DataFrame en la interfaz de Streamlit
+                    st.write(new_df3)
+                    # Cantidad de PO distintas
+                    num_unique_po = new_df3['PO'].nunique()
+                    st.write(f'Hay {num_unique_po} PO distintas.')
+                    # Cantidad de artículos únicos
+                    num_unique_articles = new_df3['Artículo'].nunique()
+                    st.write(f'Hay {num_unique_articles} artículos únicos.')
+                    # Cantidad total solicitada
+                    total_requested = new_df3['Solicitado'].sum()
+                    st.write(f'La cantidad total solicitada es {total_requested}.')
+                    # Número de despacho (suponiendo que todos los registros tienen el mismo número de despacho)
+                    dispatch_number = new_df3['Nº Despacho'].unique()[0]
+                    st.write(f'El número de despacho es {dispatch_number}.')
+                        
                     # Setting up with the connection
                     # The json file downloaded needs to be in the same folder
-                    import ssl
-                    ssl._create_default_https_context = ssl._create_unverified_context
-                    
-                    scope = ['https://www.googleapis.com/auth/spreadsheets',
-                            'https://www.googleapis.com/auth/drive']
-                    credentials = service_account.Credentials.from_service_account_info(
-                        st.secrets["gcp_service_account"], scopes=scope)
-                    
-                    #gc = gspread.authorize(credentials)
-                    client = Client(scope=scope,creds=credentials)
-                    # Establish the connection
-                    # database is the Google Spreadsheet name
-                    # database = gc.create("PL_Patagonia")
-                    # database.share('cgutierrez.infor@gmail.com', perm_type='user', role='writer')
-                    spreadsheetname = "PL_Patagonia"
-                    spread = Spread(spreadsheetname,client = client)
-                    # Check the connection
-                    st.write(spread.url)
-                    database = client.open("PL_Patagonia")
-                    wks = database.worksheet("PL")
-                    st.write(new_df3)
-                    ## Exportar el DataFrame new_df3 a la hoja de cálculo
-                    #wks.update([new_df3.columns.values.tolist()] + new_df3.values.tolist())
-                
+                    if st.button("Publicar"):
+                        # Código para generar el DataFrame new_df3 y realizar los cálculos previos
+                        
+                        # Setting up with the connection
+                        # The json file downloaded needs to be in the same folder
+                        import ssl
+                        ssl._create_default_https_context = ssl._create_unverified_context
+                        
+                        scope = ['https://www.googleapis.com/auth/spreadsheets',
+                                'https://www.googleapis.com/auth/drive']
+                        credentials = service_account.Credentials.from_service_account_info(
+                            st.secrets["gcp_service_account"], scopes=scope)
+                        
+                        #gc = gspread.authorize(credentials)
+                        client = Client(scope=scope,creds=credentials)
+                        # Establish the connection
+                        # database is the Google Spreadsheet name
+                        # database = gc.create("PL_Patagonia")
+                        # database.share('cgutierrez.infor@gmail.com', perm_type='user', role='writer')
+                        spreadsheetname = "PL_Patagonia"
+                        spread = Spread(spreadsheetname,client = client)
+                        # Check the connection
+                        st.write(spread.url)
+                        database = client.open("PL_Patagonia")
+                        wks = database.worksheet("PL")
+                        st.write(new_df3)
+                        ## Exportar el DataFrame new_df3 a la hoja de cálculo
+                        #wks.update([new_df3.columns.values.tolist()] + new_df3.values.tolist())
+                    else:
+                        st.write("Por favor ingrese un número de despacho.")
             
         except FileotFoundError:
             st.warning("Revisar la infor antes de continuar.")
