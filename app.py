@@ -494,7 +494,8 @@ def show_envio_de_PL_a_EIT(col1, col2):
                         credentials = service_account.Credentials.from_service_account_info(
                             st.secrets["gcp_service_account"], scopes=scope)
                         
-                        gc = gspread.authorize(credentials)
+                        #gc = gspread.authorize(credentials)
+                        client = Client(scope=scope,creds=credentials)
                         # Establish the connection
                         # database is the Google Spreadsheet name
 
