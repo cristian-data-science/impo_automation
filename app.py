@@ -24,6 +24,7 @@ st.set_page_config(page_title="Impo Auto App", layout="wide")
 
 #variables globales
 ias_df_sum_global = None
+new_df = None
 
 def load_lottie_url(url: str):
     r = requests.get(url)
@@ -312,7 +313,7 @@ def show_descarga_de_resultados(col1, col2):
 
                 if st.button("Generar Purchase order lines V2"):
 
-                    
+                    global new_df
                     new_df = purchase_construct(sku_df, pat, status, warehouse)
 
                     # Filtrar las filas donde 'ORDEREDPURCHASEQUANTITY' no sea 0 ni vacío
@@ -393,8 +394,8 @@ def show_envio_de_PL_a_EIT(col1, col2):
     with col2:
         # Aquí puedes agregar código para interactuar con el DataFrame new_df y enviarlo a EIT
         # Si necesitas que el usuario ingrese más datos o realice más acciones, puedes agregar más elementos de entrada aquí.
-
-        new_df = descarga_de_resultados()
+        global new_df
+        
         new_df
         st.markdown("### Envío de PL a EIT")
         if st.button("Generar Packing List"):
