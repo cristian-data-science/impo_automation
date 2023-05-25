@@ -488,6 +488,9 @@ def show_envio_de_PL_a_EIT(col1, col2):
                         # Setting up with the connection
                         # The json file downloaded needs to be in the same folder
 
+                        import ssl
+                        ssl._create_default_https_context = ssl._create_unverified_context
+                        
                         scope = ['https://www.googleapis.com/auth/spreadsheets',
                                 'https://www.googleapis.com/auth/drive']
 
