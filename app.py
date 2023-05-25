@@ -505,7 +505,7 @@ def show_envio_de_PL_a_EIT(col1, col2):
                     spread = Spread(spreadsheetname,client = client)
                     # Check the connection
                     st.write(spread.url)
-                    new_df3
+                    
                 
         except FileotFoundError:
             st.warning("Revisar la infor antes de continuar.")
