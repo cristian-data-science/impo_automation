@@ -425,7 +425,9 @@ def show_envio_de_PL_a_EIT(col1, col2):
                 obs = col2.text_input("Ingresar número de despacho:",)
 
                 # Estado de inventario en la segunda columna
-                
+                # Almacén en la tercera columna
+                warehouse_options = ["CD", "ZONAFRANCA"]
+                warehouse = col3.radio("Almacén:", warehouse_options)
 
 
                 if st.button("Generar Purchase order lines V2"):
