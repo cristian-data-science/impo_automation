@@ -505,6 +505,12 @@ def show_envio_de_PL_a_EIT(col1, col2):
                     spread = Spread(spreadsheetname,client = client)
                     # Check the connection
                     st.write(spread.url)
+
+                    database = gc.open("PL_Patagonia")
+                    wks = database.worksheet("PL")
+
+                    # Exportar el DataFrame new_df3 a la hoja de cálculo
+                    wks.update([new_df3.columns.values.tolist()] + new_df3.values.tolist())
                     
                 
         except FileotFoundError:
