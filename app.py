@@ -413,10 +413,6 @@ def show_envio_de_PL_a_EIT(col1, col2):
                 #cambiar append por concat
                 sku_df = pd.concat([sku_df, expanded_df], ignore_index=True)
 
-                # Botones para armar purchase order 
-                # Ingresar PAT
-                st.markdown("### Ingresar número de despacho y observación")
-
                 # Crear 3 columnas
                 col1, col2, col3 = st.columns(3)
 
