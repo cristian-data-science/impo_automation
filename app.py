@@ -380,14 +380,8 @@ def show_descarga_de_resultados(col1, col2):
 
 def show_envio_de_PL_a_EIT(col1, col2):
     with col1:
-        st.sidebar.markdown("Envío de PL a EIT")
-    loti10 = 'https://assets10.lottiefiles.com/private_files/lf30_ig1wfilw.json'
-    lot1 = load_lottie_url(loti10)
-    with col1:
-        st_lottie(lot1, key="loti10", height=200, width=280)
-
-
-    #st.sidebar.markdown("Envío de PAcking List a EIT")
+   
+        st.sidebar.markdown("Envío de PAcking List a EIT")
         
     with col2:
         # Aquí puedes agregar código para interactuar con el DataFrame new_df y enviarlo a EIT
