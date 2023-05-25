@@ -15,4 +15,4 @@ openpyxl
 seaborn
 gspread==5.9.0
 oauth2client
-gsheetsdb
+
