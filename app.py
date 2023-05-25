@@ -383,7 +383,7 @@ def show_envio_de_PL_a_EIT(col1, col2):
         st.sidebar.markdown("Envío de PL a EIT")
 
     
-    #with col1:
+    st.sidebar.markdown("Envío de PAcking List a EIT")
         
 
     with col2:
