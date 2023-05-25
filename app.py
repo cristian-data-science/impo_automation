@@ -433,35 +433,35 @@ def show_envio_de_PL_a_EIT(col1, col2):
                 new_df3 = None
                 #if st.button("Generar PL"):
                  
-                 new_df2 = purchase_construct(sku_df, despacho, obs, warehouse)
-                 # Filtrar las filas donde 'ORDEREDPURCHASEQUANTITY' no sea 0 ni vacío
-                 new_df2 = new_df2.loc[new_df2['ORDEREDPURCHASEQUANTITY'] != 0].dropna(subset=['ORDEREDPURCHASEQUANTITY'])
-                 new_df2 = new_df2[['CUSTOMERREFERENCE','ITEMNUMBER','PRODUCTCOLORID','PRODUCTSIZEID','ORDEREDPURCHASEQUANTITY']]
-                     # Crear new_df3 
-                 new_df3 = new_df2.copy()
-                 new_df3.rename(columns={'CUSTOMERREFERENCE': 'PO', 'ORDEREDPURCHASEQUANTITY': 'Solicitado'}, inplace=True)
-                 # Agregar columna "Nº Despacho" con valor estático de la variable despacho
-                 new_df3['Nº Despacho'] = despacho
-                 # Crear columna "Artículo" con la concatenación de 'ITEMNUMBER', 'PRODUCTCOLORID' y 'PRODUCTSIZEID'
-                 new_df3['Artículo'] = new_df3['ITEMNUMBER'] + new_df3['PRODUCTCOLORID'] + new_df3['PRODUCTSIZEID']
-                 # Agregar columna de observación con el valor de la variable obs
-                 new_df3['Observación'] = obs
-                 new_df3.drop(columns=['ITEMNUMBER', 'PRODUCTCOLORID', 'PRODUCTSIZEID'], inplace=True)
-                 new_df3 = new_df3[['PO', 'Nº Despacho', 'Artículo', 'Solicitado', 'Observación']]
-                 # Muestra el nuevo DataFrame en la interfaz de Streamlit
-                 st.write(new_df3)
-                 # Cantidad de PO distintas
-                 num_unique_po = new_df3['PO'].nunique()
-                 st.write(f'Hay {num_unique_po} PO distintas.')
-                 # Cantidad de artículos únicos
-                 num_unique_articles = new_df3['Artículo'].nunique()
-                 st.write(f'Hay {num_unique_articles} artículos únicos.')
-                 # Cantidad total solicitada
-                 total_requested = new_df3['Solicitado'].sum()
-                 st.write(f'La cantidad total solicitada es {total_requested}.')
-                 # Número de despacho (suponiendo que todos los registros tienen el mismo número de despacho)
-                 dispatch_number = new_df3['Nº Despacho'].unique()[0]
-                 st.write(f'El número de despacho es {dispatch_number}.')
+                new_df2 = purchase_construct(sku_df, despacho, obs, warehouse)
+                # Filtrar las filas donde 'ORDEREDPURCHASEQUANTITY' no sea 0 ni vacío
+                new_df2 = new_df2.loc[new_df2['ORDEREDPURCHASEQUANTITY'] != 0].dropna(subset=['ORDEREDPURCHASEQUANTITY'])
+                new_df2 = new_df2[['CUSTOMERREFERENCE','ITEMNUMBER','PRODUCTCOLORID','PRODUCTSIZEID','ORDEREDPURCHASEQUANTITY']]
+                    # Crear new_df3 
+                new_df3 = new_df2.copy()
+                new_df3.rename(columns={'CUSTOMERREFERENCE': 'PO', 'ORDEREDPURCHASEQUANTITY': 'Solicitado'}, inplace=True)
+                # Agregar columna "Nº Despacho" con valor estático de la variable despacho
+                new_df3['Nº Despacho'] = despacho
+                # Crear columna "Artículo" con la concatenación de 'ITEMNUMBER', 'PRODUCTCOLORID' y 'PRODUCTSIZEID'
+                new_df3['Artículo'] = new_df3['ITEMNUMBER'] + new_df3['PRODUCTCOLORID'] + new_df3['PRODUCTSIZEID']
+                # Agregar columna de observación con el valor de la variable obs
+                new_df3['Observación'] = obs
+                new_df3.drop(columns=['ITEMNUMBER', 'PRODUCTCOLORID', 'PRODUCTSIZEID'], inplace=True)
+                new_df3 = new_df3[['PO', 'Nº Despacho', 'Artículo', 'Solicitado', 'Observación']]
+                # Muestra el nuevo DataFrame en la interfaz de Streamlit
+                st.write(new_df3)
+                # Cantidad de PO distintas
+                num_unique_po = new_df3['PO'].nunique()
+                st.write(f'Hay {num_unique_po} PO distintas.')
+                # Cantidad de artículos únicos
+                num_unique_articles = new_df3['Artículo'].nunique()
+                st.write(f'Hay {num_unique_articles} artículos únicos.')
+                # Cantidad total solicitada
+                total_requested = new_df3['Solicitado'].sum()
+                st.write(f'La cantidad total solicitada es {total_requested}.')
+                # Número de despacho (suponiendo que todos los registros tienen el mismo número de despacho)
+                dispatch_number = new_df3['Nº Despacho'].unique()[0]
+                st.write(f'El número de despacho es {dispatch_number}.')
 
                     
 
