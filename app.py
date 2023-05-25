@@ -390,17 +390,17 @@ def show_descarga_de_resultados(col1, col2):
     
 
     
-    st.sidebar.markdown("Envío de PAcking List a EIT")
-        
+        st.sidebar.markdown("Envío de PAcking List a EIT")
+            
 
-    with col2:
-        # Aquí puedes agregar código para interactuar con el DataFrame new_df y enviarlo a EIT
-        # Si necesitas que el usuario ingrese más datos o realice más acciones, puedes agregar más elementos de entrada aquí.
+        with col2:
+            # Aquí puedes agregar código para interactuar con el DataFrame new_df y enviarlo a EIT
+            # Si necesitas que el usuario ingrese más datos o realice más acciones, puedes agregar más elementos de entrada aquí.
 
-        st.markdown("### Envío de PL a EIT")
-        if st.button("Enviar PL a EIT"):
-            # Aquí puede agregar código para enviar new_df a EIT
-            st.success("PL enviado a EIT exitosamente.")
+            st.markdown("### Envío de PL a EIT")
+            if st.button("Enviar PL a EIT"):
+                # Aquí puede agregar código para enviar new_df a EIT
+                st.success("PL enviado a EIT exitosamente.")
 
 
 
