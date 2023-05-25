@@ -500,8 +500,8 @@ def show_envio_de_PL_a_EIT(col1, col2):
                         #wks.update([new_df3.columns.values.tolist()] + new_df3.values.tolist())
                     
                 
-        except FileotFoundError:
-            st.warning("Revisar la infor antes de continuar.")
+            except FileotFoundError:
+                st.warning("Revisar la infor antes de continuar.")
 
 if __name__ == "__main__":
     main()
