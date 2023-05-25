@@ -436,7 +436,7 @@ def show_envio_de_PL_a_EIT(col1, col2):
 
                 if st.button("Generar Purchase order lines V2"):
 
-                    global new_df
+                    
                     new_df = purchase_construct(sku_df, pat, status, warehouse)
 
                     # Filtrar las filas donde 'ORDEREDPURCHASEQUANTITY' no sea 0 ni vacío
