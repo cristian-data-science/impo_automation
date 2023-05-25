@@ -463,15 +463,15 @@ def show_envio_de_PL_a_EIT(col1, col2):
 
                     # Cantidad de artículos únicos
                     num_unique_articles = new_df3['Artículo'].nunique()
-                    print(f'Hay {num_unique_articles} artículos únicos.')
+                    st.write(f'Hay {num_unique_articles} artículos únicos.')
 
                     # Cantidad total solicitada
                     total_requested = new_df3['Solicitado'].sum()
-                    print(f'La cantidad total solicitada es {total_requested}.')
+                    st.write(f'La cantidad total solicitada es {total_requested}.')
 
                     # Número de despacho (suponiendo que todos los registros tienen el mismo número de despacho)
                     dispatch_number = new_df3['Nº Despacho'].unique()[0]
-                    print(f'El número de despacho es {dispatch_number}.')
+                    st.write(f'El número de despacho es {dispatch_number}.')
 
 
         except FileNotFoundError:
