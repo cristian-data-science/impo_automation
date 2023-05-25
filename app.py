@@ -497,7 +497,7 @@ def show_envio_de_PL_a_EIT(col1, col2):
 
 
                     # export df to a sheet
-                    wks.update([new_df3.columns.values.tolist()] + df.values.tolist())
+                    wks.update([new_df3.columns.values.tolist()] + new_df3.values.tolist())
 
 
         except FileNotFoundError:
