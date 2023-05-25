@@ -493,6 +493,7 @@ def show_envio_de_PL_a_EIT(col1, col2):
                         #st.write(new_df3)
                         # Exportar el DataFrame new_df3 a la hoja de cálculo
                         wks.update([new_df3.columns.values.tolist()] + new_df3.values.tolist())
+                        st.balloons()
                     else:
                         pass
             
