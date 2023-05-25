@@ -479,43 +479,34 @@ def show_envio_de_PL_a_EIT(col1, col2):
 
                     
 
+                # Setting up with the connection
+                # The json file downloaded needs to be in the same folder
+                if st.button("Publicar"):
+                    # Código para generar el DataFrame new_df3 y realizar los cálculos previos
+                    
                     # Setting up with the connection
                     # The json file downloaded needs to be in the same folder
-
-                    if st.button("Publicar"):
-                        # Código para generar el DataFrame new_df3 y realizar los cálculos previos
-                        
-                        # Setting up with the connection
-                        # The json file downloaded needs to be in the same folder
-
-                        import ssl
-                        ssl._create_default_https_context = ssl._create_unverified_context
-                        
-                        scope = ['https://www.googleapis.com/auth/spreadsheets',
-                                'https://www.googleapis.com/auth/drive']
-
-                        credentials = service_account.Credentials.from_service_account_info(
-                            st.secrets["gcp_service_account"], scopes=scope)
-                        
-                        #gc = gspread.authorize(credentials)
-                        client = Client(scope=scope,creds=credentials)
-                        # Establish the connection
-                        # database is the Google Spreadsheet name
-
-                        # database = gc.create("PL_Patagonia")
-                        # database.share('cgutierrez.infor@gmail.com', perm_type='user', role='writer')
-
-                        spreadsheetname = "PL_Patagonia"
-                        spread = Spread(spreadsheetname,client = client)
-
-                        # Check the connection
-                        st.write(spread.url)
-                        new_df3
-
+                    import ssl
+                    ssl._create_default_https_context = ssl._create_unverified_context
                     
-
-
-        except FileNotFoundError:
+                    scope = ['https://www.googleapis.com/auth/spreadsheets',
+                            'https://www.googleapis.com/auth/drive']
+                    credentials = service_account.Credentials.from_service_account_info(
+                        st.secrets["gcp_service_account"], scopes=scope)
+                    
+                    #gc = gspread.authorize(credentials)
+                    client = Client(scope=scope,creds=credentials)
+                    # Establish the connection
+                    # database is the Google Spreadsheet name
+                    # database = gc.create("PL_Patagonia")
+                    # database.share('cgutierrez.infor@gmail.com', perm_type='user', role='writer')
+                    spreadsheetname = "PL_Patagonia"
+                    spread = Spread(spreadsheetname,client = client)
+                    # Check the connection
+                    st.write(spread.url)
+                    new_df3
+                
+        except FileotFoundError:
             st.warning("Revisar la infor antes de continuar.")
 
 if __name__ == "__main__":
