@@ -422,7 +422,7 @@ def show_envio_de_PL_a_EIT(col1, col2):
 
                 # Ingresar PAT en la primera columna
                 despacho= col1.text_input("Ingresar número de despacho:", key='unique_key_1')
-                obs = col2.text_input("Ingresar número de despacho:", key='unique_key_2')
+                obs = col2.text_input("Ingresar Observación:", key='unique_key_2')
 
                 # Estado de inventario en la segunda columna
                 # Almacén en la tercera columna
@@ -441,8 +441,21 @@ def show_envio_de_PL_a_EIT(col1, col2):
 
                     new_df2 = new_df2[['CUSTOMERREFERENCE','ITEMNUMBER','PRODUCTCOLORID','PRODUCTSIZEID','ORDEREDPURCHASEQUANTITY']]
 
+                        # Crear new_df3 
+                    new_df3 = new_df2.copy()
+                    new_df3.rename(columns={'CUSTOMERREFERENCE': 'PO', 'ORDEREDPURCHASEQUANTITY': 'Solicitado'}, inplace=True)
+
+                    # Agregar columna "Nº Despacho" con valor estático de la variable despacho
+                    new_df3['Nº Despacho'] = despacho
+
+                    # Crear columna "Artículo" con la concatenación de 'ITEMNUMBER', 'PRODUCTCOLORID' y 'PRODUCTSIZEID'
+                    new_df3['Artículo'] = new_df3['ITEMNUMBER'] + new_df3['PRODUCTCOLORID'] + new_df3['PRODUCTSIZEID']
+
+                    # Agregar columna de observación con el valor de la variable obs
+                    new_df3['Observación'] = obs
+
                     # Muestra el nuevo DataFrame en la interfaz de Streamlit
-                    st.write(new_df2)
+                    st.write(new_df3)
 
 
         except FileNotFoundError:
