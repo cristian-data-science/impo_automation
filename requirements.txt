@@ -14,4 +14,3 @@ pypdf2==2.8.0
 openpyxl
 seaborn
 gspread
-gspread --upgrade
