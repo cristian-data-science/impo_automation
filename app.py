@@ -457,6 +457,22 @@ def show_envio_de_PL_a_EIT(col1, col2):
                     # Muestra el nuevo DataFrame en la interfaz de Streamlit
                     st.write(new_df3)
 
+                    # Cantidad de PO distintas
+                    num_unique_po = df['PO'].nunique()
+                    print(f'Hay {num_unique_po} PO distintas.')
+
+                    # Cantidad de artículos únicos
+                    num_unique_articles = df['Artículo'].nunique()
+                    print(f'Hay {num_unique_articles} artículos únicos.')
+
+                    # Cantidad total solicitada
+                    total_requested = df['Solicitado'].sum()
+                    print(f'La cantidad total solicitada es {total_requested}.')
+
+                    # Número de despacho (suponiendo que todos los registros tienen el mismo número de despacho)
+                    dispatch_number = df['Nº Despacho'].unique()[0]
+                    print(f'El número de despacho es {dispatch_number}.')
+
 
         except FileNotFoundError:
             st.warning("El archivo PDF no se encontró. Cargue un archivo PDF para continuar.")
