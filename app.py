@@ -473,15 +473,7 @@ def show_envio_de_PL_a_EIT(col1, col2):
                     dispatch_number = new_df3['Nº Despacho'].unique()[0]
                     st.write(f'El número de despacho es {dispatch_number}.')
 
-                    excel_download_data = dataframe_to_excel_download(new_df3, filename="PL.xlsx")
-        
-                    # Agregar botón de descarga
-                    st.download_button(
-                        label="PL",
-                        data=excel_download_data,
-                        file_name="PL.xlsx",
-                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                    )
+
 
         except FileNotFoundError:
             st.warning("El archivo PDF no se encontró. Cargue un archivo PDF para continuar.")
