@@ -459,7 +459,7 @@ def show_envio_de_PL_a_EIT(col1, col2):
 
                     # Cantidad de PO distintas
                     num_unique_po = new_df3['PO'].nunique()
-                    print(f'Hay {num_unique_po} PO distintas.')
+                    st.write(f'Hay {num_unique_po} PO distintas.')
 
                     # Cantidad de artículos únicos
                     num_unique_articles = new_df3['Artículo'].nunique()
