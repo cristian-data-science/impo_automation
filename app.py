@@ -430,7 +430,7 @@ def show_envio_de_PL_a_EIT(col1, col2):
                 warehouse = "N/A"
 
 
-                if st.button("Generar Purchase order lines V2"):
+                if st.button("Generar PL"):
 
                     
                     new_df2 = purchase_construct(sku_df, despacho, obs, warehouse)
