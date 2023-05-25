@@ -438,8 +438,12 @@ def show_envio_de_PL_a_EIT(col1, col2):
                     # Filtrar las filas donde 'ORDEREDPURCHASEQUANTITY' no sea 0 ni vacío
                     new_df2 = new_df2.loc[new_df2['ORDEREDPURCHASEQUANTITY'] != 0].dropna(subset=['ORDEREDPURCHASEQUANTITY'])
 
+
+                    new_df2 = new_df2[['CUSTOMERREFERENCE','ITEMNUMBER','PRODUCTCOLORID','PRODUCTSIZEID','ORDEREDPURCHASEQUANTITY']]
+
                     # Muestra el nuevo DataFrame en la interfaz de Streamlit
                     st.write(new_df2)
+
 
         except FileNotFoundError:
             st.warning("El archivo PDF no se encontró. Cargue un archivo PDF para continuar.")
