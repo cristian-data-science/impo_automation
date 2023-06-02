@@ -499,8 +499,7 @@ def show_envio_de_PL_a_EIT(col1, col2):
                         new_df3['Fecha'] = fecha_actual.strftime('%Y-%m-%d')
 
                         data_to_append = new_df3.values.tolist() 
-                        for row in data_to_append:
-                            wks.append_row(row)
+                        wks.append_rows(data_to_append)
                         st.balloons()
                     else:
                         pass
