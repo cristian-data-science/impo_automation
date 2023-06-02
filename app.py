@@ -465,7 +465,7 @@ def show_envio_de_PL_a_EIT(col1, col2):
                         
                     # Setting up with the connection
                     # The json file downloaded needs to be in the same folder
-                    st.write(st.public_link)
+                    st.write(st.secret["public_link"])
                     if st.button("Publicar"):
                         # Código para generar el DataFrame new_df3 y realizar los cálculos previos
                         
