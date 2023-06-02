@@ -465,6 +465,7 @@ def show_envio_de_PL_a_EIT(col1, col2):
                         
                     # Setting up with the connection
                     # The json file downloaded needs to be in the same folder
+                    st.write(st.public_link)
                     if st.button("Publicar"):
                         # Código para generar el DataFrame new_df3 y realizar los cálculos previos
                         
@@ -487,7 +488,7 @@ def show_envio_de_PL_a_EIT(col1, col2):
                         spreadsheetname = "PL_Patagonia"
                         spread = Spread(spreadsheetname,client = client)
                         # Check the connection
-                        st.write(st.public_link)
+                        
                         database = client.open("PL_Patagonia")
                         wks = database.worksheet("PL")
                         #st.write(new_df3)
