@@ -500,7 +500,7 @@ def show_envio_de_PL_a_EIT(col1, col2):
 
                         data_to_append = [new_df3.columns.values.tolist()] + new_df3.values.tolist()
                         for row in data_to_append:
-                             wks.append_table(row)
+                            wks.append_row(row)
                         st.balloons()
                     else:
                         pass
