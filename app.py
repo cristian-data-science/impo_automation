@@ -496,17 +496,15 @@ def show_envio_de_PL_a_EIT(col1, col2):
 
                         # Obtén la fecha actual
                         fecha_actual = datetime.now().date()
-
-                        # Agrega la fecha actual como una columna nueva llamada 'Fecha'
-                        new_df3['Fecha'] = fecha_actual
+                        new_df3['Fecha'] = fecha_actual.strftime('%Y-%m-%d')
 
                         wks.update([new_df3.columns.values.tolist()] + new_df3.values.tolist())
                         st.balloons()
                     else:
                         pass
             
-        except FileotFoundError:
-            st.warning("Revisar la infor antes de continuar.")
+        except FileNotFoundError:
+            st.warning("Revisar la información antes de continuar.")
 
 if __name__ == "__main__":
     main()
