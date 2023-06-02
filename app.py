@@ -13,6 +13,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from google.oauth2 import service_account
 from gspread_pandas import Spread,Client
+from datetime import datetime
 
 
 
@@ -492,6 +493,13 @@ def show_envio_de_PL_a_EIT(col1, col2):
                         wks = database.worksheet("PL")
                         #st.write(new_df3)
                         # Exportar el DataFrame new_df3 a la hoja de cálculo
+
+                        # Obtén la fecha actual
+                        fecha_actual = datetime.now().date()
+
+                        # Agrega la fecha actual como una columna nueva llamada 'Fecha'
+                        new_df3['Fecha'] = fecha_actual
+
                         wks.update([new_df3.columns.values.tolist()] + new_df3.values.tolist())
                         st.balloons()
                     else:
