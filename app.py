@@ -487,7 +487,7 @@ def show_envio_de_PL_a_EIT(col1, col2):
                         spreadsheetname = "PL_Patagonia"
                         spread = Spread(spreadsheetname,client = client)
                         # Check the connection
-                        st.write(spread.url)
+                        st.write(st.public_link)
                         database = client.open("PL_Patagonia")
                         wks = database.worksheet("PL")
                         #st.write(new_df3)
