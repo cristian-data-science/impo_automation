@@ -391,9 +391,9 @@ def show_descarga_de_resultados(col1, col2):
                             new_dfprov1['PURCHASEPRICE'] = new_dfprov1['PURCHASEPRICE'] + (total_adjustment_sum / total_order_qty)
 
                             
-                           
+                            excel_download_data_prov1 = dataframe_to_excel_download(new_dfprov1, filename="Purchase order lines V2.xlsx")
+                            
                             st.download_button(
-                            excel_download_data_prov1 = dataframe_to_excel_download(new_dfprov1, filename="Purchase order lines V2.xlsx"),
                             label="Descargar Purchase order Pro-rateado V1 ",
                             data=excel_download_data_prov1,
                             file_name="Purchase order lines V2.xlsx",
