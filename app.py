@@ -380,7 +380,12 @@ def show_descarga_de_resultados(col1, col2):
                         st.warning('⚠️ Hay handlings fees en las facturas comerciales')
 
                         if st.button("Aplicar pro-rateo normal"):                          
-                            st.wrtire(new_df)
+                            st.download_button(
+                                label="Descargar Purchase order lines V2",
+                                data=excel_download_data,
+                                file_name="Purchase order lines V2.xlsx",
+                                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                            )
                         else:
                             print("NO SE MUESTRA NADA")
 
