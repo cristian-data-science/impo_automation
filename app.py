@@ -382,7 +382,7 @@ def show_descarga_de_resultados(col1, col2):
 
                         col1, col2 = st.columns(2)
                         with col1:
-                            st.write("Dividiendo el hanlidng fee por las unidades y sumarlo al precio")
+                            st.write("Dividir hanlidng fee por las UU y sumar al precio")
                             st.download_button(
                             label="Descargar Purchase order Pro-rateado V1 ",
                             data=excel_download_data,
@@ -390,6 +390,7 @@ def show_descarga_de_resultados(col1, col2):
                             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                             )                        
                         with col2:
+                            st.write("Hacerlo de forma porcentual")
                             st.download_button(
                             label="Descargar Purchase order Pro-rateado V2 ",
                             data=excel_download_data,
