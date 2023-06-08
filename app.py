@@ -382,7 +382,7 @@ def show_descarga_de_resultados(col1, col2):
 
                         col1, col2 = st.columns(2)
                         with col1:
-                            st.info("Dividir hanlidng fee por las UU y sumar al precio")
+                            st.info("Pro-rateo de siempre: Dividir hanlidng fee por el total de UU y sumar al precio")
                             # Actualizar el valor de la columna 'PURCHASEPRICE'
                             new_dfprov1 = new_df.copy()
                             new_dfprov1['PURCHASEPRICE'] = new_dfprov1['PURCHASEPRICE'].astype(float)
@@ -400,7 +400,9 @@ def show_descarga_de_resultados(col1, col2):
                             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                             )                        
                         with col2:
-                            st.info("Hacerlo de forma porcentual")
+                            excel_download_data_prov2 = dataframe_to_excel_download(new_dfprov1, filename="Purchase order lines V2.xlsx")
+
+                            st.info("Pro-rrateo ponderado: Dividir cada precio por su suma total, multiplicar por Hanlding fee y sumar al precio")
                             st.download_button(
                             label="Descargar Purchase order Pro-rateado V2 ",
                             data=excel_download_data,
