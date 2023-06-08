@@ -380,9 +380,9 @@ def show_descarga_de_resultados(col1, col2):
                         st.warning('⚠️ Hay handlings fees en las facturas comerciales')
 
                         st.download_button(
-                        label="Descargar Purchase order lines V2",
+                        label="Descargar Purchase order lines V2 Pro-rateado",
                         data=excel_download_data,
-                        file_name="Purchase order lines V2.xlsx",
+                        file_name="Purchase order lines V2 Pro-rateado.xlsx",
                         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                         )                        
                         
