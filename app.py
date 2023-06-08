@@ -377,7 +377,9 @@ def show_descarga_de_resultados(col1, col2):
 
                     # Comprobar si la suma es mayor a 0 y mostrar el mensaje de advertencia
                     if total_adjustment_sum > 0:
-                        st.warning('⚠️ Hay handlings fees en las facturas comerciales')
+                        st.warning(f'⚠️ Hay ${total_adjustment_sum} USD de handlings fees en las facturas comerciales')
+
+
 
                         st.download_button(
                         label="Descargar Purchase order lines V2 Pro-rateado",
