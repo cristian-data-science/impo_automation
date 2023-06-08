@@ -382,7 +382,7 @@ def show_descarga_de_resultados(col1, col2):
                         st.info(f"""No hay handlings fees asociados a las facturas""")
 
                    
-                    st.wrtire(new_df)
+                    st.write(new_df)
                        
         except FileNotFoundError:
             st.warning("El archivo PDF no se encontró. Cargue un archivo PDF para continuar.")
