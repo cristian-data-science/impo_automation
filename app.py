@@ -380,8 +380,9 @@ def show_descarga_de_resultados(col1, col2):
                         st.warning('⚠️ Hay handlings fees en las facturas comerciales')
 
                         if st.button("Aplicar pro-rateo normal"):                          
-                            new_df
-
+                            st.wrtire(new_df)
+                        else:
+                            print("NO SE MUESTRA NADA")
 
                     else:
                         st.info(f"""No hay handlings fees asociados a las facturas""")
