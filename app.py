@@ -382,6 +382,7 @@ def show_descarga_de_resultados(col1, col2):
 
                         col1, col2 = st.columns(2)
                         with col1:
+                            st.write("Dividiendo el hanlidng fee por las unidades y sumarlo al precio")
                             st.download_button(
                             label="Descargar Purchase order Pro-rateado V1 ",
                             data=excel_download_data,
