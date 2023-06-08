@@ -381,12 +381,10 @@ def show_descarga_de_resultados(col1, col2):
                     else:
                         st.info(f"""No hay handlings fees asociados a las facturas""")
 
-                    if total_adjustment_sum > 0:
-                        if st.button("Aplicar pro-rateo normal"):                          
-                            st.wrtire(new_df)
-                        else:
-                            print("NO SE MUESTRA NADA")
-        
+                   
+                    if st.button("Aplicar pro-rateo normal"):                          
+                        st.wrtire(new_df)
+                       
         except FileNotFoundError:
             st.warning("El archivo PDF no se encontró. Cargue un archivo PDF para continuar.")
     
