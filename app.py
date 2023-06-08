@@ -385,6 +385,7 @@ def show_descarga_de_resultados(col1, col2):
                             st.info("Dividir hanlidng fee por las UU y sumar al precio")
                             # Actualizar el valor de la columna 'PURCHASEPRICE'
                             new_dfprov1 = new_df.copy()
+                            new_dfprov1['PURCHASEPRICE'] = new_dfprov1['PURCHASEPRICE'].astype(float)
                             new_dfprov1['PURCHASEPRICE'] = new_dfprov1['PURCHASEPRICE'] + (total_adjustment_sum / new_dfprov1['ORDEREDPURCHASEQUANTITY'].sum)
 
                             excel_download_prov1 = dataframe_to_excel_download(new_dfprov1, filename="Purchase order lines V2.xlsx")
