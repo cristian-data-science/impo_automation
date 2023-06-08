@@ -378,6 +378,10 @@ def show_descarga_de_resultados(col1, col2):
                     # Comprobar si la suma es mayor a 0 y mostrar el mensaje de advertencia
                     if total_adjustment_sum > 0:
                         st.warning('⚠️ Hay handlings fees en las facturas comerciales')
+
+                        if st.button("Aplicar pro-rateo normal"):                          
+                            new_df
+
                     else:
                         st.info(f"""No hay handlings fees asociados a las facturas""")
         
