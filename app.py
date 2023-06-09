@@ -400,12 +400,31 @@ def show_descarga_de_resultados(col1, col2):
                             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                             )                        
                         with col2:
+                            st.info("Pro-rrateo ponderado: Dividir cada precio por su suma total, multiplicar por handling fee y sumar al precio")
+
+                            new_dfprov2 = new_df.copy()
+                            new_dfprov2['PURCHASEPRICE'] = new_dfprov2['PURCHASEPRICE'].astype(float)
+                            new_dfprov2['ORDEREDPURCHASEQUANTITY'] = new_dfprov2['ORDEREDPURCHASEQUANTITY'].astype(float)
+                            total_order_qty = new_dfprov2['ORDEREDPURCHASEQUANTITY'].sum()
+
+                            # Paso 1: Calcular los factores de ponderación
+                            total_purchase_price = new_df['PURCHASEPRICE'].sum()
+                            new_df['weight_factor'] = new_df['PURCHASEPRICE'] / total_purchase_price
+
+                            # Paso 2: Calcular la asignación de ajustes
+                            new_df['adjustment_allocation'] = new_df['weight_factor'] * total_adjustment_sum
+
+                            # Paso 3: Sumar la asignación de ajustes a cada precio
+                            new_df['PURCHASEPRICE'] += new_df['adjustment_allocation']
+
+                            # Limpiar el DataFrame eliminando las columnas temporales
+                            new_df = new_df.drop(columns=['weight_factor', 'adjustment_allocation'])
+
                             excel_download_data_prov2 = dataframe_to_excel_download(new_dfprov1, filename="Purchase order lines V2.xlsx")
 
-                            st.info("Pro-rrateo ponderado: Dividir cada precio por su suma total, multiplicar por handling fee y sumar al precio")
                             st.download_button(
                             label="Descargar Purchase order Pro-rrateado V2 ",
-                            data=excel_download_data,
+                            data=excel_download_data_prov2,
                             file_name="Purchase order lines V2.xlsx",
                             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                             ) 
