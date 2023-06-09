@@ -422,7 +422,7 @@ def show_descarga_de_resultados(col1, col2):
                             new_dfprov2['PURCHASEPRICE'] += new_dfprov2['adjustment_per_unit']
 
                             # Limpiar el DataFrame eliminando las columnas temporales
-                            new_df = new_df.drop(columns=['total_value', 'weight_factor', 'adjustment_allocation', 'adjustment_per_unit'])
+                            new_dfprov2 = new_dfprov2.drop(columns=['total_value', 'weight_factor', 'adjustment_allocation', 'adjustment_per_unit'])
 
                             excel_download_data_prov2 = dataframe_to_excel_download(new_dfprov2, filename="Purchase order lines V2.xlsx")
 
