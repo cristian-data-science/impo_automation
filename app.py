@@ -406,7 +406,7 @@ def show_descarga_de_resultados(col1, col2):
 
                             st.info("Pro-rrateo ponderado: Dividir cada p*q por su suma total, multiplicar por handling fee y sumar al precio")
                             formula_v2 = r"Price'_i = Price_i + HF \cdot \left(\frac{Price_i \cdot QTY_i}{\sum_{j=1}^{n} Price_j \cdot QTY_j}\right)"  # Fórmula para el prorrateo v2
-                            st.latex(formula_v2)
+                            st.markdown(f'$$ {formula_v2} $$')
                             new_dfprov2 = new_df.copy()
                             new_dfprov2['PURCHASEPRICE'] = new_dfprov2['PURCHASEPRICE'].astype(float)
                             new_dfprov2['ORDEREDPURCHASEQUANTITY'] = new_dfprov2['ORDEREDPURCHASEQUANTITY'].astype(float)
