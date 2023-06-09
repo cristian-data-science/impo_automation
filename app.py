@@ -383,7 +383,7 @@ def show_descarga_de_resultados(col1, col2):
                         col1, col2 = st.columns(2)
                         with col1:
 
-                            formula_v1 = r"e^{i\pi} + 1 = 0"  # Fórmula para el prorrateo v1                           
+                            formula_v1 = r"P'_i = P_i + \frac{A}{N}" # Fórmula para el prorrateo v1                           
                             st.latex(formula_v1)
                             
                             st.info("Prorrateo de siempre: Dividir handling fee por el total de UU y sumar al precio")
@@ -405,7 +405,7 @@ def show_descarga_de_resultados(col1, col2):
                         
                         with col2:
 
-                            formula_v2 = r"\sum_{i=1}^{n} x_i^2"  # Fórmula para el prorrateo v2
+                            formula_v2 = r"P'_i = P_i + A \cdot \left(\frac{P_i \cdot Q_i}{\sum_{j=1}^{n} P_j \cdot Q_j}\right)"  # Fórmula para el prorrateo v2
                             st.latex(formula_v2)
                             st.info("Pro-rrateo ponderado: Dividir cada p*q por su suma total, multiplicar por handling fee y sumar al precio")
                             
