@@ -420,7 +420,7 @@ def show_descarga_de_resultados(col1, col2):
                             # Limpiar el DataFrame eliminando las columnas temporales
                             new_df = new_df.drop(columns=['weight_factor', 'adjustment_allocation'])
 
-                            excel_download_data_prov2 = dataframe_to_excel_download(new_dfprov1, filename="Purchase order lines V2.xlsx")
+                            excel_download_data_prov2 = dataframe_to_excel_download(new_dfprov2, filename="Purchase order lines V2.xlsx")
 
                             st.download_button(
                             label="Descargar Purchase order Pro-rrateado V2 ",
