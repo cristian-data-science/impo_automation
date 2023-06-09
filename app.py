@@ -382,7 +382,7 @@ def show_descarga_de_resultados(col1, col2):
 
                         col1, col2 = st.columns(2)
                         with col1:
-                            import streamlit_latex as stlatex
+                            
                             st.info("Prorrateo de siempre: Dividir handling fee por el total de UU y sumar al precio")
                             # Actualizar el valor de la columna 'PURCHASEPRICE'
                             new_dfprov1 = new_df.copy()
