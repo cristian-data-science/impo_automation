@@ -416,7 +416,7 @@ def show_descarga_de_resultados(col1, col2):
                             formula_v1 = r"e^{i\pi} + 1 = 0"  # Fórmula para el prorrateo v1
                             formula_v2 = r"\sum_{i=1}^{n} x_i^2"  # Fórmula para el prorrateo v2
                             
-                            stlatex.write(formula_v1)
+                            st.latex(formula_v1)
                             excel_download_data_prov2 = dataframe_to_excel_download(new_dfprov2, filename="Purchase order lines V2.xlsx")
                             
                             st.download_button(
