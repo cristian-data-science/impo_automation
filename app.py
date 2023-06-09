@@ -382,6 +382,9 @@ def show_descarga_de_resultados(col1, col2):
 
                         col1, col2 = st.columns(2)
                         with col1:
+
+                            formula_v1 = r"e^{i\pi} + 1 = 0"  # Fórmula para el prorrateo v1                           
+                            st.latex(formula_v1)
                             
                             st.info("Prorrateo de siempre: Dividir handling fee por el total de UU y sumar al precio")
                             # Actualizar el valor de la columna 'PURCHASEPRICE'
@@ -401,6 +404,9 @@ def show_descarga_de_resultados(col1, col2):
                             )                        
                         
                         with col2:
+
+                            formula_v2 = r"\sum_{i=1}^{n} x_i^2"  # Fórmula para el prorrateo v2
+                            st.latex(formula_v2)
                             st.info("Pro-rrateo ponderado: Dividir cada p*q por su suma total, multiplicar por handling fee y sumar al precio")
                             
                             new_dfprov2 = new_df.copy()
@@ -413,10 +419,7 @@ def show_descarga_de_resultados(col1, col2):
                             total_value_sum = new_dfprov2['total_value'].sum()
                             new_dfprov2['weight_factor'] = new_dfprov2['total_value'] / total_value_sum
                             
-                            formula_v1 = r"e^{i\pi} + 1 = 0"  # Fórmula para el prorrateo v1
-                            formula_v2 = r"\sum_{i=1}^{n} x_i^2"  # Fórmula para el prorrateo v2
                             
-                            st.latex(formula_v1)
                             excel_download_data_prov2 = dataframe_to_excel_download(new_dfprov2, filename="Purchase order lines V2.xlsx")
                             
                             st.download_button(
