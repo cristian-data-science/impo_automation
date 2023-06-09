@@ -382,6 +382,7 @@ def show_descarga_de_resultados(col1, col2):
 
                         col1, col2 = st.columns(2)
                         with col1:
+                            import streamlit_latex as stlatex
                             st.info("Prorrateo de siempre: Dividir handling fee por el total de UU y sumar al precio")
                             # Actualizar el valor de la columna 'PURCHASEPRICE'
                             new_dfprov1 = new_df.copy()
@@ -389,49 +390,41 @@ def show_descarga_de_resultados(col1, col2):
                             new_dfprov1['ORDEREDPURCHASEQUANTITY'] = new_dfprov1['ORDEREDPURCHASEQUANTITY'].astype(float)
                             total_order_qty = new_dfprov1['ORDEREDPURCHASEQUANTITY'].sum()
                             new_dfprov1['PURCHASEPRICE'] = new_dfprov1['PURCHASEPRICE'] + (total_adjustment_sum / total_order_qty)
-
                             
                             excel_download_data_prov1 = dataframe_to_excel_download(new_dfprov1, filename="Purchase order lines V2.xlsx")
                             
                             st.download_button(
-                            label="Descargar Purchase order Prorrateado V1",
-                            data=excel_download_data_prov1,
-                            file_name="Purchase order lines V2.xlsx",
-                            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                label="Descargar Purchase order Prorrateado V1",
+                                data=excel_download_data_prov1,
+                                file_name="Purchase order lines V2.xlsx",
+                                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                             )                        
+                        
                         with col2:
                             st.info("Pro-rrateo ponderado: Dividir cada p*q por su suma total, multiplicar por handling fee y sumar al precio")
-
+                            
                             new_dfprov2 = new_df.copy()
                             new_dfprov2['PURCHASEPRICE'] = new_dfprov2['PURCHASEPRICE'].astype(float)
                             new_dfprov2['ORDEREDPURCHASEQUANTITY'] = new_dfprov2['ORDEREDPURCHASEQUANTITY'].astype(float)
                             total_order_qty = new_dfprov2['ORDEREDPURCHASEQUANTITY'].sum()
 
-                            
-
                             # Paso 1: Calcular los valores totales y los factores de ponderación
                             new_dfprov2['total_value'] = new_dfprov2['PURCHASEPRICE'] * new_dfprov2['ORDEREDPURCHASEQUANTITY']
                             total_value_sum = new_dfprov2['total_value'].sum()
                             new_dfprov2['weight_factor'] = new_dfprov2['total_value'] / total_value_sum
-
-                            # Paso 2: Calcular la asignación de ajustes
-                            new_dfprov2['adjustment_allocation'] = new_dfprov2['weight_factor'] * total_adjustment_sum
-
-                            # Paso 3: Distribuir la asignación de ajustes entre las unidades y sumar al precio de compra
-                            new_dfprov2['adjustment_per_unit'] = new_dfprov2['adjustment_allocation'] / new_dfprov2['ORDEREDPURCHASEQUANTITY']
-                            new_dfprov2['PURCHASEPRICE'] += new_dfprov2['adjustment_per_unit']
-
-                            # Limpiar el DataFrame eliminando las columnas temporales
-                            new_dfprov2 = new_dfprov2.drop(columns=['total_value', 'weight_factor', 'adjustment_allocation', 'adjustment_per_unit'])
-
+                            
+                            formula_v1 = r"e^{i\pi} + 1 = 0"  # Fórmula para el prorrateo v1
+                            formula_v2 = r"\sum_{i=1}^{n} x_i^2"  # Fórmula para el prorrateo v2
+                            
+                            stlatex.write(formula_v1)
                             excel_download_data_prov2 = dataframe_to_excel_download(new_dfprov2, filename="Purchase order lines V2.xlsx")
-
+                            
                             st.download_button(
-                            label="Descargar Purchase order Prorrateado V2 ",
-                            data=excel_download_data_prov2,
-                            file_name="Purchase order lines V2.xlsx",
-                            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                            ) 
+                                label="Descargar Purchase order Prorrateado V2",
+                                data=excel_download_data_prov2,
+                                file_name="Purchase order lines V2.xlsx",
+                                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                            )
                     
                     else:
                         st.info(f"""No hay handlings fees asociados a las facturas""")
