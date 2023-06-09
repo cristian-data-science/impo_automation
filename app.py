@@ -407,18 +407,24 @@ def show_descarga_de_resultados(col1, col2):
                             new_dfprov2['ORDEREDPURCHASEQUANTITY'] = new_dfprov2['ORDEREDPURCHASEQUANTITY'].astype(float)
                             total_order_qty = new_dfprov2['ORDEREDPURCHASEQUANTITY'].sum()
 
-                            # Paso 1: Calcular los factores de ponderación
-                            total_purchase_price = new_df['PURCHASEPRICE'].sum()
-                            new_df['weight_factor'] = new_df['PURCHASEPRICE'] / total_purchase_price
+                            
+                            # Calcular la suma total de ajustes
+                            total_adjustment_sum = new_df['totalarreglado'].sum()
+
+                            # Paso 1: Calcular los valores totales y los factores de ponderación
+                            new_df['total_value'] = new_df['PURCHASEPRICE'] * new_df['ORDEREDPURCHASEQUANTITY']
+                            total_value_sum = new_df['total_value'].sum()
+                            new_df['weight_factor'] = new_df['total_value'] / total_value_sum
 
                             # Paso 2: Calcular la asignación de ajustes
                             new_df['adjustment_allocation'] = new_df['weight_factor'] * total_adjustment_sum
 
-                            # Paso 3: Sumar la asignación de ajustes a cada precio
-                            new_df['PURCHASEPRICE'] += new_df['adjustment_allocation']
+                            # Paso 3: Distribuir la asignación de ajustes entre las unidades y sumar al precio de compra
+                            new_df['adjustment_per_unit'] = new_df['adjustment_allocation'] / new_df['ORDEREDPURCHASEQUANTITY']
+                            new_df['PURCHASEPRICE'] += new_df['adjustment_per_unit']
 
                             # Limpiar el DataFrame eliminando las columnas temporales
-                            new_df = new_df.drop(columns=['weight_factor', 'adjustment_allocation'])
+                            new_df = new_df.drop(columns=['total_value', 'weight_factor', 'adjustment_allocation', 'adjustment_per_unit'])
 
                             excel_download_data_prov2 = dataframe_to_excel_download(new_dfprov2, filename="Purchase order lines V2.xlsx")
 
