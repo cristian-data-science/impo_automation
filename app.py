@@ -382,11 +382,10 @@ def show_descarga_de_resultados(col1, col2):
 
                         col1, col2 = st.columns(2)
                         with col1:
-
-                            formula_v1 = r"P'_i = P_i + \frac{A}{N}" # Fórmula para el prorrateo v1                           
+                                                      
+                            st.info("Prorrateo de siempre: Sumar al precio la división del handling fee por el total de unidades")
+                            formula_v1 = r"P'_i = P_i + \frac{A}{N}" # Fórmula para el prorrateo v1
                             st.latex(formula_v1)
-                            
-                            st.info("Prorrateo de siempre: Dividir handling fee por el total de UU y sumar al precio")
                             # Actualizar el valor de la columna 'PURCHASEPRICE'
                             new_dfprov1 = new_df.copy()
                             new_dfprov1['PURCHASEPRICE'] = new_dfprov1['PURCHASEPRICE'].astype(float)
@@ -405,10 +404,9 @@ def show_descarga_de_resultados(col1, col2):
                         
                         with col2:
 
+                            st.info("Pro-rrateo ponderado: Dividir cada p*q por su suma total, multiplicar por handling fee y sumar al precio")
                             formula_v2 = r"P'_i = P_i + A \cdot \left(\frac{P_i \cdot Q_i}{\sum_{j=1}^{n} P_j \cdot Q_j}\right)"  # Fórmula para el prorrateo v2
                             st.latex(formula_v2)
-                            st.info("Pro-rrateo ponderado: Dividir cada p*q por su suma total, multiplicar por handling fee y sumar al precio")
-                            
                             new_dfprov2 = new_df.copy()
                             new_dfprov2['PURCHASEPRICE'] = new_dfprov2['PURCHASEPRICE'].astype(float)
                             new_dfprov2['ORDEREDPURCHASEQUANTITY'] = new_dfprov2['ORDEREDPURCHASEQUANTITY'].astype(float)
