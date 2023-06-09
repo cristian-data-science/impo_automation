@@ -382,7 +382,7 @@ def show_descarga_de_resultados(col1, col2):
 
                         col1, col2 = st.columns(2)
                         with col1:
-                            st.info("Pro-rrateo de siempre: Dividir handling fee por el total de UU y sumar al precio")
+                            st.info("Prorrateo de siempre: Dividir handling fee por el total de UU y sumar al precio")
                             # Actualizar el valor de la columna 'PURCHASEPRICE'
                             new_dfprov1 = new_df.copy()
                             new_dfprov1['PURCHASEPRICE'] = new_dfprov1['PURCHASEPRICE'].astype(float)
@@ -394,13 +394,13 @@ def show_descarga_de_resultados(col1, col2):
                             excel_download_data_prov1 = dataframe_to_excel_download(new_dfprov1, filename="Purchase order lines V2.xlsx")
                             
                             st.download_button(
-                            label="Descargar Purchase order Pro-rrateado V1 ",
+                            label="Descargar Purchase order Prorrateado V1",
                             data=excel_download_data_prov1,
                             file_name="Purchase order lines V2.xlsx",
                             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                             )                        
                         with col2:
-                            st.info("Pro-rrateo ponderado: Dividir cada precio por su suma total, multiplicar por handling fee y sumar al precio")
+                            st.info("Pro-rrateo ponderado: Dividir cada p*q por su suma total, multiplicar por handling fee y sumar al precio")
 
                             new_dfprov2 = new_df.copy()
                             new_dfprov2['PURCHASEPRICE'] = new_dfprov2['PURCHASEPRICE'].astype(float)
@@ -427,7 +427,7 @@ def show_descarga_de_resultados(col1, col2):
                             excel_download_data_prov2 = dataframe_to_excel_download(new_dfprov2, filename="Purchase order lines V2.xlsx")
 
                             st.download_button(
-                            label="Descargar Purchase order Pro-rrateado V2 ",
+                            label="Descargar Purchase order Prorrateado V2 ",
                             data=excel_download_data_prov2,
                             file_name="Purchase order lines V2.xlsx",
                             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
