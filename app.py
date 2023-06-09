@@ -385,8 +385,7 @@ def show_descarga_de_resultados(col1, col2):
                                                       
                             st.info("Prorrateo de siempre: Sumar al precio la división del handling fee por el total de unidades")
                             formula_v1 = r"Price'_i = Price_i + \frac{HF}{U}" # Fórmula para el prorrateo v1
-                            st.markdown(f'<p style="font-size:20px">$$ {formula_v1} $$</p>', unsafe_allow_html=True)
-
+                            st.markdown(f'$$ {formula_v1} $$')
                             # Actualizar el valor de la columna 'PURCHASEPRICE'
                             new_dfprov1 = new_df.copy()
                             new_dfprov1['PURCHASEPRICE'] = new_dfprov1['PURCHASEPRICE'].astype(float)
