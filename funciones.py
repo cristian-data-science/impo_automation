@@ -89,6 +89,9 @@ def procesar_datos_pdf(lista_pre):
     previous_value_before_0000 = None
 
     for i, line in enumerate(lista_pre):
+        if re.search(r'\b0000\b', line):
+            value_before_0000 = re.search(r'(\d+)\s+0000', line).group(1)
+
         if line.startswith('Color'):
             start_idx = i
             end_idx = i + 1
@@ -102,19 +105,15 @@ def procesar_datos_pdf(lista_pre):
             if value_before_0000 is not None:
                 style_line = f"{value_before_0000},{current_style}"
                 previous_value_before_0000 = value_before_0000
-                value_before_0000 = None
             elif ',' not in current_style:
                 style_line = f"{previous_value_before_0000},{current_style}"
             else:
                 style_line = current_style
 
-            # Añadir la línea de estilo correspondiente a color_lines
             style_lines.append(style_line)
-        elif line.startswith('Style'):
-            current_style = line.split()[1]  # Guardar solo el valor después de 'Style'
 
-        if re.search(r'\b0000\b', line):
-            value_before_0000 = re.search(r'(\d+)\s+0000', line).group(1)
+        elif re.search(r'\bStyle\b', line):
+            current_style = line.split()[line.split().index('Style')+1]
 
     # paso 2 funciones.py
 
