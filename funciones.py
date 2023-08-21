@@ -98,8 +98,14 @@ def procesar_datos_pdf(lista_pre):
             end_idx = i + 1
             while end_idx < len(lista_pre) and not lista_pre[end_idx].startswith('Total'):
                 end_idx += 1
-            # Remover espacios en los códigos de color y la línea con '0000'
-            color_block = [re.sub(r'(?<=\b[a-zA-Z]{2})\s+(?=[a-zA-Z]{2}\b)', '', l) for l in lista_pre[start_idx:end_idx] if not re.search(r'\b0000\b', l)]
+
+            color_block = lista_pre[start_idx:end_idx]
+
+            # Limpiar específicamente la línea que contiene las tallas
+            for j, cl in enumerate(color_block):
+                if cl.startswith('Color Size'):
+                    color_block[j] = ' '.join(cl.split())
+
             color_lines.append(color_block)
 
             # Añadir el valor antes de "0000" al estilo actual
@@ -115,6 +121,16 @@ def procesar_datos_pdf(lista_pre):
 
         elif re.search(r'\bStyle\b', line):
             current_style = line.split()[line.split().index('Style')+1]
+    # eliminando espacio antes de QTY
+    for sublist in color_lines:
+        for index, line in enumerate(sublist):
+            # Si la línea tiene "QTY", quitar espacios en el código de color
+            if "QTY" in line:
+                parts = line.split('QTY')
+                parts[0] = parts[0].replace(' ', '')
+                line = ' QTY'.join(parts)
+            
+            sublist[index] = line
 
     # paso 2 funciones.py
 
