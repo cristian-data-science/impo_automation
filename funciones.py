@@ -44,6 +44,7 @@ def extraer_texto_pdf(pdf_file: str) -> list:
             table_list = page_content.split('\n')
 
             for i in table_list:
+                lista_pre = [re.sub(r'(?<=[^\s])Style(?=[^\s])', ' Style ', item) for item in lista_pre]
                 lista_pre.append(i)
                 
     return lista_pre
