@@ -151,7 +151,9 @@ def procesar_datos_pdf(lista_pre):
                 unit_costs.append(unit_cost_str)
             if i == 0:
                 size_str = item.split('Size')[1].split('Total')[0].strip()
-                size_values.append(size_str)
+                sizes = size_str.split()
+                unique_sizes = sorted(set(sizes), key=sizes.index)  # Eliminar duplicados manteniendo el orden
+                size_values.append(' '.join(unique_sizes))
 
         color_values.append(', '.join(colors))
         qty_values.append(', '.join(qtys))
