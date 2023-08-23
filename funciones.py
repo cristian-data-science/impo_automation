@@ -91,7 +91,7 @@ def procesar_datos_pdf(lista_pre):
 
     for i, line in enumerate(lista_pre):
         if re.search(r'\b0000 \b', line):
-            value_before_0000 = re.search(r'(\d+)\s+0000', line).group(1)
+            value_before_0000 = re.search(r'(\d+)\s+0000 ', line).group(1)
 
         if line.startswith('Color'):
             start_idx = i
