@@ -337,7 +337,7 @@ def dataframe_to_excel_download(df, filename="data.xlsx"):
     output = io.BytesIO()
     writer = pd.ExcelWriter(output, engine='xlsxwriter')
     df.to_excel(writer, index=False, sheet_name='Sheet1')
-    writer.save()
+    #writer.save()
     output.seek(0)
     excel_data = output.getvalue()
     return excel_data
