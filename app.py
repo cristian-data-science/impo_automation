@@ -340,11 +340,15 @@ def show_descarga_de_resultados(col1, col2):
                     total_cost = new_df['line_cost'].sum()
                     new_df = new_df.drop(columns=['line_cost'])
 
-                    summary_df = summary_df.append({
-                        "po's a cargar": unique_po_count,
-                        "unidades a cargar": total_units,
-                        "Costo total": total_cost
-                    }, ignore_index=True)
+                    # Creación de un nuevo DataFrame para los datos a agregar
+                    new_row = pd.DataFrame({
+                        "po's a cargar": [unique_po_count],
+                        "unidades a cargar": [total_units],
+                        "Costo total": [total_cost]
+                    })
+
+                    # Uso de pd.concat() para agregar la nueva fila
+                    summary_df = pd.concat([summary_df, new_row], ignore_index=True)
                     
                     # Crear datos de descarga de Excel
                     excel_download_data = dataframe_to_excel_download(new_df, filename="Purchase order lines V2.xlsx")
