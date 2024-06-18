@@ -2,6 +2,7 @@ streamlit-option-menu
 plotly
 bs4
 pandas==1.4.2
+numpy==1.22.3
 matplotlib
 pytz
 pyxlsb 
