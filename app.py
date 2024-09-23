@@ -281,17 +281,27 @@ def show_descarga_de_resultados(col1, col2):
     lot1 = load_lottie_url(loti1)
     with col1:
         st_lottie(lot1, key="loti1", height=200, width=280)
-
+    
     with col2:
-
-        # llamando a función para tener los df en este espacio 
+        # Añadir el radio button para seleccionar la librería de extracción
+        extraction_library = st.radio(
+            "Seleccione la librería para extraer texto del PDF:",
+            ('pdfplumber', 'PyPDF2'),
+            index=0  # pdfplumber es la opción por defecto
+        )
+        
+        # Inicializar el DataFrame
         sku_df = pd.DataFrame(columns=['po', 'Style', 'Color', 'Size', 'sku', 'Qty', 'Unit Cost'])
         archivo_pdf = "unificado.pdf"
         try:
-            contenido_pdf = extraer_texto_pdf(archivo_pdf)
+            # Llamar a la función correspondiente según la selección del usuario
+            if extraction_library == 'pdfplumber':
+                contenido_pdf = extraer_texto_pdf_con_plumber(archivo_pdf)
+            else:
+                contenido_pdf = extraer_texto_pdf(archivo_pdf)
+            
             if contenido_pdf:  # Verificando si contenido_pdf tiene datos antes de procesarlos
                 sku_matrix_sum, expanded_df = procesar_datos_pdf(contenido_pdf)
-                #print(result)
                 result = sku_matrix_sum.reset_index()
 
                 #sku_df = sku_df.append(expanded_df, ignore_index=True)
