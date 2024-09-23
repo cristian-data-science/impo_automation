@@ -299,12 +299,6 @@ def show_descarga_de_resultados(col1, col2):
                 contenido_pdf = extraer_texto_pdf_con_plumber(archivo_pdf)
             else:
                 contenido_pdf = extraer_texto_pdf(archivo_pdf)
-        except FileNotFoundError:
-            st.warning("El archivo PDF no se encontró. Cargue un archivo PDF para continuar.")
-            return  # Salir de la función si el archivo no se encuentra
-        except Exception as e:
-            st.error(f"Ocurrió un error al procesar el PDF: {e}")
-            return  # Salir de la función si ocurre otro error
             
             if contenido_pdf:  # Verificando si contenido_pdf tiene datos antes de procesarlos
                 sku_matrix_sum, expanded_df = procesar_datos_pdf(contenido_pdf)
