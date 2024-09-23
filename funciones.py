@@ -51,21 +51,17 @@ def extraer_texto_pdf(pdf_file: str) -> list:
 
 def extraer_texto_pdf_con_plumber(pdf_file: str) -> list:
     lista_pre = []
-    try:
-        with pdfplumber.open(pdf_file) as pdf:
-            for page_num, page in enumerate(pdf.pages):
-                page_content = page.extract_text()
-                if page_content:
-                    table_list = page_content.split('\n')
-                    for item in table_list:
-                        item = re.sub(r'(?<=[^\s])Style(?=[^\s])', ' Style ', item)
-                        lista_pre.append(item)
-                else:
-                    print(f"No se extrajo texto de la página {page_num+1}")
-    except Exception as e:
-        print(f"Error al procesar el PDF con pdfplumber: {e}")
-    return lista_pre    
-
+    with pdfplumber.open(pdf_file) as pdf:
+        for page_num, page in enumerate(pdf.pages):
+            page_content = page.extract_text()
+            if page_content:
+                table_list = page_content.split('\n')
+                for item in table_list:
+                    item = re.sub(r'(?<=[^\s])Style(?=[^\s])', ' Style ', item)
+                    lista_pre.append(item)
+            else:
+                print(f"No se extrajo texto de la página {page_num+1}")
+    return lista_pre
 def procesar_datos_pdf(lista_pre):
     # Código refactorizado aquí
     
