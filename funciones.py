@@ -6,6 +6,7 @@ import re
 import numpy
 import base64
 import io
+import pdfplumber
 
 
 from PyPDF2 import PdfFileMerger
