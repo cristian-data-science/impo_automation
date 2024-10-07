@@ -344,9 +344,7 @@ def show_descarga_de_resultados(col1, col2):
 
                     # Calcular los valores necesarios
                     unique_po_count = new_df['CUSTOMERREFERENCE'].nunique()
-                    unique_po_count
                     total_units = new_df['ORDEREDPURCHASEQUANTITY'].sum()
-                    total_units
                     
                     # Calcular el costo total multiplicando el costo por la cantidad
                     new_df['line_cost'] = new_df['ORDEREDPURCHASEQUANTITY'] * new_df['PURCHASEPRICE']
