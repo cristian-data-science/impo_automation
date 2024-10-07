@@ -7,6 +7,7 @@ import numpy
 import base64
 import io
 import pdfplumber
+import streamlit as st
 
 
 from PyPDF2 import PdfFileMerger
