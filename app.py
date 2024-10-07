@@ -122,6 +122,7 @@ def show_carga_de_datos(col1, col2):
                     # Leer el archivo IAS de Excel y guardar los datos en un DataFrame # archivo funciones.py
                     ias_df_sum = procesar_ias_excel(upload_ias)
                     st.session_state.ias_df_sum_global = ias_df_sum
+                    ias_df_sum
                 except KeyError:
                     st.error("El formato del IAS no es correcto.")
                 
