@@ -14,10 +14,24 @@ from PyPDF2 import PdfFileMerger
 
 def procesar_ias_excel(upload_ias):
     ias = pd.read_excel(upload_ias, header=1)
-    ias_df = ias[['Purchase Order','Product number','Size','Color','Sales Quantity','Sales Amount']]
-    ias_df.rename(columns={'Sales Amount': 'costo_IAS','Purchase Order': 'po'}, inplace=True)
-    ias_df_sum = ias_df.groupby(['po'])[['costo_IAS']].sum()
-    pd.DataFrame(ias_df_sum).reset_index(inplace=True, drop=False)
+    
+    # Verificar si las columnas esperadas existen
+    expected_columns = ['Purchase Order', 'Product number', 'Size', 'Color', 'Sales Quantity', 'Sales Amount']
+    missing_columns = [col for col in expected_columns if col not in ias.columns]
+    if missing_columns:
+        raise ValueError(f"Faltan las siguientes columnas en el archivo IAS Excel: {missing_columns}")
+    
+    ias_df = ias[expected_columns].copy()
+    
+    # Renombrar columnas
+    ias_df.rename(columns={'Sales Amount': 'costo_IAS', 'Purchase Order': 'po'}, inplace=True)
+    
+    # Verificar si hay valores faltantes en 'po'
+    if ias_df['po'].isnull().any():
+        raise ValueError("La columna 'po' contiene valores faltantes. Por favor, verifica el archivo IAS Excel.")
+    
+    # Agrupar por 'po' y sumar 'costo_IAS'
+    ias_df_sum = ias_df.groupby(['po'])[['costo_IAS']].sum().reset_index()
     
     return ias_df_sum
 
