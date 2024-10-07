@@ -373,6 +373,7 @@ def show_descarga_de_resultados(col1, col2):
                     st.write(summary_df)
 
                     st.markdown("### Totales de factura comercial")
+                    st.write(contenido_pdf)
                     invoice_total_lines = 0
                     invoice_total_lines = extract_invoice_data(contenido_pdf)    
                     st.write(invoice_total_lines)
