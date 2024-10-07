@@ -168,7 +168,7 @@ def show_insights(col1, col2):
     with col2:
         st.sidebar.markdown("Data analytics de las importaciones")
         archivo_pdf = "unificado.pdf"
-        contenido_pdf = extraer_texto_pdf(archivo_pdf)
+        contenido_pdf = extraer_texto_pdf_con_plumber(archivo_pdf)
 
         
         sku_df = pd.DataFrame(columns=['po', 'Style', 'Color', 'Size', 'sku', 'Qty', 'Unit Cost'])
@@ -472,7 +472,7 @@ def show_envio_de_PL_a_EIT(col1, col2):
             sku_df = pd.DataFrame(columns=['po', 'Style', 'Color', 'Size', 'sku', 'Qty', 'Unit Cost'])
             archivo_pdf = "unificado.pdf"
 
-            contenido_pdf = extraer_texto_pdf(archivo_pdf)
+            contenido_pdf = extraer_texto_pdf_con_plumber(archivo_pdf)
             if contenido_pdf:  # Verificando si contenido_pdf tiene datos antes de procesarlos
                 sku_matrix_sum, expanded_df = procesar_datos_pdf(contenido_pdf)
                 #print(result)
