@@ -374,14 +374,14 @@ def extract_invoice_data(lista_pre):
             invoice_number = line_stripped
             print(f"Invoice number set to: {invoice_number}")  # Depuración
             continue
-        if re.search(r'^Merchandise Amount', line_stripped):
+        if re.search(r'^Merchandise Amount', line_stripped, re.IGNORECASE):
             print("Found 'Merchandise Amount' line")  # Depuración
             flag = True
             current_invoice = [invoice_number]
         if flag:
             print(f"Appending line to current_invoice: {line_stripped}")  # Depuración
             current_invoice.append(line_stripped)
-        if re.search(r'^Invoice Total', line_stripped):
+        if re.search(r'^Invoice Total', line_stripped, re.IGNORECASE):
             print("Found 'Invoice Total' line")  # Depuración
             flag = False
             invoice_data.append(current_invoice)
@@ -393,12 +393,25 @@ def extract_invoice_data(lista_pre):
     invoice_total_lines = pd.DataFrame(columns=['Invoice_number', 'Merchandise_amount', 'Total_adjustment', 'Total_taxes', 'Invoice_total'])
 
     for invoice in invoice_data:
+        print(f"Processing invoice: {invoice}")  # Depuración
         try:
             invoice_number = invoice[0]
-            merchandise_amount = float(re.search(r'Merchandise Amount ([\d,]+(\.\d{2})?)', invoice[1]).group(1).replace(',', ''))
-            total_adjustment = float(re.search(r'Total Adjustment ([\d,]+(\.\d{2})?)', invoice[2]).group(1).replace(',', ''))
-            total_taxes = float(re.search(r'Total Taxes ([\d,]+(\.\d{2})?)', invoice[3]).group(1).replace(',', ''))
-            invoice_total = float(re.search(r'Invoice Total ([\d,]+(\.\d{2})?)', invoice[4]).group(1).replace(',', ''))
+            merchandise_line = invoice[1]
+            total_adjustment_line = invoice[2]
+            total_taxes_line = invoice[3]
+            invoice_total_line = invoice[4]
+
+            print(f"Merchandise line: {merchandise_line}")  # Depuración
+
+            merchandise_amount_match = re.search(r'Merchandise Amount ([\d.,]+)', merchandise_line, re.IGNORECASE)
+            total_adjustment_match = re.search(r'Total Adjustment ([\d.,]+)', total_adjustment_line, re.IGNORECASE)
+            total_taxes_match = re.search(r'Total Taxes ([\d.,]+)', total_taxes_line, re.IGNORECASE)
+            invoice_total_match = re.search(r'Invoice Total ([\d.,]+)', invoice_total_line, re.IGNORECASE)
+
+            merchandise_amount = float(merchandise_amount_match.group(1).replace(',', '').replace('.', ''))
+            total_adjustment = float(total_adjustment_match.group(1).replace(',', '').replace('.', ''))
+            total_taxes = float(total_taxes_match.group(1).replace(',', '').replace('.', ''))
+            invoice_total = float(invoice_total_match.group(1).replace(',', '').replace('.', ''))
 
             new_row = pd.DataFrame({
                 'Invoice_number': [invoice_number],
@@ -411,11 +424,9 @@ def extract_invoice_data(lista_pre):
             invoice_total_lines = pd.concat([invoice_total_lines, new_row], ignore_index=True)
         except Exception as e:
             print(f"Error processing invoice {invoice_number}: {e}")
+            print(f"Invoice data: {invoice}")
             continue
 
-    invoice_total_lines['Invoice_date'] = invoice_total_lines['Invoice_number'].apply(lambda x: x.split(' ')[1])
-    invoice_total_lines['Invoice_number'] = invoice_total_lines['Invoice_number'].apply(lambda x: x.split(' ')[0])
-
-    invoice_total_lines = invoice_total_lines[['Invoice_number', 'Invoice_date', 'Merchandise_amount', 'Total_adjustment', 'Total_taxes', 'Invoice_total']]
+    # Procesamiento adicional de 'Invoice_number' y 'Invoice_date' si es necesario...
 
     return invoice_total_lines
