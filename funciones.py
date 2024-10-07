@@ -365,21 +365,30 @@ def extract_invoice_data(lista_pre):
 
     for line in lista_pre:
         line_stripped = line.strip()
+        print(f"Processing line: '{line_stripped}'")  # Depuración
         if "Invoice Number Invoice Issue Date" in line_stripped:
+            print("Found 'Invoice Number Invoice Issue Date' line")  # Depuración
             invoice_number = True
             continue
         if invoice_number is True:
             invoice_number = line_stripped
+            print(f"Invoice number set to: {invoice_number}")  # Depuración
             continue
         if re.search(r'^Merchandise Amount', line_stripped):
+            print("Found 'Merchandise Amount' line")  # Depuración
             flag = True
             current_invoice = [invoice_number]
         if flag:
+            print(f"Appending line to current_invoice: {line_stripped}")  # Depuración
             current_invoice.append(line_stripped)
         if re.search(r'^Invoice Total', line_stripped):
+            print("Found 'Invoice Total' line")  # Depuración
             flag = False
             invoice_data.append(current_invoice)
+            print(f"Current invoice appended: {current_invoice}")  # Depuración
             invoice_number = None
+
+    print(f"Collected invoice data: {invoice_data}")  # Depuración
 
     invoice_total_lines = pd.DataFrame(columns=['Invoice_number', 'Merchandise_amount', 'Total_adjustment', 'Total_taxes', 'Invoice_total'])
 
