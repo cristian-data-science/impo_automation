@@ -365,8 +365,9 @@ def extract_invoice_data(lista_pre):
 
     for line in lista_pre:
         line_stripped = line.strip()
+        line_no_spaces = line_stripped.replace(' ', '').lower()
         print(f"Processing line: '{line_stripped}'")  # Depuración
-        if "Invoice Number Invoice Issue Date" in line_stripped:
+        if 'invoicenumberinvoiceissuedate' in line_no_spaces:
             print("Found 'Invoice Number Invoice Issue Date' line")  # Depuración
             invoice_number = True
             continue
@@ -374,14 +375,14 @@ def extract_invoice_data(lista_pre):
             invoice_number = line_stripped
             print(f"Invoice number set to: {invoice_number}")  # Depuración
             continue
-        if re.search(r'^Merchandise Amount', line_stripped, re.IGNORECASE):
+        if re.search(r'^merchandiseamount', line_no_spaces):
             print("Found 'Merchandise Amount' line")  # Depuración
             flag = True
             current_invoice = [invoice_number]
         if flag:
             print(f"Appending line to current_invoice: {line_stripped}")  # Depuración
             current_invoice.append(line_stripped)
-        if re.search(r'^Invoice Total', line_stripped, re.IGNORECASE):
+        if re.search(r'^invoicetotal', line_no_spaces):
             print("Found 'Invoice Total' line")  # Depuración
             flag = False
             invoice_data.append(current_invoice)
@@ -403,15 +404,20 @@ def extract_invoice_data(lista_pre):
 
             print(f"Merchandise line: {merchandise_line}")  # Depuración
 
-            merchandise_amount_match = re.search(r'Merchandise Amount ([\d.,]+)', merchandise_line, re.IGNORECASE)
-            total_adjustment_match = re.search(r'Total Adjustment ([\d.,]+)', total_adjustment_line, re.IGNORECASE)
-            total_taxes_match = re.search(r'Total Taxes ([\d.,]+)', total_taxes_line, re.IGNORECASE)
-            invoice_total_match = re.search(r'Invoice Total ([\d.,]+)', invoice_total_line, re.IGNORECASE)
+            # Ajustamos las expresiones regulares para coincidir con las líneas reales
+            merchandise_amount_match = re.search(r'MerchandiseAmount\s*([\d,\.]+)', merchandise_line.replace(' ', ''), re.IGNORECASE)
+            total_adjustment_match = re.search(r'TotalAdjustment\s*([\d,\.]+)', total_adjustment_line.replace(' ', ''), re.IGNORECASE)
+            total_taxes_match = re.search(r'TotalTaxes\s*([\d,\.]+)', total_taxes_line.replace(' ', ''), re.IGNORECASE)
+            invoice_total_match = re.search(r'InvoiceTotal\s*([\d,\.]+)', invoice_total_line.replace(' ', ''), re.IGNORECASE)
 
-            merchandise_amount = float(merchandise_amount_match.group(1).replace(',', '').replace('.', ''))
-            total_adjustment = float(total_adjustment_match.group(1).replace(',', '').replace('.', ''))
-            total_taxes = float(total_taxes_match.group(1).replace(',', '').replace('.', ''))
-            invoice_total = float(invoice_total_match.group(1).replace(',', '').replace('.', ''))
+            if not (merchandise_amount_match and total_adjustment_match and total_taxes_match and invoice_total_match):
+                print(f"No se pudieron extraer los montos en la factura {invoice_number}")
+                continue
+
+            merchandise_amount = float(merchandise_amount_match.group(1).replace(',', ''))
+            total_adjustment = float(total_adjustment_match.group(1).replace(',', ''))
+            total_taxes = float(total_taxes_match.group(1).replace(',', ''))
+            invoice_total = float(invoice_total_match.group(1).replace(',', ''))
 
             new_row = pd.DataFrame({
                 'Invoice_number': [invoice_number],
@@ -423,10 +429,15 @@ def extract_invoice_data(lista_pre):
 
             invoice_total_lines = pd.concat([invoice_total_lines, new_row], ignore_index=True)
         except Exception as e:
-            print(f"Error processing invoice {invoice_number}: {e}")
-            print(f"Invoice data: {invoice}")
+            print(f"Error al procesar la factura {invoice_number}: {e}")
+            print(f"Datos de la factura: {invoice}")
             continue
 
-    # Procesamiento adicional de 'Invoice_number' y 'Invoice_date' si es necesario...
+    # Procesamiento adicional si es necesario
+    if not invoice_total_lines.empty:
+        invoice_total_lines['Invoice_date'] = invoice_total_lines['Invoice_number'].apply(lambda x: x.split(' ')[1] if len(x.split(' ')) > 1 else '')
+        invoice_total_lines['Invoice_number'] = invoice_total_lines['Invoice_number'].apply(lambda x: x.split(' ')[0])
+
+        invoice_total_lines = invoice_total_lines[['Invoice_number', 'Invoice_date', 'Merchandise_amount', 'Total_adjustment', 'Total_taxes', 'Invoice_total']]
 
     return invoice_total_lines
