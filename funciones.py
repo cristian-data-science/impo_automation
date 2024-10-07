@@ -7,7 +7,6 @@ import numpy
 import base64
 import io
 import pdfplumber
-import streamlit as st
 
 
 from PyPDF2 import PdfFileMerger
@@ -365,13 +364,11 @@ def extract_invoice_data(lista_pre):
     invoice_number = None
 
     for line in lista_pre:
-        st.write(f"Processing line: {line}")
         if "Invoice Number Invoice Issue Date" in line:
             invoice_number = True
             continue
         if invoice_number is True:
             invoice_number = line.strip()
-            st.write(f"Found invoice number: {invoice_number}")
             continue
         if re.match(r'^Merchandise Amount', line):
             flag = True
@@ -383,12 +380,9 @@ def extract_invoice_data(lista_pre):
             invoice_data.append(current_invoice)
             invoice_number = None
 
-    st.write(f"Extracted invoices: {invoice_data}")
-
     invoice_total_lines = pd.DataFrame(columns=['Invoice_number', 'Merchandise_amount', 'Total_adjustment', 'Total_taxes', 'Invoice_total'])
 
     for invoice in invoice_data:
-        st.write(f"Processing invoice: {invoice}")
         invoice_number = invoice[0]
         merchandise_amount = float(re.search(r'Merchandise Amount ([\d,]+(\.\d{2})?)', invoice[1]).group(1).replace(',', ''))
         total_adjustment = float(re.search(r'Total Adjustment ([\d,]+(\.\d{2})?)', invoice[2]).group(1).replace(',', ''))
