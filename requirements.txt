@@ -1,7 +1,7 @@
 streamlit-option-menu
 plotly
 bs4
-pandas==1.4.2
+pandas>=1.5.0
 numpy>=1.24.0
 matplotlib
 pytz
