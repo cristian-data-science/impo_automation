@@ -320,6 +320,8 @@ def show_descarga_de_resultados(col1, col2):
                 pat = col1.text_input("Ingresar PAT:", value="PAT-")
 
                 # Estado de inventario en la segunda columna
+                status_options = ["BLOQ-RECEP", "Disponible", "BLOQUEADO"]
+
                 status_options = ["BLOQ-RECEP", "Disponible"]
                 status = col2.radio("Estado de inventario:", status_options)
 
